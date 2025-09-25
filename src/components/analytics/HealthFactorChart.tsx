@@ -1,5 +1,5 @@
 import React from 'react';
-import { BarChart, Bar, XAxis, YAxis, CartesianGrid, Tooltip, ResponsiveContainer } from 'recharts';
+import { BarChart, Bar, XAxis, YAxis, CartesianGrid, Tooltip, ResponsiveContainer, Cell } from 'recharts';
 import ChartCard from './ChartCard';
 import { useAnalyticsData } from '@/hooks/useAnalyticsData';
 import { formatNumber } from '@/utils/analyticsUtils';
@@ -58,11 +58,10 @@ const HealthFactorChart = () => {
           <Tooltip content={<CustomTooltip />} />
           <Bar 
             dataKey="count" 
-            fill="hsl(var(--ocean-teal))"
             radius={[4, 4, 0, 0]}
           >
             {healthFactorData.map((entry, index) => (
-              <Bar key={`cell-${index}`} fill={entry.color} />
+              <Cell key={`cell-${index}`} fill={entry.color} />
             ))}
           </Bar>
         </BarChart>
