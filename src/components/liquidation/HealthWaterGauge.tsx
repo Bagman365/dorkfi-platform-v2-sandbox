@@ -82,7 +82,6 @@ export default function HealthWaterGauge({ healthFactor, avatarSrc }: Props) {
       {/* Metrics block */}
       <div className="mt-5 space-y-3">
         <div className="flex items-baseline justify-center gap-3">
-          <div className="text-4xl font-semibold text-foreground">{hf.toFixed(2)}</div>
           <span
             className={`text-sm font-medium px-2 py-0.5 rounded-full bg-white/5 ${
               hf >= 2.0 ? "text-ocean-teal" : hf >= 1.2 ? "text-whale-gold" : "text-destructive"
@@ -90,6 +89,7 @@ export default function HealthWaterGauge({ healthFactor, avatarSrc }: Props) {
           >
             {risk}
           </span>
+          <div className="text-4xl font-semibold text-foreground">{hf.toFixed(2)}</div>
         </div>
         <p className="text-sm text-muted-foreground">
           Higher water = higher risk. Add collateral or repay to lower the water.
