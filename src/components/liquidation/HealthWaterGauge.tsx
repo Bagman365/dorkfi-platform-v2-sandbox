@@ -96,6 +96,18 @@ export default function HealthWaterGauge({ healthFactor, avatarSrc }: Props) {
 
         {/* Vertical gauge matches parent height */}
         <RiskBarVertical hf={hf} className="h-full" />
+
+        {/* Risk score positioned alongside */}
+        <div className="flex flex-col justify-start pt-4">
+          <Tooltip>
+            <TooltipTrigger asChild>
+              <div className="text-lg font-semibold text-foreground cursor-help">Risk Score: {hf.toFixed(2)}</div>
+            </TooltipTrigger>
+            <TooltipContent side="top" className="max-w-xs">
+              <p>Health Factor shows how safe your position is. Below 1.0 means you can be liquidated. Higher is safer.</p>
+            </TooltipContent>
+          </Tooltip>
+        </div>
       </div>
 
       {/* Dynamic Risk Badge centered under the image */}
@@ -108,19 +120,6 @@ export default function HealthWaterGauge({ healthFactor, avatarSrc }: Props) {
         </Badge>
       </div>
 
-      {/* Metrics block aligned with bar - moved higher */}
-      <div className="mt-2" style={{ marginLeft: `calc(260px + 1rem)` }}>
-        <div className="md:ml-10">
-          <Tooltip>
-            <TooltipTrigger asChild>
-              <div className="text-lg font-semibold text-foreground cursor-help">Risk Score: {hf.toFixed(2)}</div>
-            </TooltipTrigger>
-            <TooltipContent side="top" className="max-w-xs">
-              <p>Health Factor shows how safe your position is. Below 1.0 means you can be liquidated. Higher is safer.</p>
-            </TooltipContent>
-          </Tooltip>
-        </div>
-      </div>
 
 
       <style>{`
