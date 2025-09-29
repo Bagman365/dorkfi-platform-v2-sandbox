@@ -98,26 +98,6 @@ export default function HealthWaterGauge({ healthFactor, avatarSrc }: Props) {
         <div className="flex items-baseline justify-center gap-3">
           <Tooltip>
             <TooltipTrigger asChild>
-              <span
-                className={`text-sm font-medium px-2 py-0.5 rounded-full bg-white/5 cursor-help ${
-                  hf >= 2.0 ? "text-ocean-teal" : hf >= 1.2 ? "text-whale-gold" : "text-destructive"
-                }`}
-              >
-                {risk}
-              </span>
-            </TooltipTrigger>
-            <TooltipContent side="top">
-              <p>
-                {hf >= 2.0 
-                  ? "Low Risk: Your position is safe" 
-                  : hf >= 1.2 
-                  ? "Mid Risk: Monitor your position closely" 
-                  : "High Risk: Your position may be liquidated soon"}
-              </p>
-            </TooltipContent>
-          </Tooltip>
-          <Tooltip>
-            <TooltipTrigger asChild>
               <div className="text-4xl font-semibold text-foreground cursor-help">{hf.toFixed(2)}</div>
             </TooltipTrigger>
             <TooltipContent side="top" className="max-w-xs">
