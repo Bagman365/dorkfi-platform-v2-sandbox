@@ -65,7 +65,7 @@ const TVLChart = () => {
       <ResponsiveContainer width="100%" height="100%">
         {viewMode === 'total' ? (
           <LineChart data={tvlData}>
-            <CartesianGrid strokeDasharray="3 3" stroke="hsl(var(--border))" />
+            <CartesianGrid strokeDasharray="3 3" className="stroke-border/30 dark:stroke-slate-700" />
             <XAxis 
               dataKey="date" 
               tick={{ fontSize: 12 }}
@@ -87,7 +87,7 @@ const TVLChart = () => {
           </LineChart>
         ) : (
           <AreaChart data={tvlData}>
-            <CartesianGrid strokeDasharray="3 3" stroke="hsl(var(--border))" />
+            <CartesianGrid strokeDasharray="3 3" className="stroke-border/30 dark:stroke-slate-700" />
             <XAxis 
               dataKey="date" 
               tick={{ fontSize: 12 }}

@@ -42,7 +42,7 @@ const LoanVolumeChart = () => {
     >
         <ResponsiveContainer width="100%" height="100%">
           <LineChart data={loanData.volume}>
-            <CartesianGrid strokeDasharray="3 3" stroke="hsl(var(--border))" />
+            <CartesianGrid strokeDasharray="3 3" className="stroke-border/30 dark:stroke-slate-700" />
             <XAxis 
               dataKey="date" 
               tick={{ fontSize: 12 }}
