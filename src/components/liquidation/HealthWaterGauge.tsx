@@ -16,16 +16,17 @@ export default function HealthWaterGauge({ healthFactor, avatarSrc }: Props) {
     return Math.round(10 + t * 82);
   }, [hf]);
 
-  const risk =
-    hf >= 2.0 ? "Low Risk" : hf >= 1.2 ? "Mid Risk" : "High Risk";
+  const risk = hf >= 2.0 ? "Low Risk" : hf >= 1.2 ? "Mid Risk" : "High Risk";
+  const riskColor = hf >= 2 ? "text-teal-300" : hf >= 1.2 ? "text-yellow-300" : "text-rose-400";
 
   return (
-    <div className="w-full space-y-6">
-      <div className="text-xl font-bold text-slate-800 dark:text-white">Health Factor</div>
-      <div className="grid grid-cols-1 md:grid-cols-2 gap-6 items-start">
-      {/* Visual card with number below */}
-      <div className="flex flex-col gap-4">
-        <div className="relative aspect-square rounded-2xl overflow-hidden bg-[#0e1f29] border border-white/10">
+    <div className="rounded-2xl border border-white/10 p-6 bg-[#0d1f2a]">
+      <div className="mb-3 text-white/90 font-semibold">Health Factor</div>
+
+      {/* 2-col: avatar + gauge/metrics (lg), stacked (sm) */}
+      <div className="grid grid-cols-1 lg:grid-cols-[300px_1fr] gap-6 items-start">
+        {/* Avatar with water overlay */}
+        <div className="relative rounded-2xl overflow-hidden aspect-[4/3] bg-[#162734]">
           {/* Optional avatar below the mask */}
           {avatarSrc && (
             <img
@@ -73,25 +74,36 @@ export default function HealthWaterGauge({ healthFactor, avatarSrc }: Props) {
             aria-hidden
           />
         </div>
-        
-        {/* Health factor number below image */}
-        <div className="text-4xl font-semibold text-foreground text-center">{hf.toFixed(2)}</div>
-      </div>
 
-      {/* Risk info & copy */}
-      <div className="flex flex-col gap-3">
-        <RiskBarVertical hf={hf} />
-        <div
-          className={`text-lg font-medium ${
-            hf >= 2.0 ? "text-ocean-teal" : hf >= 1.2 ? "text-whale-gold" : "text-destructive"
-          }`}
-        >
-          {risk}
+        {/* Right pane: risk bar + metrics */}
+        <div className="grid grid-cols-[40px_1fr] gap-4">
+          {/* Vertical risk bar – matches avatar height */}
+          <div className="min-h-[220px] lg:min-h-full">
+            <RiskBarVertical hf={hf} />
+          </div>
+
+          <div className="flex flex-col">
+            <div className="flex items-baseline gap-3">
+              <div className="text-5xl font-semibold text-white leading-none">{hf.toFixed(2)}</div>
+              <span className={`text-sm font-medium px-2 py-0.5 rounded-full bg-white/5 ${riskColor}`}>
+                {risk}
+              </span>
+            </div>
+
+            <div className="mt-4 h-[2px] w-40 bg-white/10">
+              <div
+                className={`h-full transition-all duration-300 ${
+                  hf >= 2 ? "bg-teal-400" : hf >= 1.2 ? "bg-yellow-300" : "bg-rose-400"
+                }`}
+                style={{ width: `${Math.min(100, (hf / 3) * 100)}%` }}
+              />
+            </div>
+
+            <p className="mt-4 text-sm text-white/60">
+              Higher water = higher risk. Add collateral or repay to lower it.
+            </p>
+          </div>
         </div>
-        <p className="text-sm text-muted-foreground">
-          High risk submerges the avatar. Add collateral or repay to lower the water.
-        </p>
-      </div>
       </div>
 
       <style>{`
