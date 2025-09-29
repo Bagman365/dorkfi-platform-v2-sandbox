@@ -94,8 +94,8 @@ export default function HealthWaterGauge({ healthFactor, avatarSrc }: Props) {
       </div>
 
       {/* Metrics block */}
-      <div className="mt-5 space-y-3">
-        <div className="flex items-baseline justify-center gap-3">
+      <div className="mt-5 flex justify-end">
+        <div className="flex items-baseline gap-3">
           <Tooltip>
             <TooltipTrigger asChild>
               <span
@@ -118,14 +118,17 @@ export default function HealthWaterGauge({ healthFactor, avatarSrc }: Props) {
           </Tooltip>
           <Tooltip>
             <TooltipTrigger asChild>
-              <div className="text-4xl font-semibold text-foreground cursor-help">Risk Score: {hf.toFixed(2)}</div>
+              <div className="text-lg font-semibold text-foreground cursor-help">Risk Score: {hf.toFixed(2)}</div>
             </TooltipTrigger>
             <TooltipContent side="top" className="max-w-xs">
               <p>Health Factor shows how safe your position is. Below 1.0 means you can be liquidated. Higher is safer.</p>
             </TooltipContent>
           </Tooltip>
         </div>
-        <p className="text-sm text-muted-foreground">
+      </div>
+
+      <div className="mt-3">
+        <p className="text-sm text-muted-foreground text-center">
           Higher water = higher risk. Add collateral or repay to lower the water.
         </p>
       </div>
