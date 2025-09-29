@@ -84,14 +84,6 @@ export default function HealthWaterGauge({ healthFactor, avatarSrc }: Props) {
         >
           {risk}
         </div>
-        <div className="h-3 w-full rounded-full bg-muted overflow-hidden">
-          <div
-            className={`h-full transition-all duration-500 ${
-              hf >= 2.0 ? "bg-ocean-teal" : hf >= 1.2 ? "bg-whale-gold" : "bg-destructive"
-            }`}
-            style={{ width: `${Math.min(100, (hf / 3.0) * 100)}%` }}
-          />
-        </div>
         <p className="text-sm text-muted-foreground">
           High risk submerges the avatar. Add collateral or repay to lower the water.
         </p>
