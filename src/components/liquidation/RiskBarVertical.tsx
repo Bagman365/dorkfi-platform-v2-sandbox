@@ -12,7 +12,7 @@ export default function RiskBarVertical({ hf }: { hf: number }) {
       {/* Track */}
       <div className="relative h-40 w-3 rounded-full overflow-hidden bg-white/10">
         {/* Gradient from High (top/red) → Low (bottom/teal) */}
-        <div className="absolute inset-0 bg-gradient-to-t from-rose-500 via-yellow-300 to-teal-400 opacity-80" />
+        <div className="absolute inset-0 bg-gradient-to-b from-rose-500 via-yellow-300 to-teal-400 opacity-80" />
 
         {/* Marker (use 🐙 or swap for an octopus image) */}
         <span
