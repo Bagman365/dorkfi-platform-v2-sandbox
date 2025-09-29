@@ -9,7 +9,7 @@ export default function RiskBarVertical({
 
   return (
     <div className={`relative w-3 rounded-full bg-white/10 ${className}`} aria-label={`Risk scale, marker at ${Math.round(bottomPct)}%`}>
-      <div className="absolute inset-0 rounded-full bg-gradient-to-t from-rose-500 via-yellow-300 to-teal-400 opacity-80" />
+      <div className="absolute inset-0 rounded-full bg-gradient-to-b from-rose-500 via-yellow-300 to-teal-400 opacity-80" />
       <div
         className="absolute left-1/2 -translate-x-1/2 w-3 h-3 rounded-full ring-2 ring-white/60 bg-white shadow transition-all duration-500"
         style={{ bottom: `${bottomPct}%` }}
