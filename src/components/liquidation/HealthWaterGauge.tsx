@@ -31,7 +31,7 @@ export default function HealthWaterGauge({ healthFactor, avatarSrc }: Props) {
         <div className="text-xl font-bold text-slate-800 dark:text-white">Health Factor</div>
       
       {/* Fixed-height row to lock bar and avatar alignment */}
-      <div className="flex items-stretch gap-8 h-56 md:h-64">
+      <div className="flex items-stretch gap-4 h-56 md:h-64">
         {/* Avatar with water overlay also fills height */}
         <Tooltip>
           <TooltipTrigger asChild>
