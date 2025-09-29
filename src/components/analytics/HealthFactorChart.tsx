@@ -46,32 +46,35 @@ const HealthFactorChart = () => {
       title="Health Factor Distribution" 
       subtitle="Borrower risk levels (<1.0 highlighted)"
       tooltip="Distribution of borrower health factors. Values below 1.0 are liquidatable, 1.0-1.1 are high risk, above 1.5 are safe."
+      className="h-auto"
     >
-      <ResponsiveContainer width="100%" height="100%">
-        <BarChart data={healthFactorData} margin={{ top: 20, right: 30, left: 20, bottom: 5 }}>
-          <CartesianGrid strokeDasharray="3 3" stroke={theme === 'dark' ? 'rgb(30, 41, 59)' : 'rgb(226, 232, 240)'} />
-          <XAxis 
-            dataKey="range" 
-            tick={{ fontSize: 12 }}
-          />
-          <YAxis 
-            tick={{ fontSize: 12 }}
-            tickFormatter={(value) => formatNumber(value)}
-          />
-          <Tooltip content={<CustomTooltip />} cursor={{ fill: 'hsl(var(--ocean-teal))', fillOpacity: 0.15 }} />
-          <Bar 
-            dataKey="count" 
-            radius={[4, 4, 0, 0]}
-          >
-            {healthFactorData.map((entry, index) => (
-              <Cell key={`cell-${index}`} fill={entry.color} />
-            ))}
-          </Bar>
-        </BarChart>
-      </ResponsiveContainer>
+      <div className="h-[240px] mb-4">
+        <ResponsiveContainer width="100%" height="100%">
+          <BarChart data={healthFactorData} margin={{ top: 20, right: 30, left: 20, bottom: 5 }}>
+            <CartesianGrid strokeDasharray="3 3" stroke={theme === 'dark' ? 'rgb(30, 41, 59)' : 'rgb(226, 232, 240)'} />
+            <XAxis 
+              dataKey="range" 
+              tick={{ fontSize: 12 }}
+            />
+            <YAxis 
+              tick={{ fontSize: 12 }}
+              tickFormatter={(value) => formatNumber(value)}
+            />
+            <Tooltip content={<CustomTooltip />} cursor={{ fill: 'hsl(var(--ocean-teal))', fillOpacity: 0.15 }} />
+            <Bar 
+              dataKey="count" 
+              radius={[4, 4, 0, 0]}
+            >
+              {healthFactorData.map((entry, index) => (
+                <Cell key={`cell-${index}`} fill={entry.color} />
+              ))}
+            </Bar>
+          </BarChart>
+        </ResponsiveContainer>
+      </div>
       
       {/* Risk Summary */}
-      <div className="mt-4 grid grid-cols-2 md:grid-cols-5 gap-2 text-xs">
+      <div className="grid grid-cols-2 md:grid-cols-5 gap-2 text-xs">
         {healthFactorData.map((item, index) => (
           <div key={index} className="text-center p-2 rounded-lg bg-muted/50">
             <div 
