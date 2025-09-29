@@ -49,7 +49,7 @@ const UnderwaterScene = ({
         <div className="absolute inset-0 flex items-center justify-center">
           <div className="relative transition-transform duration-1000 ease-in-out">
             <img 
-              src={dorkNftImage}
+              src="/lovable-uploads/dork_health_placeholder_v2.png"
               alt="Dork NFT"
               className="w-32 h-32 rounded-full border-4 border-whale-gold shadow-lg"
               style={{
