@@ -15,6 +15,8 @@ import AssetDistributionChart from "@/components/analytics/AssetDistributionChar
 import InterestRateChart from "@/components/analytics/InterestRateChart";
 import HealthFactorChart from "@/components/analytics/HealthFactorChart";
 import LiquidationsChart from "@/components/analytics/LiquidationsChart";
+import DepositsChart from "@/components/analytics/DepositsChart";
+import WithdrawalsChart from "@/components/analytics/WithdrawalsChart";
 import { ExternalLink } from "lucide-react";
 
 interface AnalyticsProps {
@@ -62,6 +64,10 @@ const Analytics = ({ activeTab, onTabChange }: AnalyticsProps) => {
           
           {/* Section 2: User & Market Activity */}
           <AnalyticsSection title="User & Market Activity">
+            <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
+              <DepositsChart />
+              <WithdrawalsChart />
+            </div>
             <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
               <MAUChart />
               <LoanVolumeChart />

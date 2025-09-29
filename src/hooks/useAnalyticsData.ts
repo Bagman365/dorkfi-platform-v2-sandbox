@@ -111,6 +111,16 @@ export interface LiquidationData {
   }>;
 }
 
+export interface DepositsData {
+  date: string;
+  amount: number;
+}
+
+export interface WithdrawalsData {
+  date: string;
+  amount: number;
+}
+
 const generateMockKPIData = (): KPIData => ({
   tvl: 245_680_000,
   totalBorrowed: 156_420_000,
@@ -248,6 +258,20 @@ const generateMockLiquidationData = (): LiquidationData => ({
   ],
 });
 
+const generateMockDepositsData = (): DepositsData[] => {
+  return Array.from({ length: 30 }, (_, i) => ({
+    date: new Date(Date.now() - (29 - i) * 24 * 60 * 60 * 1000).toISOString().split('T')[0],
+    amount: 7_000_000 + Math.random() * 5_000_000 + Math.sin(i * 0.5) * 2_000_000,
+  }));
+};
+
+const generateMockWithdrawalsData = (): WithdrawalsData[] => {
+  return Array.from({ length: 30 }, (_, i) => ({
+    date: new Date(Date.now() - (29 - i) * 24 * 60 * 60 * 1000).toISOString().split('T')[0],
+    amount: 5_000_000 + Math.random() * 5_000_000 + Math.cos(i * 0.5) * 2_000_000,
+  }));
+};
+
 export const useAnalyticsData = () => {
   const [kpiData, setKpiData] = useState<KPIData | null>(null);
   const [tvlData, setTvlData] = useState<TVLData[]>([]);
@@ -261,6 +285,8 @@ export const useAnalyticsData = () => {
   const [interestRateData, setInterestRateData] = useState<InterestRateData[]>([]);
   const [healthFactorData, setHealthFactorData] = useState<HealthFactorData[]>([]);
   const [liquidationData, setLiquidationData] = useState<LiquidationData | null>(null);
+  const [depositsData, setDepositsData] = useState<DepositsData[]>([]);
+  const [withdrawalsData, setWithdrawalsData] = useState<WithdrawalsData[]>([]);
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
@@ -283,6 +309,8 @@ export const useAnalyticsData = () => {
       setInterestRateData(generateMockInterestRateData());
       setHealthFactorData(generateMockHealthFactorData());
       setLiquidationData(generateMockLiquidationData());
+      setDepositsData(generateMockDepositsData());
+      setWithdrawalsData(generateMockWithdrawalsData());
       
       setLoading(false);
     };
@@ -303,6 +331,8 @@ export const useAnalyticsData = () => {
     interestRateData,
     healthFactorData,
     liquidationData,
+    depositsData,
+    withdrawalsData,
     loading,
   };
 };
