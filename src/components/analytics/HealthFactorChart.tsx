@@ -58,7 +58,7 @@ const HealthFactorChart = () => {
             tick={{ fontSize: 12 }}
             tickFormatter={(value) => formatNumber(value)}
           />
-          <Tooltip content={<CustomTooltip />} />
+          <Tooltip content={<CustomTooltip />} cursor={{ fill: 'hsl(var(--ocean-teal))', fillOpacity: 0.15 }} />
           <Bar 
             dataKey="count" 
             radius={[4, 4, 0, 0]}

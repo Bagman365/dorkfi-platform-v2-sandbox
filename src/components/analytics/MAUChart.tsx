@@ -55,7 +55,7 @@ const MAUChart = () => {
             tick={{ fontSize: 12 }}
             tickFormatter={(value) => formatNumber(value)}
           />
-          <Tooltip content={<CustomTooltip />} />
+          <Tooltip content={<CustomTooltip />} cursor={{ fill: 'hsl(var(--ocean-teal))', fillOpacity: 0.15 }} />
           <Legend />
           <Bar 
             dataKey="lenders" 

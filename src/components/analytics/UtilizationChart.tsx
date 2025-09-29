@@ -54,7 +54,7 @@ const UtilizationChart = () => {
             tick={{ fontSize: 12 }}
             tickFormatter={(value) => formatCurrency(value, 0)}
           />
-          <Tooltip content={<CustomTooltip />} />
+          <Tooltip content={<CustomTooltip />} cursor={{ fill: 'hsl(var(--ocean-teal))', fillOpacity: 0.15 }} />
           <Bar 
             dataKey="supplied" 
             fill="hsl(var(--ocean-teal))" 
