@@ -94,15 +94,17 @@ export default function HealthWaterGauge({ healthFactor, avatarSrc }: Props) {
       </div>
 
       {/* Metrics block aligned with bar */}
-      <div className="mt-5 flex justify-end pr-0">
-        <Tooltip>
-          <TooltipTrigger asChild>
-            <div className="text-lg font-semibold text-foreground cursor-help">Risk Score: {hf.toFixed(2)}</div>
-          </TooltipTrigger>
-          <TooltipContent side="top" className="max-w-xs">
-            <p>Health Factor shows how safe your position is. Below 1.0 means you can be liquidated. Higher is safer.</p>
-          </TooltipContent>
-        </Tooltip>
+      <div className="mt-5" style={{ marginLeft: `calc(260px + 1rem)` }}>
+        <div className="md:ml-10">
+          <Tooltip>
+            <TooltipTrigger asChild>
+              <div className="text-lg font-semibold text-foreground cursor-help">Risk Score: {hf.toFixed(2)}</div>
+            </TooltipTrigger>
+            <TooltipContent side="top" className="max-w-xs">
+              <p>Health Factor shows how safe your position is. Below 1.0 means you can be liquidated. Higher is safer.</p>
+            </TooltipContent>
+          </Tooltip>
+        </div>
       </div>
 
       <div className="mt-3">
