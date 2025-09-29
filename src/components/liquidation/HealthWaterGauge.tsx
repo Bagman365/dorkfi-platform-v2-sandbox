@@ -31,7 +31,7 @@ export default function HealthWaterGauge({ healthFactor, avatarSrc }: Props) {
         <div className="text-xl font-bold text-slate-800 dark:text-white">Health Factor</div>
         
         <div className="mb-4">
-          <p className="text-sm text-muted-foreground text-center">
+          <p className="text-sm text-muted-foreground text-right">
             Higher water = higher risk. Add collateral or repay to lower the water.
           </p>
         </div>
