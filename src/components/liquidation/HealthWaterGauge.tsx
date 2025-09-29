@@ -1,5 +1,11 @@
 import React, { useMemo } from "react";
 import RiskBarVertical from "./RiskBarVertical";
+import {
+  Tooltip,
+  TooltipContent,
+  TooltipProvider,
+  TooltipTrigger,
+} from "@/components/ui/tooltip";
 
 type Props = {
   healthFactor: number;
@@ -20,13 +26,16 @@ export default function HealthWaterGauge({ healthFactor, avatarSrc }: Props) {
     hf >= 2.0 ? "Low Risk" : hf >= 1.2 ? "Mid Risk" : "High Risk";
 
   return (
-    <div className="w-full space-y-4">
-      <div className="text-xl font-bold text-slate-800 dark:text-white">Health Factor</div>
+    <TooltipProvider>
+      <div className="w-full space-y-4">
+        <div className="text-xl font-bold text-slate-800 dark:text-white">Health Factor</div>
       
       {/* Fixed-height row to lock bar and avatar alignment */}
       <div className="flex items-stretch gap-8 h-56 md:h-64">
         {/* Avatar with water overlay also fills height */}
-        <div className="relative h-full w-[260px] md:w-[300px] rounded-2xl overflow-hidden bg-[#0e1f29] border border-white/10">
+        <Tooltip>
+          <TooltipTrigger asChild>
+            <div className="relative h-full w-[260px] md:w-[300px] rounded-2xl overflow-hidden bg-[#0e1f29] border border-white/10 cursor-help">
           {/* Optional avatar below the mask */}
           {avatarSrc && (
             <img
@@ -73,7 +82,12 @@ export default function HealthWaterGauge({ healthFactor, avatarSrc }: Props) {
             style={{ bottom: `${waterPct}%` }}
             aria-hidden
           />
-        </div>
+            </div>
+          </TooltipTrigger>
+          <TooltipContent side="top" className="max-w-xs">
+            <p>The water level represents your liquidation risk. Higher water means your position is closer to liquidation.</p>
+          </TooltipContent>
+        </Tooltip>
 
         {/* Vertical gauge matches parent height */}
         <RiskBarVertical hf={hf} className="h-full" />
@@ -82,14 +96,34 @@ export default function HealthWaterGauge({ healthFactor, avatarSrc }: Props) {
       {/* Metrics block */}
       <div className="mt-5 space-y-3">
         <div className="flex items-baseline justify-center gap-3">
-          <span
-            className={`text-sm font-medium px-2 py-0.5 rounded-full bg-white/5 ${
-              hf >= 2.0 ? "text-ocean-teal" : hf >= 1.2 ? "text-whale-gold" : "text-destructive"
-            }`}
-          >
-            {risk}
-          </span>
-          <div className="text-4xl font-semibold text-foreground">{hf.toFixed(2)}</div>
+          <Tooltip>
+            <TooltipTrigger asChild>
+              <span
+                className={`text-sm font-medium px-2 py-0.5 rounded-full bg-white/5 cursor-help ${
+                  hf >= 2.0 ? "text-ocean-teal" : hf >= 1.2 ? "text-whale-gold" : "text-destructive"
+                }`}
+              >
+                {risk}
+              </span>
+            </TooltipTrigger>
+            <TooltipContent side="top">
+              <p>
+                {hf >= 2.0 
+                  ? "Low Risk: Your position is safe" 
+                  : hf >= 1.2 
+                  ? "Mid Risk: Monitor your position closely" 
+                  : "High Risk: Your position may be liquidated soon"}
+              </p>
+            </TooltipContent>
+          </Tooltip>
+          <Tooltip>
+            <TooltipTrigger asChild>
+              <div className="text-4xl font-semibold text-foreground cursor-help">{hf.toFixed(2)}</div>
+            </TooltipTrigger>
+            <TooltipContent side="top" className="max-w-xs">
+              <p>Health Factor shows how safe your position is. Below 1.0 means you can be liquidated. Higher is safer.</p>
+            </TooltipContent>
+          </Tooltip>
         </div>
         <p className="text-sm text-muted-foreground">
           Higher water = higher risk. Add collateral or repay to lower the water.
@@ -102,6 +136,7 @@ export default function HealthWaterGauge({ healthFactor, avatarSrc }: Props) {
           to   { background-position-x: -50%; }
         }
       `}</style>
-    </div>
+      </div>
+    </TooltipProvider>
   );
 }
