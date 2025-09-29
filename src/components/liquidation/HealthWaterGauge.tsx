@@ -95,36 +95,14 @@ export default function HealthWaterGauge({ healthFactor, avatarSrc }: Props) {
 
       {/* Metrics block */}
       <div className="mt-5 flex justify-end">
-        <div className="flex items-baseline gap-3">
-          <Tooltip>
-            <TooltipTrigger asChild>
-              <span
-                className={`text-sm font-medium px-3 py-1 rounded-full bg-white/5 cursor-help ${
-                  hf >= 2.0 ? "text-ocean-teal" : hf >= 1.2 ? "text-whale-gold" : "text-destructive"
-                }`}
-              >
-                {risk}
-              </span>
-            </TooltipTrigger>
-            <TooltipContent side="top">
-              <p>
-                {hf >= 2.0 
-                  ? "Low Risk: Your position is safe" 
-                  : hf >= 1.2 
-                  ? "Mid Risk: Monitor your position closely" 
-                  : "High Risk: Your position may be liquidated soon"}
-              </p>
-            </TooltipContent>
-          </Tooltip>
-          <Tooltip>
-            <TooltipTrigger asChild>
-              <div className="text-lg font-semibold text-foreground cursor-help">Risk Score: {hf.toFixed(2)}</div>
-            </TooltipTrigger>
-            <TooltipContent side="top" className="max-w-xs">
-              <p>Health Factor shows how safe your position is. Below 1.0 means you can be liquidated. Higher is safer.</p>
-            </TooltipContent>
-          </Tooltip>
-        </div>
+        <Tooltip>
+          <TooltipTrigger asChild>
+            <div className="text-lg font-semibold text-foreground cursor-help">Risk Score: {hf.toFixed(2)}</div>
+          </TooltipTrigger>
+          <TooltipContent side="top" className="max-w-xs">
+            <p>Health Factor shows how safe your position is. Below 1.0 means you can be liquidated. Higher is safer.</p>
+          </TooltipContent>
+        </Tooltip>
       </div>
 
       <div className="mt-3">
