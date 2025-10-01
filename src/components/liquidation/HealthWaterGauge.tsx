@@ -27,13 +27,8 @@ export default function HealthWaterGauge({ healthFactor, avatarSrc }: Props) {
   return (
     <TooltipProvider>
       <div className="w-full space-y-4">
-        <div className="text-xl font-bold text-slate-800 dark:text-white">Health Factor</div>
+      <div className="text-xl font-bold text-slate-800 dark:text-white">Health Factor</div>
         
-        <div className="mb-4">
-          <p className="text-sm text-muted-foreground">
-            Higher water = higher risk. Add collateral or repay to lower the water.
-          </p>
-        </div>
       {/* Fixed-height row to lock bar and avatar alignment */}
       <div className="flex items-stretch gap-4 h-56 md:h-64">
         {/* Avatar with water overlay also fills height */}
@@ -92,6 +87,12 @@ export default function HealthWaterGauge({ healthFactor, avatarSrc }: Props) {
             <p>The water level represents your liquidation risk. Higher water means your position is closer to liquidation.</p>
           </TooltipContent>
         </Tooltip>
+      </div>
+
+      <div className="mt-4">
+        <p className="text-sm text-muted-foreground">
+          Higher water = higher risk. Add collateral or repay to lower the water.
+        </p>
       </div>
 
 
