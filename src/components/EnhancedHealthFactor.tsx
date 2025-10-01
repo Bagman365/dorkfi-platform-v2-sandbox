@@ -31,7 +31,7 @@ const EnhancedHealthFactor = ({
     <div className="w-full max-w-6xl mx-auto">
       <Card className="bg-gradient-to-br from-blue-50 to-cyan-50 dark:from-slate-900 dark:to-slate-800 border border-gray-200/50 dark:border-ocean-teal/20 overflow-hidden shadow-md card-hover transition-all hover:border-ocean-teal/40">
         <CardContent className="p-6">
-          <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
             {/* Left Side - NFT + Underwater Visual */}
             <UnderwaterScene 
               healthFactor={healthFactor}
