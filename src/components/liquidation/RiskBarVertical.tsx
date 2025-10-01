@@ -20,7 +20,6 @@ export default function RiskBarVertical({
         <Tooltip>
           <TooltipTrigger asChild>
             <div className="relative w-6 h-full rounded-full bg-white/10 cursor-help" aria-label={`Risk scale, marker at ${Math.round(bottomPct)}%`}>
-              <div className="absolute inset-0 rounded-full bg-gradient-to-b from-rose-500 via-yellow-300 to-teal-400 opacity-80" />
               
               <Tooltip>
                 <TooltipTrigger asChild>
