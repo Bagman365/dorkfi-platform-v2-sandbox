@@ -41,17 +41,7 @@ export default function HealthWaterGauge({ healthFactor, avatarSrc }: Props) {
     <TooltipProvider>
       <div className="w-full space-y-4 animate-fade-in">
         {/* Header with prominent risk display */}
-        <div className="flex items-center justify-between">
-          <div className="text-xl font-bold text-slate-800 dark:text-white">Health Factor</div>
-          <div className="flex items-center gap-3">
-            <Badge 
-              variant={hf <= 1.0 ? 'destructive' : hf <= 1.2 ? 'secondary' : 'outline'}
-              className={`${riskLevel.color} ${riskLevel.bg} border-current px-4 py-1.5 font-bold text-sm animate-scale-in`}
-            >
-              {riskLevel.label}
-            </Badge>
-          </div>
-        </div>
+        <div className="text-xl font-bold text-slate-800 dark:text-white">Health Factor</div>
 
         {/* Large Risk Score Display */}
         <div className="text-center py-2 px-6 rounded-xl bg-gradient-to-br from-slate-50 to-slate-100 dark:from-slate-800 dark:to-slate-900 border border-slate-200/50 dark:border-slate-700/50 animate-scale-in">
