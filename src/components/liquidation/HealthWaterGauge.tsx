@@ -42,14 +42,6 @@ export default function HealthWaterGauge({ healthFactor, avatarSrc }: Props) {
       <div className="w-full space-y-4 animate-fade-in">
         {/* Header with prominent risk display */}
         <div className="text-xl font-bold text-slate-800 dark:text-white">Health Factor</div>
-
-        {/* Large Risk Score Display */}
-        <div className="text-center py-2 px-6 rounded-xl bg-gradient-to-br from-slate-50 to-slate-100 dark:from-slate-800 dark:to-slate-900 border border-slate-200/50 dark:border-slate-700/50 animate-scale-in">
-          <div className="text-sm text-muted-foreground mb-1 font-medium">Risk Score</div>
-          <div className={`text-5xl font-bold ${riskLevel.color} tracking-tight transition-all duration-300`}>
-            {hf.toFixed(2)}
-          </div>
-        </div>
         
       {/* Water gauge with threshold markers */}
       <div className="relative">
@@ -127,6 +119,14 @@ export default function HealthWaterGauge({ healthFactor, avatarSrc }: Props) {
             <p className="mt-2 text-xs text-muted-foreground">Threshold markers show critical risk levels.</p>
           </TooltipContent>
         </Tooltip>
+      </div>
+
+      {/* Large Risk Score Display */}
+      <div className="text-center py-2 px-6 rounded-xl bg-gradient-to-br from-slate-50 to-slate-100 dark:from-slate-800 dark:to-slate-900 border border-slate-200/50 dark:border-slate-700/50 animate-scale-in">
+        <div className="text-sm text-muted-foreground mb-1 font-medium">Risk Score</div>
+        <div className={`text-5xl font-bold ${riskLevel.color} tracking-tight transition-all duration-300`}>
+          {hf.toFixed(2)}
+        </div>
       </div>
 
       <style>{`
