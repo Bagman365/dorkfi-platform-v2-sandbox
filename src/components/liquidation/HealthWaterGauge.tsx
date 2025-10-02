@@ -24,17 +24,48 @@ export default function HealthWaterGauge({ healthFactor, avatarSrc }: Props) {
     return Math.round(10 + t * 82);
   }, [hf]);
 
+  // Threshold markers for risk levels
+  const thresholds = useMemo(() => [
+    { hf: 3.0, label: "Safe", color: "bg-green-500/60" },
+    { hf: 1.5, label: "Moderate", color: "bg-yellow-500/60" },
+    { hf: 1.2, label: "Caution", color: "bg-orange-500/60" },
+    { hf: 1.0, label: "Critical", color: "bg-red-500/60" },
+  ], []);
+
+  const getThresholdPosition = (thresholdHf: number) => {
+    const t = (3.0 - thresholdHf) / (3.0 - 0.8);
+    return Math.round(10 + t * 82);
+  };
+
   return (
     <TooltipProvider>
-      <div className="w-full space-y-4">
-      <div className="text-xl font-bold text-slate-800 dark:text-white">Health Factor</div>
+      <div className="w-full space-y-4 animate-fade-in">
+        {/* Header with prominent risk display */}
+        <div className="flex items-center justify-between">
+          <div className="text-xl font-bold text-slate-800 dark:text-white">Health Factor</div>
+          <div className="flex items-center gap-3">
+            <Badge 
+              variant={hf <= 1.0 ? 'destructive' : hf <= 1.2 ? 'secondary' : 'outline'}
+              className={`${riskLevel.color} ${riskLevel.bg} border-current px-4 py-1.5 font-bold text-sm animate-scale-in`}
+            >
+              {riskLevel.label}
+            </Badge>
+          </div>
+        </div>
+
+        {/* Large Risk Score Display */}
+        <div className="text-center py-2 px-6 rounded-xl bg-gradient-to-br from-slate-50 to-slate-100 dark:from-slate-800 dark:to-slate-900 border border-slate-200/50 dark:border-slate-700/50 animate-scale-in">
+          <div className="text-sm text-muted-foreground mb-1 font-medium">Risk Score</div>
+          <div className={`text-5xl font-bold ${riskLevel.color} tracking-tight transition-all duration-300`}>
+            {hf.toFixed(2)}
+          </div>
+        </div>
         
-      {/* Fixed-height row to lock bar and avatar alignment */}
-      <div className="flex items-start gap-6 h-56 md:h-64">
-        {/* Avatar with water overlay also fills height */}
+      {/* Water gauge with threshold markers */}
+      <div className="relative">
         <Tooltip>
           <TooltipTrigger asChild>
-            <div className="relative h-full w-[260px] md:w-[300px] rounded-2xl overflow-hidden bg-[#0e1f29] border border-white/10 cursor-help">
+            <div className="relative h-72 w-full rounded-2xl overflow-hidden bg-gradient-to-b from-[#0e1f29] to-[#061218] border-2 border-white/10 shadow-xl cursor-help hover:border-white/20 transition-all duration-300">
           {/* Optional avatar below the mask */}
           {avatarSrc && (
             <img
@@ -75,37 +106,43 @@ export default function HealthWaterGauge({ healthFactor, avatarSrc }: Props) {
             <div className="pointer-events-none absolute inset-0 bg-ocean-teal/25" />
           </div>
 
-          {/* Surface line */}
+          {/* Surface line with glow */}
           <div
-            className="absolute left-0 right-0 h-[2px] bg-white/25 transition-all duration-500"
+            className="absolute left-0 right-0 h-[3px] bg-white/40 shadow-[0_0_10px_rgba(255,255,255,0.3)] transition-all duration-500 z-10"
             style={{ bottom: `${waterPct}%` }}
             aria-hidden
           />
+
+          {/* Risk threshold markers */}
+          {thresholds.map((threshold, idx) => {
+            const pos = getThresholdPosition(threshold.hf);
+            return (
+              <div
+                key={idx}
+                className="absolute left-0 right-0 flex items-center z-20 transition-all duration-500"
+                style={{ bottom: `${pos}%` }}
+              >
+                <div className={`h-[2px] w-8 ${threshold.color}`} />
+                <span className="text-[10px] text-white/70 ml-2 font-medium whitespace-nowrap">
+                  {threshold.label} ({threshold.hf})
+                </span>
+              </div>
+            );
+          })}
             </div>
           </TooltipTrigger>
           <TooltipContent side="right" className="max-w-xs">
-            <p>The water level represents your liquidation risk. Higher water means your position is closer to liquidation.</p>
+            <p className="font-medium mb-2">Interactive Risk Gauge</p>
+            <p>The water level represents your liquidation risk. Higher water means closer to liquidation.</p>
+            <p className="mt-2 text-xs text-muted-foreground">Threshold markers show critical risk levels.</p>
           </TooltipContent>
         </Tooltip>
-
-        {/* Risk Badge and Score */}
-        <div className="flex flex-col items-center gap-3 pt-8">
-          <Badge 
-            variant={hf <= 1.0 ? 'destructive' : hf <= 1.2 ? 'secondary' : 'outline'}
-            className={`${riskLevel.color} ${riskLevel.bg} border-current text-lg px-6 py-2 font-bold`}
-          >
-            {riskLevel.label}
-          </Badge>
-          <div className="text-center">
-            <div className="text-sm text-muted-foreground mb-1">Risk Score</div>
-            <div className="text-2xl font-bold text-slate-800 dark:text-white">{hf.toFixed(2)}</div>
-          </div>
-        </div>
       </div>
 
-      <div className="mt-4">
-        <p className="text-sm text-muted-foreground">
-          Higher water = higher risk. Add collateral or repay to lower the water.
+      {/* Contextual guidance */}
+      <div className="mt-6 p-4 rounded-lg bg-gradient-to-r from-ocean-teal/10 to-sky-blue/10 border border-ocean-teal/20">
+        <p className="text-sm font-medium text-slate-700 dark:text-slate-300">
+          💡 <span className="font-semibold">Quick Tip:</span> Higher water = higher risk. Add collateral or repay debt to lower the water level.
         </p>
       </div>
 

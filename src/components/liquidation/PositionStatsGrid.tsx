@@ -32,72 +32,80 @@ const PositionStatsGrid = ({
                        netLTV >= 60 ? 'text-yellow-500' : 'text-green-500';
 
   return (
-    <div className="grid grid-cols-2 gap-4">
-      <div className="p-4 rounded-lg bg-ocean-teal/10 border border-ocean-teal/20">
-        <div className="text-sm text-muted-foreground flex items-center gap-1">
-          Total Collateral
-          <Tooltip>
-            <TooltipTrigger asChild>
-              <Info className="w-3 h-3 cursor-help" />
-            </TooltipTrigger>
-            <TooltipContent className="max-w-xs">
-              <p>The total USD value of all your deposited assets that can be used as collateral for borrowing. Higher collateral increases your borrowing capacity.</p>
-            </TooltipContent>
-          </Tooltip>
+    <div className="space-y-4">
+      {/* Primary Stats - Collateral & Borrowed */}
+      <div className="grid grid-cols-2 gap-4">
+        <div className="group p-5 rounded-xl bg-gradient-to-br from-green-50 to-emerald-50 dark:from-green-900/20 dark:to-emerald-900/20 border-2 border-green-500/30 hover:border-green-500/50 transition-all duration-300 hover:shadow-lg">
+          <div className="text-xs uppercase tracking-wide text-muted-foreground flex items-center gap-1.5 mb-2 font-semibold">
+            <span className="w-2 h-2 rounded-full bg-green-500 animate-pulse" />
+            Total Collateral
+            <Tooltip>
+              <TooltipTrigger asChild>
+                <Info className="w-3.5 h-3.5 cursor-help opacity-60 hover:opacity-100 transition-opacity" />
+              </TooltipTrigger>
+              <TooltipContent className="max-w-xs">
+                <p>The total USD value of all your deposited assets that can be used as collateral for borrowing. Higher collateral increases your borrowing capacity.</p>
+              </TooltipContent>
+            </Tooltip>
+          </div>
+          <div className="text-3xl font-bold text-green-600 dark:text-green-400 text-center tracking-tight">
+            ${totalCollateral.toLocaleString()}
+          </div>
         </div>
-        <div className={`text-2xl font-bold ${healthFactorColorClass} text-center`}>
-          ${totalCollateral.toLocaleString()}
+      
+        <div className="group p-5 rounded-xl bg-gradient-to-br from-red-50 to-rose-50 dark:from-red-900/20 dark:to-rose-900/20 border-2 border-red-500/30 hover:border-red-500/50 transition-all duration-300 hover:shadow-lg">
+          <div className="text-xs uppercase tracking-wide text-muted-foreground flex items-center gap-1.5 mb-2 font-semibold">
+            <span className="w-2 h-2 rounded-full bg-red-500 animate-pulse" />
+            Total Borrowed
+            <Tooltip>
+              <TooltipTrigger asChild>
+                <Info className="w-3.5 h-3.5 cursor-help opacity-60 hover:opacity-100 transition-opacity" />
+              </TooltipTrigger>
+              <TooltipContent className="max-w-xs">
+                <p>The total USD value of all your outstanding debt. This amount accrues interest over time and must be repaid to maintain a healthy position.</p>
+              </TooltipContent>
+            </Tooltip>
+          </div>
+          <div className="text-3xl font-bold text-red-600 dark:text-red-400 text-center tracking-tight">
+            ${totalBorrowed.toLocaleString()}
+          </div>
         </div>
       </div>
+
+      {/* Secondary Stats - Risk Metrics */}
+      <div className="grid grid-cols-2 gap-4">
+        <div className="group p-4 rounded-lg bg-gradient-to-br from-blue-50 to-cyan-50 dark:from-blue-900/10 dark:to-cyan-900/10 border border-blue-500/20 hover:border-blue-500/40 transition-all duration-300">
+          <div className="text-xs uppercase tracking-wide text-muted-foreground flex items-center gap-1.5 mb-1.5 font-medium">
+            Liquidation Margin
+            <Tooltip>
+              <TooltipTrigger asChild>
+                <Info className="w-3 h-3 cursor-help opacity-60 hover:opacity-100 transition-opacity" />
+              </TooltipTrigger>
+              <TooltipContent className="max-w-xs">
+                <p>The safety buffer between your current position and liquidation. A higher margin means more protection against market volatility and price drops.</p>
+              </TooltipContent>
+            </Tooltip>
+          </div>
+          <div className={`text-2xl font-bold ${liquidationMarginColorClass} text-center`}>
+            {liquidationMargin.toFixed(1)}%
+          </div>
+        </div>
       
-      <div className="p-4 rounded-lg bg-red-500/10 border border-red-500/20">
-        <div className="text-sm text-muted-foreground flex items-center gap-1">
-          Total Borrowed
-          <Tooltip>
-            <TooltipTrigger asChild>
-              <Info className="w-3 h-3 cursor-help" />
-            </TooltipTrigger>
-            <TooltipContent className="max-w-xs">
-              <p>The total USD value of all your outstanding debt. This amount accrues interest over time and must be repaid to maintain a healthy position.</p>
-            </TooltipContent>
-          </Tooltip>
-        </div>
-        <div className={`text-2xl font-bold ${healthFactorColorClass} text-center`}>
-          ${totalBorrowed.toLocaleString()}
-        </div>
-      </div>
-      
-      <div className="p-4 rounded-lg bg-ocean-teal/10 border border-ocean-teal/20">
-        <div className="text-sm text-muted-foreground flex items-center gap-1">
-          Liquidation Margin
-          <Tooltip>
-            <TooltipTrigger asChild>
-              <Info className="w-3 h-3 cursor-help" />
-            </TooltipTrigger>
-            <TooltipContent className="max-w-xs">
-              <p>The safety buffer between your current position and liquidation. A higher margin means more protection against market volatility and price drops.</p>
-            </TooltipContent>
-          </Tooltip>
-        </div>
-        <div className={`text-xl font-bold ${liquidationMarginColorClass} text-center`}>
-          {liquidationMargin.toFixed(1)}%
-        </div>
-      </div>
-      
-      <div className="p-4 rounded-lg bg-ocean-teal/10 border border-ocean-teal/20">
-        <div className="text-sm text-muted-foreground flex items-center gap-1">
-          Net LTV
-          <Tooltip>
-            <TooltipTrigger asChild>
-              <Info className="w-3 h-3 cursor-help" />
-            </TooltipTrigger>
-            <TooltipContent className="max-w-xs">
-              <p>Loan-to-Value ratio shows how much you've borrowed relative to your collateral. Lower LTV = safer position. Most protocols liquidate around 80-85% LTV.</p>
-            </TooltipContent>
-          </Tooltip>
-        </div>
-        <div className={`text-xl font-bold ${ltvColorClass} text-center`}>
-          {netLTV.toFixed(1)}%
+        <div className="group p-4 rounded-lg bg-gradient-to-br from-blue-50 to-cyan-50 dark:from-blue-900/10 dark:to-cyan-900/10 border border-blue-500/20 hover:border-blue-500/40 transition-all duration-300">
+          <div className="text-xs uppercase tracking-wide text-muted-foreground flex items-center gap-1.5 mb-1.5 font-medium">
+            Net LTV
+            <Tooltip>
+              <TooltipTrigger asChild>
+                <Info className="w-3 h-3 cursor-help opacity-60 hover:opacity-100 transition-opacity" />
+              </TooltipTrigger>
+              <TooltipContent className="max-w-xs">
+                <p>Loan-to-Value ratio shows how much you've borrowed relative to your collateral. Lower LTV = safer position. Most protocols liquidate around 80-85% LTV.</p>
+              </TooltipContent>
+            </Tooltip>
+          </div>
+          <div className={`text-2xl font-bold ${ltvColorClass} text-center`}>
+            {netLTV.toFixed(1)}%
+          </div>
         </div>
       </div>
     </div>
