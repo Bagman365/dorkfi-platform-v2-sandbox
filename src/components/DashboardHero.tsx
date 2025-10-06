@@ -104,22 +104,14 @@ const DashboardHero: React.FC<DashboardHeroProps> = ({
       <Body className="text-lg md:text-xl lg:text-2xl mb-4 md:mb-6 max-w-2xl mx-auto">
         Advanced Cross-Chain DeFi Protocol
       </Body>
-      {/* Action buttons - swapped order with tighter spacing */}
-      <div className="flex flex-col sm:flex-row gap-4 md:gap-6 lg:gap-8 justify-center items-center mt-1">
+      {/* Action button */}
+      <div className="flex justify-center items-center mt-1">
         <Button
           size="lg"
           className="whale-button text-deep-navy font-bold px-6 py-3 sm:px-8 sm:py-3 md:px-10 md:py-4 lg:px-12 lg:py-4 text-base sm:text-lg md:text-xl rounded-xl sm:rounded-2xl shadow-whale hover:shadow-whale-hover transition-all duration-400 group will-change-transform focus-whale hover:scale-105 sm:hover:scale-110"
           onClick={onExploreMarkets}
         >
           Explore Markets
-          <ArrowRight className="ml-2 sm:ml-3 h-4 w-4 sm:h-5 sm:w-5 md:h-6 md:w-6 group-hover:translate-x-1 transition-transform duration-300" />
-        </Button>
-        <Button 
-          size="lg" 
-          className="whale-button text-deep-navy font-bold px-6 py-3 sm:px-8 sm:py-3 md:px-10 md:py-4 lg:px-12 lg:py-4 text-base sm:text-lg md:text-xl rounded-xl sm:rounded-2xl shadow-whale hover:shadow-whale-hover transition-all duration-400 group will-change-transform focus-whale hover:scale-105 sm:hover:scale-110"
-          onClick={() => setNFTMintModalOpen(true)}
-        >
-          Mint a Free NFT
           <ArrowRight className="ml-2 sm:ml-3 h-4 w-4 sm:h-5 sm:w-5 md:h-6 md:w-6 group-hover:translate-x-1 transition-transform duration-300" />
         </Button>
       </div>
