@@ -174,7 +174,7 @@ export default function EnhancedAccountDetailModal({
 
   return (
     <Dialog open={isOpen} onOpenChange={onClose}>
-      <DialogContent className="max-w-md max-h-[90vh] bg-background border-border text-foreground rounded-xl border border-gray-200/50 dark:border-ocean-teal/20 shadow-xl card-hover hover:shadow-lg hover:border-ocean-teal/40 transition-all px-0 py-0">
+      <DialogContent className="max-w-3xl max-h-[90vh] bg-background border-border text-foreground rounded-xl border border-gray-200/50 dark:border-ocean-teal/20 shadow-xl card-hover hover:shadow-lg hover:border-ocean-teal/40 transition-all px-0 py-0">
         <DialogHeader className="border-b border-border pt-6 px-8 pb-3">
           <DialogTitle className="text-foreground text-center text-2xl font-bold">
             {liquidationStep === 'success' ? 'Liquidation Complete' : `Account Details - ${shortenAddress(account.walletAddress)}`}
