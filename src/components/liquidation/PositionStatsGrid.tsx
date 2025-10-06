@@ -49,7 +49,7 @@ const PositionStatsGrid = ({
             </Tooltip>
           </div>
           <div className="text-3xl font-bold text-green-600 dark:text-green-400 text-center tracking-tight">
-            ${totalCollateral.toLocaleString()}
+            ${totalCollateral >= 1000 ? totalCollateral.toLocaleString('en-US', { maximumFractionDigits: 0 }) : totalCollateral.toLocaleString('en-US', { maximumFractionDigits: 2 })}
           </div>
         </div>
       
@@ -67,7 +67,7 @@ const PositionStatsGrid = ({
             </Tooltip>
           </div>
           <div className="text-3xl font-bold text-red-600 dark:text-red-400 text-center tracking-tight">
-            ${totalBorrowed.toLocaleString()}
+            ${totalBorrowed >= 1000 ? totalBorrowed.toLocaleString('en-US', { maximumFractionDigits: 0 }) : totalBorrowed.toLocaleString('en-US', { maximumFractionDigits: 2 })}
           </div>
         </div>
       </div>
