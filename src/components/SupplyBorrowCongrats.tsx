@@ -126,29 +126,26 @@ const SupplyBorrowCongrats: React.FC<SupplyBorrowCongratsProps> = ({
         <div className="flex gap-2 justify-center">
           <button
             onClick={handleTwitterShare}
-            className="flex items-center justify-center gap-2 px-4 py-2 bg-[#000000] hover:bg-[#1a1a1a] text-white rounded-lg transition-colors"
+            className="flex items-center justify-center p-3 bg-[#000000] hover:bg-[#1a1a1a] text-white rounded-lg transition-colors"
             title="Share on X"
           >
             <img src="/lovable-uploads/x_round_icon.png" alt="X" className="w-5 h-5" />
-            <span className="text-sm">X</span>
           </button>
           
           <button
             onClick={handleFarcasterShare}
-            className="flex items-center justify-center gap-2 px-4 py-2 bg-[#855DCD] hover:bg-[#7347bc] text-white rounded-lg transition-colors"
+            className="flex items-center justify-center p-3 bg-[#855DCD] hover:bg-[#7347bc] text-white rounded-lg transition-colors"
             title="Share on Farcaster"
           >
             <img src="/lovable-uploads/farcaster_icon.png" alt="Farcaster" className="w-5 h-5" />
-            <span className="text-sm">Farcaster</span>
           </button>
           
           <button
             onClick={handleCopyLink}
-            className="flex items-center justify-center gap-2 px-4 py-2 bg-white/10 hover:bg-white/20 text-slate-800 dark:text-white rounded-lg transition-colors border border-slate-300 dark:border-white/20"
+            className="flex items-center justify-center p-3 bg-white/10 hover:bg-white/20 text-slate-800 dark:text-white rounded-lg transition-colors border border-slate-300 dark:border-white/20"
             title="Copy Link"
           >
-            <Link2 className="w-4 h-4" />
-            <span className="text-sm">Copy</span>
+            <Link2 className="w-5 h-5" />
           </button>
         </div>
       </div>
