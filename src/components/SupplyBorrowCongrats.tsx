@@ -126,26 +126,26 @@ const SupplyBorrowCongrats: React.FC<SupplyBorrowCongratsProps> = ({
         <div className="flex gap-2 justify-center">
           <button
             onClick={handleTwitterShare}
-            className="flex items-center justify-center p-3 bg-[#000000] hover:bg-[#1a1a1a] text-white rounded-lg transition-colors"
+            className="flex items-center justify-center w-12 h-12 bg-[#000000] hover:bg-[#1a1a1a] text-white rounded-full transition-all shadow-lg hover:shadow-xl"
             title="Share on X"
           >
-            <img src="/lovable-uploads/x_round_icon.png" alt="X" className="w-5 h-5" />
+            <img src="/lovable-uploads/x_round_icon.png" alt="X" className="w-6 h-6" />
           </button>
           
           <button
             onClick={handleFarcasterShare}
-            className="flex items-center justify-center p-3 bg-[#855DCD] hover:bg-[#7347bc] text-white rounded-lg transition-colors"
+            className="flex items-center justify-center w-12 h-12 bg-[#855DCD] hover:bg-[#7347bc] text-white rounded-full transition-all shadow-lg hover:shadow-xl"
             title="Share on Farcaster"
           >
-            <img src="/lovable-uploads/farcaster_icon.png" alt="Farcaster" className="w-5 h-5" />
+            <img src="/lovable-uploads/farcaster_icon.png" alt="Farcaster" className="w-6 h-6" />
           </button>
           
           <button
             onClick={handleCopyLink}
-            className="flex items-center justify-center p-3 bg-white/10 hover:bg-white/20 text-slate-800 dark:text-white rounded-lg transition-colors border border-slate-300 dark:border-white/20"
+            className="flex items-center justify-center w-12 h-12 bg-slate-700 hover:bg-slate-600 dark:bg-slate-600 dark:hover:bg-slate-500 text-white rounded-full transition-all shadow-lg hover:shadow-xl"
             title="Copy Link"
           >
-            <Link2 className="w-5 h-5" />
+            <Link2 className="w-6 h-6" />
           </button>
         </div>
       </div>
