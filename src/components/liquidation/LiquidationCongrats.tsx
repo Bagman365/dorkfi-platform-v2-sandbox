@@ -85,14 +85,6 @@ const LiquidationCongrats: React.FC<LiquidationCongratsProps> = ({
         >
           Return to Liquidation Markets
         </DorkFiButton>
-        
-        <DorkFiButton
-          variant="secondary"
-          className="w-full border-ocean-teal text-ocean-teal dark:border-whale-gold dark:text-whale-gold"
-          onClick={onLiquidateAnother}
-        >
-          Liquidate Another Position
-        </DorkFiButton>
       </div>
       
       <button
