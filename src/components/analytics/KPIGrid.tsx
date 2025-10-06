@@ -3,6 +3,7 @@ import KPICard from './KPICard';
 import { useAnalyticsData } from '@/hooks/useAnalyticsData';
 import { formatCurrency, formatNumber } from '@/utils/analyticsUtils';
 import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from '@/components/ui/tooltip';
+import { getTokenImagePath } from '@/utils/tokenImageUtils';
 
 const KPIGrid = () => {
   const { kpiData, loading } = useAnalyticsData();
@@ -59,7 +60,7 @@ const KPIGrid = () => {
                 title="WAD Circulation"
                 value={formatCurrency(kpiData.wadCirculation)}
                 change={2.1}
-                icon="🪙"
+                iconImage={getTokenImagePath('WAD')}
               />
             </div>
           </TooltipTrigger>
