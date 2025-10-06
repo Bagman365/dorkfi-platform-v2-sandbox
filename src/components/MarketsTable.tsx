@@ -21,6 +21,9 @@ const MarketsTable = () => {
   const [withdrawModal, setWithdrawModal] = useState({ isOpen: false, asset: null });
   const [borrowModal, setBorrowModal] = useState({ isOpen: false, asset: null });
   const [detailModal, setDetailModal] = useState({ isOpen: false, asset: null, marketData: null });
+  
+  // Mock user deposits - in real app, this would come from user's wallet/backend
+  const [userDeposits] = useState<Record<string, number>>({});
 
   const {
     data: markets,
@@ -150,6 +153,7 @@ const MarketsTable = () => {
 
             <MarketsTableContent
               markets={markets}
+              userDeposits={userDeposits}
               onRowClick={handleRowClick}
               onInfoClick={handleInfoClick}
               onDepositClick={handleDepositClick}

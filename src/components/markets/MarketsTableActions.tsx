@@ -3,12 +3,13 @@ import DorkFiButton from "@/components/ui/DorkFiButton";
 
 interface MarketsTableActionsProps {
   asset: string;
+  hasDeposit: boolean;
   onDepositClick: (asset: string) => void;
   onWithdrawClick: (asset: string) => void;
   onBorrowClick: (asset: string) => void;
 }
 
-const MarketsTableActions = ({ asset, onDepositClick, onWithdrawClick, onBorrowClick }: MarketsTableActionsProps) => {
+const MarketsTableActions = ({ asset, hasDeposit, onDepositClick, onWithdrawClick, onBorrowClick }: MarketsTableActionsProps) => {
   return (
     <div className="flex space-x-2">
       <DorkFiButton
@@ -20,15 +21,17 @@ const MarketsTableActions = ({ asset, onDepositClick, onWithdrawClick, onBorrowC
       >
         Deposit
       </DorkFiButton>
-      <DorkFiButton
-        variant="danger-outline"
-        onClick={(e) => {
-          e.stopPropagation();
-          onWithdrawClick(asset);
-        }}
-      >
-        Withdraw
-      </DorkFiButton>
+      {hasDeposit && (
+        <DorkFiButton
+          variant="danger-outline"
+          onClick={(e) => {
+            e.stopPropagation();
+            onWithdrawClick(asset);
+          }}
+        >
+          Withdraw
+        </DorkFiButton>
+      )}
       <DorkFiButton
         variant="borrow-outline"
         onClick={(e) => {

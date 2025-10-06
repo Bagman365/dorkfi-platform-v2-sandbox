@@ -9,6 +9,7 @@ import { Button } from "@/components/ui/button";
 
 interface MarketsTabletTableProps {
   markets: MarketData[];
+  userDeposits: Record<string, number>;
   onRowClick: (market: MarketData) => void;
   onInfoClick: (e: React.MouseEvent, market: MarketData) => void;
   onDepositClick: (asset: string) => void;
@@ -18,6 +19,7 @@ interface MarketsTabletTableProps {
 
 const MarketsTabletTable = ({
   markets,
+  userDeposits,
   onRowClick,
   onInfoClick,
   onDepositClick,
@@ -93,6 +95,7 @@ const MarketsTabletTable = ({
               <TableCell className="text-center">
                 <MarketsTableActions
                   asset={market.asset}
+                  hasDeposit={(userDeposits[market.asset] || 0) > 0}
                   onDepositClick={onDepositClick}
                   onWithdrawClick={onWithdrawClick}
                   onBorrowClick={onBorrowClick}

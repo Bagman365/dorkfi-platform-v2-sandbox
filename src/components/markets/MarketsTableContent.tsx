@@ -7,6 +7,7 @@ import MarketCardView from "./MarketCardView";
 
 interface MarketsTableContentProps {
   markets: MarketData[];
+  userDeposits: Record<string, number>;
   onRowClick: (market: MarketData) => void;
   onInfoClick: (e: React.MouseEvent, market: MarketData) => void;
   onDepositClick: (asset: string) => void;
@@ -15,7 +16,8 @@ interface MarketsTableContentProps {
 }
 
 const MarketsTableContent = ({ 
-  markets, 
+  markets,
+  userDeposits,
   onRowClick, 
   onInfoClick, 
   onDepositClick,
@@ -28,6 +30,7 @@ const MarketsTableContent = ({
     return (
       <MarketCardView
         markets={markets}
+        userDeposits={userDeposits}
         onRowClick={onRowClick}
         onInfoClick={onInfoClick}
         onDepositClick={onDepositClick}
@@ -41,6 +44,7 @@ const MarketsTableContent = ({
     return (
       <MarketsTabletTable
         markets={markets}
+        userDeposits={userDeposits}
         onRowClick={onRowClick}
         onInfoClick={onInfoClick}
         onDepositClick={onDepositClick}
@@ -54,6 +58,7 @@ const MarketsTableContent = ({
   return (
     <MarketsDesktopTable
       markets={markets}
+      userDeposits={userDeposits}
       onRowClick={onRowClick}
       onInfoClick={onInfoClick}
       onDepositClick={onDepositClick}

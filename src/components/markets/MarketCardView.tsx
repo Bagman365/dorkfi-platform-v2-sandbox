@@ -9,6 +9,7 @@ import DorkFiButton from "@/components/ui/DorkFiButton";
 
 interface MarketCardViewProps {
   markets: MarketData[];
+  userDeposits: Record<string, number>;
   onRowClick: (market: MarketData) => void;
   onInfoClick: (e: React.MouseEvent, market: MarketData) => void;
   onDepositClick: (asset: string) => void;
@@ -17,7 +18,8 @@ interface MarketCardViewProps {
 }
 
 const MarketCardView = ({ 
-  markets, 
+  markets,
+  userDeposits,
   onRowClick, 
   onInfoClick, 
   onDepositClick,
@@ -97,10 +99,12 @@ const MarketCardView = ({
               variant="secondary"
               onClick={e => { e.stopPropagation(); onDepositClick(market.asset); }}
             >Deposit</DorkFiButton>
-            <DorkFiButton
-              variant="danger-outline"
-              onClick={e => { e.stopPropagation(); onWithdrawClick(market.asset); }}
-            >Withdraw</DorkFiButton>
+            {(userDeposits[market.asset] || 0) > 0 && (
+              <DorkFiButton
+                variant="danger-outline"
+                onClick={e => { e.stopPropagation(); onWithdrawClick(market.asset); }}
+              >Withdraw</DorkFiButton>
+            )}
             <DorkFiButton
               variant="borrow-outline"
               onClick={e => { e.stopPropagation(); onBorrowClick(market.asset); }}
