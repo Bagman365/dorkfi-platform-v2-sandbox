@@ -1,7 +1,8 @@
 
 import React from "react";
-import { CheckCircle2, Sparkles } from "lucide-react";
+import { CheckCircle2, Sparkles, Link2, Wallet, Share } from "lucide-react";
 import DorkFiButton from "@/components/ui/DorkFiButton";
+import { toast } from "@/hooks/use-toast";
 
 interface SupplyBorrowCongratsProps {
   transactionType: "deposit" | "borrow" | "withdraw" | "repay";
@@ -41,6 +42,44 @@ const SupplyBorrowCongrats: React.FC<SupplyBorrowCongratsProps> = ({
 
   const { action, preposition } = getTransactionMessage();
   
+  const generateShareUrl = () => {
+    const params = new URLSearchParams({
+      action: transactionType,
+      asset: asset,
+      amount: amount,
+    });
+    return `${window.location.origin}/?${params.toString()}`;
+  };
+
+  const shareMessage = `Just ${action} ${amount} ${asset} on DorkFi! 🎯\n\nJoin me on DorkFi:`;
+
+  const handleTwitterShare = () => {
+    const url = `https://twitter.com/intent/tweet?text=${encodeURIComponent(shareMessage)}&url=${encodeURIComponent(generateShareUrl())}`;
+    window.open(url, '_blank', 'width=550,height=420');
+  };
+
+  const handleFarcasterShare = () => {
+    const text = `${shareMessage} ${generateShareUrl()}`;
+    const url = `https://warpcast.com/~/compose?text=${encodeURIComponent(text)}`;
+    window.open(url, '_blank', 'width=550,height=600');
+  };
+
+  const handleCopyLink = async () => {
+    try {
+      await navigator.clipboard.writeText(generateShareUrl());
+      toast({
+        title: "Link copied!",
+        description: "Share link copied to clipboard",
+      });
+    } catch (err) {
+      toast({
+        title: "Failed to copy",
+        description: "Please try again",
+        variant: "destructive",
+      });
+    }
+  };
+  
   return (
     <div className="flex flex-col items-center justify-center gap-4 animate-fade-in">
       {/* Confetti & Sparkles */}
@@ -79,6 +118,41 @@ const SupplyBorrowCongrats: React.FC<SupplyBorrowCongratsProps> = ({
         >
           View Profile
         </DorkFiButton>
+      </div>
+      
+      {/* Share Section */}
+      <div className="w-full mt-3 mb-2">
+        <h3 className="text-sm font-semibold text-center text-slate-600 dark:text-slate-300 mb-3">Share Your Success</h3>
+        <div className="flex gap-2 justify-center">
+          <button
+            onClick={handleTwitterShare}
+            className="flex items-center justify-center gap-2 px-4 py-2 bg-[#000000] hover:bg-[#1a1a1a] text-white rounded-lg transition-colors"
+            title="Share on X"
+          >
+            <svg className="w-4 h-4" viewBox="0 0 24 24" fill="currentColor">
+              <path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z"/>
+            </svg>
+            <span className="text-sm">X</span>
+          </button>
+          
+          <button
+            onClick={handleFarcasterShare}
+            className="flex items-center justify-center gap-2 px-4 py-2 bg-[#855DCD] hover:bg-[#7347bc] text-white rounded-lg transition-colors"
+            title="Share on Farcaster"
+          >
+            <Share className="w-4 h-4" />
+            <span className="text-sm">Farcaster</span>
+          </button>
+          
+          <button
+            onClick={handleCopyLink}
+            className="flex items-center justify-center gap-2 px-4 py-2 bg-white/10 hover:bg-white/20 text-slate-800 dark:text-white rounded-lg transition-colors border border-slate-300 dark:border-white/20"
+            title="Copy Link"
+          >
+            <Link2 className="w-4 h-4" />
+            <span className="text-sm">Copy</span>
+          </button>
+        </div>
       </div>
       
       <button
