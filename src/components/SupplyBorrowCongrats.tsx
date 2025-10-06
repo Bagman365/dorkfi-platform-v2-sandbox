@@ -67,9 +67,9 @@ const SupplyBorrowCongrats: React.FC<SupplyBorrowCongratsProps> = ({
         <DorkFiButton
           variant="primary"
           className="w-full bg-ocean-teal hover:bg-ocean-teal/90 text-white rounded-xl py-3 text-lg"
-          onClick={onViewTransaction}
+          onClick={onMakeAnother}
         >
-          View Transaction
+          Make Another Transaction
         </DorkFiButton>
         
         <DorkFiButton
@@ -77,15 +77,7 @@ const SupplyBorrowCongrats: React.FC<SupplyBorrowCongratsProps> = ({
           className="w-full border-ocean-teal text-ocean-teal dark:border-whale-gold dark:text-whale-gold"
           onClick={onGoToPortfolio}
         >
-          Go to Portfolio
-        </DorkFiButton>
-        
-        <DorkFiButton
-          variant="secondary"
-          className="w-full border-ocean-teal text-ocean-teal dark:border-whale-gold dark:text-whale-gold"
-          onClick={onMakeAnother}
-        >
-          Make Another Transaction
+          View Profile
         </DorkFiButton>
       </div>
       
