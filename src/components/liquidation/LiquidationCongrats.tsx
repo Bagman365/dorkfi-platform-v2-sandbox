@@ -1,6 +1,6 @@
 
 import React from "react";
-import { CheckCircle2, Sparkles, Link2, Wallet, Share } from "lucide-react";
+import { CheckCircle2, Sparkles, Link2, Twitter, MessageCircle, Wallet, Share } from "lucide-react";
 import { useNavigate } from "react-router-dom";
 import DorkFiButton from "@/components/ui/DorkFiButton";
 import { LiquidationAccount } from '@/hooks/useLiquidationData';
@@ -161,23 +161,23 @@ const LiquidationCongrats: React.FC<LiquidationCongratsProps> = ({
         <div className="flex gap-2 justify-center">
           <button
             onClick={handleTwitterShare}
-            className="flex items-center justify-center w-10 h-10 hover:scale-110 transition-transform"
+            className="flex items-center justify-center w-12 h-12 bg-[#000000] hover:bg-[#1a1a1a] text-white rounded-full hover:scale-110 transition-all shadow-lg hover:shadow-xl"
             title="Share on X"
           >
-            <img src="/lovable-uploads/x_round_icon.png" alt="X" className="w-10 h-10" />
+            <Twitter className="w-6 h-6" />
           </button>
           
           <button
             onClick={handleFarcasterShare}
-            className="flex items-center justify-center w-10 h-10 hover:scale-110 transition-transform"
+            className="flex items-center justify-center w-12 h-12 bg-[#855DCD] hover:bg-[#7645bd] text-white rounded-full hover:scale-110 transition-all shadow-lg hover:shadow-xl"
             title="Share on Farcaster"
           >
-            <img src="/lovable-uploads/farcaster_icon.png" alt="Farcaster" className="w-10 h-10" />
+            <MessageCircle className="w-6 h-6" />
           </button>
           
           <button
             onClick={handleCopyLink}
-            className="flex items-center justify-center w-12 h-12 bg-slate-700 hover:bg-slate-600 text-white rounded-full transition-all shadow-lg hover:shadow-xl"
+            className="flex items-center justify-center w-12 h-12 bg-slate-700 hover:bg-slate-600 dark:bg-slate-600 dark:hover:bg-slate-500 text-white rounded-full hover:scale-110 transition-all shadow-lg hover:shadow-xl"
             title="Copy Link"
           >
             <Link2 className="w-6 h-6" />
