@@ -1,5 +1,6 @@
 import React, { useMemo } from "react";
 import { Badge } from "@/components/ui/badge";
+import { CardTitle } from "@/components/ui/card";
 import { useRiskLevel } from "@/hooks/useRiskLevel";
 import {
   Tooltip,
@@ -41,7 +42,7 @@ export default function HealthWaterGauge({ healthFactor, avatarSrc }: Props) {
     <TooltipProvider>
       <div className="w-full space-y-4 animate-fade-in">
         {/* Header with prominent risk display */}
-        <div className="text-base font-bold text-slate-800 dark:text-white">Health Factor</div>
+        <CardTitle className="text-base">Health Factor</CardTitle>
         
       {/* Water gauge with threshold markers */}
       <div className="relative">
