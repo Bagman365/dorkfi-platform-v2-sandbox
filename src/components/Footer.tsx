@@ -5,11 +5,11 @@ const Footer = () => {
   return (
     <footer className="border-t border-border/40 mt-8 relative z-10">
       <div className="max-w-[1200px] mx-auto px-4 py-6">
-        <div className="flex flex-col md:flex-row items-center justify-between gap-4">
-          <div className="text-center md:text-left text-muted-foreground text-sm">
+        <div className="flex flex-col items-center justify-center gap-4 md:flex-row md:justify-between">
+          <div className="text-center md:text-left text-muted-foreground text-sm order-2 md:order-1">
             <p>© 2025 DorkFi Protocol. Dive into the depths of DeFi.</p>
           </div>
-          <div className="flex items-center gap-6">
+          <div className="flex items-center gap-6 order-1 md:order-2">
             <a 
               href="https://docs.dork.fi" 
               target="_blank" 
