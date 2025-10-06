@@ -26,10 +26,10 @@ export default function HealthWaterGauge({ healthFactor, avatarSrc }: Props) {
 
   // Threshold markers for risk levels
   const thresholds = useMemo(() => [
-    { hf: 1.0, label: "Critical", color: "bg-red-500/60" },
-    { hf: 1.2, label: "Caution", color: "bg-orange-500/60" },
-    { hf: 1.5, label: "Moderate", color: "bg-yellow-500/60" },
-    { hf: 3.0, label: "Safe", color: "bg-green-500/60" },
+    { hf: 1.0, label: "Critical", color: "bg-red-500/60", position: 15 },
+    { hf: 1.2, label: "Caution", color: "bg-orange-500/60", position: 37 },
+    { hf: 1.5, label: "Moderate", color: "bg-yellow-500/60", position: 59 },
+    { hf: 3.0, label: "Safe", color: "bg-green-500/60", position: 81 },
   ], []);
 
   const getThresholdPosition = (thresholdHf: number) => {
@@ -97,12 +97,11 @@ export default function HealthWaterGauge({ healthFactor, avatarSrc }: Props) {
 
           {/* Risk threshold markers */}
           {thresholds.map((threshold, idx) => {
-            const pos = getThresholdPosition(threshold.hf);
             return (
               <div
                 key={idx}
                 className="absolute left-0 right-0 flex items-center z-20 transition-all duration-500"
-                style={{ bottom: `${pos}%` }}
+                style={{ bottom: `${threshold.position}%` }}
               >
                 <div className={`h-[2px] w-8 ${threshold.color}`} />
                 <span className="text-[10px] text-white/70 ml-2 font-medium whitespace-nowrap">
