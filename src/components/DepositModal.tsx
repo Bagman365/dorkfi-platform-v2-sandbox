@@ -1,4 +1,4 @@
-import { useState, useEffect } from "react";
+import { useState, useEffect, useMemo } from "react";
 import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogDescription } from "@/components/ui/dialog";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
@@ -28,6 +28,19 @@ const DepositModal = ({ isOpen, onClose, tokenSymbol, tokenIcon, userBalance, ma
   const [fiatValue, setFiatValue] = useState(0);
   const [showSuccess, setShowSuccess] = useState(false);
   const [collateralType, setCollateralType] = useState<string>("VOI");
+
+  // Map collateral assets to their icons
+  const assetIcons: Record<string, string> = useMemo(() => ({
+    VOI: "https://pbs.twimg.com/profile_images/1722348985962688512/yFGLQPHw_400x400.jpg",
+    wBTC: "https://cryptologos.cc/logos/bitcoin-btc-logo.png",
+    wETH: "https://cryptologos.cc/logos/ethereum-eth-logo.png",
+    UNIT: tokenIcon, // Use default or provide specific icon
+    USDC: "https://cryptologos.cc/logos/usd-coin-usdc-logo.png"
+  }), [tokenIcon]);
+
+  // Get current collateral display info
+  const currentCollateralIcon = assetIcons[collateralType] || tokenIcon;
+  const currentCollateralSymbol = collateralType;
 
   // Reset states when modal opens/closes
   useEffect(() => {
@@ -105,11 +118,11 @@ const DepositModal = ({ isOpen, onClose, tokenSymbol, tokenIcon, userBalance, ma
                 </DialogDescription>
                 <div className="flex items-center justify-center gap-3 pb-2 mt-3">
                   <img 
-                    src={tokenIcon} 
-                    alt={tokenSymbol}
+                    src={currentCollateralIcon} 
+                    alt={currentCollateralSymbol}
                     className="w-12 h-12 rounded-full shadow"
                   />
-                  <span className="text-xl font-semibold text-slate-800 dark:text-white">{tokenSymbol}</span>
+                  <span className="text-xl font-semibold text-slate-800 dark:text-white">{currentCollateralSymbol}</span>
                 </div>
               </DialogHeader>
               
