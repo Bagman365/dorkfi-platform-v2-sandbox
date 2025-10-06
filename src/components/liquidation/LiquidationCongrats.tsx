@@ -1,6 +1,6 @@
 
 import React from "react";
-import { CheckCircle2, Sparkles, Trophy, Twitter, Link2, Share2, Wallet } from "lucide-react";
+import { CheckCircle2, Sparkles, Trophy, Twitter, Link2, Wallet } from "lucide-react";
 import { useNavigate } from "react-router-dom";
 import DorkFiButton from "@/components/ui/DorkFiButton";
 import { LiquidationAccount } from '@/hooks/useLiquidationData';
@@ -167,16 +167,6 @@ const LiquidationCongrats: React.FC<LiquidationCongratsProps> = ({
             <Link2 className="w-4 h-4" />
             <span className="text-sm">Copy</span>
           </button>
-          
-          {navigator.share && (
-            <button
-              onClick={handleNativeShare}
-              className="flex items-center justify-center gap-2 px-4 py-2 bg-white/10 hover:bg-white/20 text-white rounded-lg transition-colors"
-              title="Share"
-            >
-              <Share2 className="w-4 h-4" />
-            </button>
-          )}
         </div>
       </div>
       
