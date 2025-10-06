@@ -49,7 +49,11 @@ const HealthFactorActions = ({
             <Button 
               onClick={onAddCollateral}
               size="lg"
-              className="whale-button text-deep-navy font-bold w-full focus-whale hover:scale-105 transition-all duration-300"
+              className={`w-full font-bold ${
+                isPrimaryAction 
+                  ? 'bg-gradient-to-r from-ocean-teal to-highlight-aqua hover:from-ocean-teal/90 hover:to-highlight-aqua/90 text-white shadow-lg shadow-ocean-teal/30 animate-scale-in' 
+                  : 'bg-ocean-teal hover:bg-ocean-teal/90 text-white'
+              } transition-all duration-300`}
             >
               Add Collateral
             </Button>
@@ -65,7 +69,8 @@ const HealthFactorActions = ({
             <Button 
               onClick={onBuyVoi}
               size="lg"
-              className="whale-button text-deep-navy font-bold w-full focus-whale hover:scale-105 transition-all duration-300"
+              variant="outline"
+              className="w-full border-2 border-whale-gold text-whale-gold hover:bg-whale-gold hover:text-black font-bold transition-all duration-300 hover:shadow-lg hover:shadow-whale-gold/20"
             >
               Buy VOI
             </Button>
