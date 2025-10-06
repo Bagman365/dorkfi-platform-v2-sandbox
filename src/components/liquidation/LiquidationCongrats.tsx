@@ -164,9 +164,7 @@ const LiquidationCongrats: React.FC<LiquidationCongratsProps> = ({
             className="flex items-center justify-center gap-2 px-4 py-2 bg-[#000000] hover:bg-[#1a1a1a] text-white rounded-lg transition-colors"
             title="Share on X"
           >
-            <svg className="w-4 h-4" viewBox="0 0 24 24" fill="currentColor">
-              <path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z"/>
-            </svg>
+            <img src="/lovable-uploads/x_round_icon.png" alt="X" className="w-5 h-5" />
             <span className="text-sm">X</span>
           </button>
           
@@ -175,7 +173,7 @@ const LiquidationCongrats: React.FC<LiquidationCongratsProps> = ({
             className="flex items-center justify-center gap-2 px-4 py-2 bg-[#855DCD] hover:bg-[#7347bc] text-white rounded-lg transition-colors"
             title="Share on Farcaster"
           >
-            <Share className="w-4 h-4" />
+            <img src="/lovable-uploads/farcaster_icon.png" alt="Farcaster" className="w-5 h-5" />
             <span className="text-sm">Farcaster</span>
           </button>
           
