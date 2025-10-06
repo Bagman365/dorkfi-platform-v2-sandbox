@@ -41,7 +41,7 @@ export default function HealthWaterGauge({ healthFactor, avatarSrc }: Props) {
     <TooltipProvider>
       <div className="w-full space-y-4 animate-fade-in">
         {/* Header with prominent risk display */}
-        <div className="text-xl font-bold text-slate-800 dark:text-white">Health Factor</div>
+        <div className="text-base font-bold text-slate-800 dark:text-white">Health Factor</div>
         
       {/* Water gauge with threshold markers */}
       <div className="relative">
