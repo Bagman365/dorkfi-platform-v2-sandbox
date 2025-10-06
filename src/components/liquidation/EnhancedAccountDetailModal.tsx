@@ -177,7 +177,7 @@ export default function EnhancedAccountDetailModal({
       <DialogContent className="max-w-3xl max-h-[90vh] bg-background border-border text-foreground rounded-xl border border-gray-200/50 dark:border-ocean-teal/20 shadow-xl card-hover hover:shadow-lg hover:border-ocean-teal/40 transition-all px-0 py-0">
         <DialogHeader className="border-b border-border pt-6 px-8 pb-3">
           <DialogTitle className="text-foreground text-center text-2xl font-bold">
-            {liquidationStep === 'success' ? 'Liquidation Complete' : 'Liquidation Queue'}
+            {liquidationStep === 'success' ? 'Liquidation Complete' : 'Liquidate Account'}
           </DialogTitle>
         </DialogHeader>
         <div className="overflow-y-auto px-8 pb-8 pt-3">
