@@ -38,7 +38,7 @@ export default function AccountOverview({
             </p>
           </div>
           
-          {(isLiquidatable || isHighRisk) && <DorkFiButton variant={isLiquidatable ? "danger-outline" : "high"} onClick={onInitiateLiquidation} className="flex items-center gap-2 px-4 py-2 hover:scale-105 transition-all">
+          {(isLiquidatable || isHighRisk) && <DorkFiButton variant="danger" onClick={onInitiateLiquidation} className="flex items-center gap-2 px-4 py-2 hover:scale-105 transition-all">
               {isLiquidatable ? <Zap className="w-4 h-4" /> : <AlertTriangle className="w-4 h-4" />}
               {isLiquidatable ? "Liquidate Now" : "Monitor Position"}
             </DorkFiButton>}
