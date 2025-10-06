@@ -9,7 +9,7 @@ import Footer from '@/components/Footer';
 import LiquidationHeroSection from '@/components/liquidation/LiquidationHeroSection';
 import LiquidityRiskOverview from '@/components/liquidation/LiquidityRiskOverview';
 
-import ScrollTransitionCue from '@/components/liquidation/ScrollTransitionCue';
+
 import LiquidationQueueTable from '@/components/liquidation/LiquidationQueueTable';
 import LiquidationPagination from '@/components/liquidation/LiquidationPagination';
 import HorizontalSummaryCards from '@/components/liquidation/HorizontalSummaryCards';
@@ -90,8 +90,6 @@ export default function LiquidationMarkets({ activeTab, onTabChange }: Liquidati
             activeLiquidationEvents={activeLiquidationEvents}
           />
 
-          {/* Scroll Transition Cue */}
-          <ScrollTransitionCue />
 
           {/* Liquidation Queue Table */}
           <div className="space-y-6">
