@@ -1,6 +1,6 @@
 
 import React from "react";
-import { CheckCircle2, Sparkles, Link2, Twitter, MessageCircle, Wallet, Share } from "lucide-react";
+import { CheckCircle2, Sparkles, Link2, X, MessageCircle, Wallet, Share } from "lucide-react";
 import { useNavigate } from "react-router-dom";
 import DorkFiButton from "@/components/ui/DorkFiButton";
 import { LiquidationAccount } from '@/hooks/useLiquidationData';
@@ -164,7 +164,7 @@ const LiquidationCongrats: React.FC<LiquidationCongratsProps> = ({
             className="flex items-center justify-center w-12 h-12 bg-[#000000] hover:bg-[#1a1a1a] text-white rounded-full hover:scale-110 transition-all shadow-lg hover:shadow-xl"
             title="Share on X"
           >
-            <Twitter className="w-6 h-6" />
+            <X className="w-5 h-5 stroke-[3]" />
           </button>
           
           <button
