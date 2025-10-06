@@ -42,27 +42,30 @@ const LiquidationsChart = () => {
       title="Liquidation Events" 
       subtitle="Daily volume & count (30 days)"
       tooltip="Scatter plot showing daily liquidation events. Dot size represents volume, position shows frequency over time."
+      className="h-auto"
     >
-      <ResponsiveContainer width="100%" height="100%">
-        <ScatterChart data={liquidationData.events}>
-          <CartesianGrid strokeDasharray="3 3" stroke={theme === 'dark' ? 'rgb(30, 41, 59)' : 'rgb(226, 232, 240)'} />
-          <XAxis 
-            dataKey="date" 
-            tick={{ fontSize: 10 }}
-            tickFormatter={(value) => formatChartDate(value)}
-          />
-          <YAxis 
-            tick={{ fontSize: 12 }}
-            tickFormatter={(value) => formatCurrency(value, 0)}
-          />
-          <Tooltip content={<ScatterTooltip />} />
-          <Scatter 
-            dataKey="volume" 
-            fill="hsl(var(--ocean-teal))"
-            fillOpacity={0.7}
-          />
-        </ScatterChart>
-      </ResponsiveContainer>
+      <div className="h-[240px]">
+        <ResponsiveContainer width="100%" height="100%">
+          <ScatterChart data={liquidationData.events}>
+            <CartesianGrid strokeDasharray="3 3" stroke={theme === 'dark' ? 'rgb(30, 41, 59)' : 'rgb(226, 232, 240)'} />
+            <XAxis 
+              dataKey="date" 
+              tick={{ fontSize: 10 }}
+              tickFormatter={(value) => formatChartDate(value)}
+            />
+            <YAxis 
+              tick={{ fontSize: 12 }}
+              tickFormatter={(value) => formatCurrency(value, 0)}
+            />
+            <Tooltip content={<ScatterTooltip />} />
+            <Scatter 
+              dataKey="volume" 
+              fill="hsl(var(--ocean-teal))"
+              fillOpacity={0.7}
+            />
+          </ScatterChart>
+        </ResponsiveContainer>
+      </div>
     </ChartCard>
   );
 };
