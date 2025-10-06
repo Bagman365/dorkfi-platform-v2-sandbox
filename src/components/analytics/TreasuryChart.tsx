@@ -46,20 +46,34 @@ const TreasuryChart = () => {
     return null;
   };
 
+  // Calculate fee breakdown and net revenue
+  const originationFees = 125000;
+  const interestSpreads = 340000;
+  const liquidationIncentives = 85000;
+  const totalFees = originationFees + interestSpreads + liquidationIncentives;
+  const operatingCosts = 120000;
+  const netRevenue = totalFees - operatingCosts;
+
+  const feeBreakdown = [
+    { name: 'Interest Spreads', value: interestSpreads, color: 'hsl(var(--ocean-teal))' },
+    { name: 'Origination Fees', value: originationFees, color: 'hsl(var(--whale-gold))' },
+    { name: 'Liquidation Incentives', value: liquidationIncentives, color: 'hsl(var(--reef-purple))' }
+  ];
+
   return (
     <ChartCard 
       title="Insurance & Treasury" 
-      subtitle="Holdings composition & growth"
-      tooltip="Protocol treasury holdings and insurance fund composition. Shows asset diversification and fund growth over time."
+      subtitle="Protocol revenue & fee income"
+      tooltip="Protocol revenue from various fee sources and net income after operating costs."
     >
       <div className="grid grid-cols-1 md:grid-cols-2 gap-6 h-full">
-        {/* Doughnut Chart */}
+        {/* Fee Breakdown Chart */}
         <div className="flex flex-col">
-          <h4 className="text-sm font-medium text-muted-foreground mb-4">Holdings Composition</h4>
+          <h4 className="text-sm font-medium text-muted-foreground mb-4">Fee Income Breakdown</h4>
           <ResponsiveContainer width="100%" height={200}>
             <PieChart>
               <Pie
-                data={treasuryData.holdings}
+                data={feeBreakdown}
                 cx="50%"
                 cy="50%"
                 innerRadius={40}
@@ -67,51 +81,65 @@ const TreasuryChart = () => {
                 paddingAngle={2}
                 dataKey="value"
               >
-                {treasuryData.holdings.map((entry, index) => (
+                {feeBreakdown.map((entry, index) => (
                   <Cell key={`cell-${index}`} fill={entry.color} />
                 ))}
               </Pie>
               <Tooltip content={<CustomTooltip />} />
             </PieChart>
           </ResponsiveContainer>
-          <div className="flex flex-wrap gap-2 mt-2">
-            {treasuryData.holdings.map((item, index) => (
-              <div key={index} className="flex items-center gap-2 text-xs">
-                <div 
-                  className="w-3 h-3 rounded-full" 
-                  style={{ backgroundColor: item.color }}
-                />
-                <span>{item.name}</span>
+          <div className="flex flex-col gap-2 mt-2">
+            {feeBreakdown.map((item, index) => (
+              <div key={index} className="flex items-center justify-between text-xs">
+                <div className="flex items-center gap-2">
+                  <div 
+                    className="w-3 h-3 rounded-full" 
+                    style={{ backgroundColor: item.color }}
+                  />
+                  <span>{item.name}</span>
+                </div>
+                <span className="font-medium">{formatCurrency(item.value)}</span>
               </div>
             ))}
           </div>
         </div>
 
-        {/* Sparkline */}
-        <div className="flex flex-col">
-          <h4 className="text-sm font-medium text-muted-foreground mb-4">Fund Growth (90 days)</h4>
-          <ResponsiveContainer width="100%" height={200}>
-            <LineChart data={treasuryData.growthData}>
-              <XAxis 
-                dataKey="date" 
-                hide 
-              />
-              <YAxis hide />
-              <Tooltip content={<SparklineTooltip />} />
-              <Line 
-                type="monotone" 
-                dataKey="value" 
-                stroke="hsl(var(--ocean-teal))" 
-                strokeWidth={2}
-                dot={false}
-              />
-            </LineChart>
-          </ResponsiveContainer>
-          <div className="text-center mt-2">
-            <p className="text-lg font-bold text-ocean-teal">
-              {formatCurrency(treasuryData.growthData[treasuryData.growthData.length - 1]?.value || 0)}
-            </p>
-            <p className="text-xs text-muted-foreground">Current Fund Value</p>
+        {/* Revenue Summary */}
+        <div className="flex flex-col justify-between">
+          <div className="space-y-4">
+            <div>
+              <h4 className="text-sm font-medium text-muted-foreground mb-2">Total Fee Income</h4>
+              <p className="text-3xl font-bold text-ocean-teal">
+                {formatCurrency(totalFees)}
+              </p>
+            </div>
+
+            <div className="border-t border-border pt-4">
+              <div className="flex justify-between items-center mb-2">
+                <span className="text-sm text-muted-foreground">Operating Costs</span>
+                <span className="text-sm font-medium text-red-500">
+                  -{formatCurrency(operatingCosts)}
+                </span>
+              </div>
+            </div>
+
+            <div className="border-t border-border pt-4">
+              <div className="flex justify-between items-center">
+                <span className="text-sm font-medium text-muted-foreground">Net Revenue</span>
+                <span className="text-2xl font-bold text-green-600">
+                  {formatCurrency(netRevenue)}
+                </span>
+              </div>
+            </div>
+          </div>
+
+          <div className="mt-4 p-3 bg-muted/50 rounded-lg">
+            <div className="flex items-center justify-between">
+              <span className="text-xs text-muted-foreground">Profit Margin</span>
+              <span className="text-sm font-bold text-ocean-teal">
+                {((netRevenue / totalFees) * 100).toFixed(1)}%
+              </span>
+            </div>
           </div>
         </div>
       </div>
