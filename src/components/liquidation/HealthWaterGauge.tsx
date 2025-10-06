@@ -17,10 +17,10 @@ export default function HealthWaterGauge({ healthFactor, avatarSrc }: Props) {
   const hf = Math.max(0.8, Math.min(3.0, healthFactor));
   const riskLevel = useRiskLevel(hf);
 
-  // Map HF -> water height (lower HF = more water)
-  // 3.0 -> 10%, 1.2 -> 75%, 0.8 -> 92%
+  // Map HF -> water height (lower HF = less water = higher risk)
+  // 0.8 -> 10%, 1.2 -> ~25%, 3.0 -> 92%
   const waterPct = useMemo(() => {
-    const t = (3.0 - hf) / (3.0 - 0.8);
+    const t = (hf - 0.8) / (3.0 - 0.8);
     return Math.round(10 + t * 82);
   }, [hf]);
 
