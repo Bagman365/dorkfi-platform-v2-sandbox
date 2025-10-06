@@ -61,7 +61,6 @@ const TVLChart = () => {
   return (
     <ChartCard 
       title="TVL Growth" 
-      controls={controls}
       tooltip="Shows the total value locked in the protocol over time. Toggle between different time ranges and view modes."
     >
       <ResponsiveContainer width="100%" height="100%">
