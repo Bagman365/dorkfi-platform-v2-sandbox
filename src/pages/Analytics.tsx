@@ -17,6 +17,7 @@ import HealthFactorChart from "@/components/analytics/HealthFactorChart";
 import LiquidationsChart from "@/components/analytics/LiquidationsChart";
 import DepositsChart from "@/components/analytics/DepositsChart";
 import WithdrawalsChart from "@/components/analytics/WithdrawalsChart";
+import AvgLiquidationSizeCard from "@/components/analytics/AvgLiquidationSizeCard";
 import { ExternalLink } from "lucide-react";
 interface AnalyticsProps {
   activeTab: string;
@@ -69,7 +70,10 @@ const Analytics = ({
               <WithdrawalsChart />
             </div>
             <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
-              <MAUChart />
+              <div className="space-y-6">
+                <MAUChart />
+                <AvgLiquidationSizeCard />
+              </div>
               <LoanVolumeChart />
             </div>
             <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
