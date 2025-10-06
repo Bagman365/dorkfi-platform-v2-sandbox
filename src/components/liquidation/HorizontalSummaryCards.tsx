@@ -65,9 +65,19 @@ export default function HorizontalSummaryCards({
             style={{ animationDelay: `${index * 150}ms` }}
           >
             <CardContent className="p-4">
-              <div className="flex items-center justify-between mb-3">
-                <div className={`p-2 rounded-xl ${metric.color} border`}>
-                  <Icon className={`h-5 w-5 ${metric.iconColor}`} />
+              <div className="flex items-center justify-between gap-4">
+                <div className="flex items-center gap-3">
+                  <div className={`p-2 rounded-xl ${metric.color} border`}>
+                    <Icon className={`h-5 w-5 ${metric.iconColor}`} />
+                  </div>
+                  <div className="space-y-1">
+                    <p className="text-sm font-medium text-muted-foreground">
+                      {metric.title}
+                    </p>
+                    <p className="text-2xl font-bold text-foreground">
+                      {metric.value}
+                    </p>
+                  </div>
                 </div>
                 <Badge 
                   variant="outline" 
@@ -75,14 +85,6 @@ export default function HorizontalSummaryCards({
                 >
                   {metric.trend}
                 </Badge>
-              </div>
-              <div className="space-y-1">
-                <p className="text-sm font-medium text-muted-foreground">
-                  {metric.title}
-                </p>
-                <p className="text-2xl font-bold text-foreground">
-                  {metric.value}
-                </p>
               </div>
             </CardContent>
           </Card>
