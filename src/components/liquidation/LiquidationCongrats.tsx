@@ -1,6 +1,7 @@
 
 import React from "react";
-import { CheckCircle2, Sparkles, Trophy, Twitter, Link2, Share2 } from "lucide-react";
+import { CheckCircle2, Sparkles, Trophy, Twitter, Link2, Share2, Wallet } from "lucide-react";
+import { useNavigate } from "react-router-dom";
 import DorkFiButton from "@/components/ui/DorkFiButton";
 import { LiquidationAccount } from '@/hooks/useLiquidationData';
 import { LiquidationParams } from './EnhancedAccountDetailModal';
@@ -24,6 +25,8 @@ const LiquidationCongrats: React.FC<LiquidationCongratsProps> = ({
   onLiquidateAnother,
   onClose,
 }) => {
+  const navigate = useNavigate();
+  
   const generateShareUrl = () => {
     const params = new URLSearchParams({
       bonus: liquidationParams.liquidationBonus.toString(),
@@ -165,6 +168,15 @@ const LiquidationCongrats: React.FC<LiquidationCongratsProps> = ({
           onClick={onReturnToMarkets}
         >
           Return to Liquidation Markets
+        </DorkFiButton>
+        
+        <DorkFiButton
+          variant="secondary"
+          className="w-full border-ocean-teal text-ocean-teal dark:border-whale-gold dark:text-whale-gold flex items-center justify-center gap-2"
+          onClick={() => navigate('/')}
+        >
+          <Wallet className="w-4 h-4" />
+          View Portfolio
         </DorkFiButton>
       </div>
       
