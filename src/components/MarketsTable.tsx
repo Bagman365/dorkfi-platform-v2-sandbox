@@ -117,7 +117,7 @@ const MarketsTable = () => {
               <Button
                 variant="outline"
                 size="sm"
-                onClick={() => window.open('https://docs.dork.fi/markets', '_blank', 'noopener,noreferrer')}
+                onClick={() => window.open('https://docs.dork.fi', '_blank', 'noopener,noreferrer')}
                 className="flex items-center gap-2 bg-ocean-teal/5 border-ocean-teal/20 hover:bg-ocean-teal/10 text-ocean-teal"
                 aria-label="Learn more about markets (opens in new tab)"
               >
