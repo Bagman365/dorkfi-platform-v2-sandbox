@@ -1,6 +1,6 @@
 
 import React from "react";
-import { CheckCircle2, Sparkles, Trophy, Twitter, Link2, Wallet } from "lucide-react";
+import { CheckCircle2, Sparkles, Twitter, Link2, Wallet } from "lucide-react";
 import { useNavigate } from "react-router-dom";
 import DorkFiButton from "@/components/ui/DorkFiButton";
 import { LiquidationAccount } from '@/hooks/useLiquidationData';
@@ -80,7 +80,6 @@ const LiquidationCongrats: React.FC<LiquidationCongratsProps> = ({
       <div className="relative flex flex-col items-center justify-center mb-2">
         <Sparkles className="absolute -top-3 -left-3 text-whale-gold w-7 h-7 animate-bounce" />
         <Sparkles className="absolute -top-3 -right-3 text-highlight-aqua w-7 h-7 animate-bounce animation-delay-300" />
-        <Trophy className="absolute -bottom-2 -right-2 text-whale-gold w-6 h-6 animate-pulse" />
         <CheckCircle2 className="w-16 h-16 text-green-500 drop-shadow-xl bg-white dark:bg-slate-800 rounded-full p-1 border-4 border-whale-gold z-10" />
         <div className="mt-[-30px] w-32 h-32 rounded-xl shadow-md border-4 border-whale-gold mx-auto bg-gradient-to-br from-red-100 to-red-200 dark:from-red-900 dark:to-red-800 flex items-center justify-center">
           <div className="text-red-600 dark:text-red-300 font-bold text-lg">
