@@ -9,7 +9,7 @@ const Footer = () => {
           <div className="text-center md:text-left text-muted-foreground text-sm order-2 md:order-1">
             <p>© 2025 DorkFi Protocol. Dive into the depths of DeFi.</p>
           </div>
-          <div className="flex items-center gap-6 order-1 md:order-2">
+          <div className="flex items-center justify-center gap-6 order-1 md:order-2">
             <a 
               href="https://docs.dork.fi" 
               target="_blank" 
