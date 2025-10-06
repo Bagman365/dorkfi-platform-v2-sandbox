@@ -77,7 +77,7 @@ export default function AccountOverview({ account, onInitiateLiquidation }: Acco
       {isLiquidatable && (
         <Alert 
           variant="destructive" 
-          className="border-2 border-destructive w-full"
+          className="border-2 border-destructive w-full max-w-full overflow-hidden p-3 [&>svg~*]:!pl-4"
         >
           <AlertTriangle className="h-4 w-4 flex-shrink-0" />
           <AlertTitle className="text-base font-semibold">
