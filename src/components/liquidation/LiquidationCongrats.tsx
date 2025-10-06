@@ -1,6 +1,6 @@
 
 import React from "react";
-import { CheckCircle2, Sparkles, Link2, Wallet } from "lucide-react";
+import { CheckCircle2, Sparkles, Link2, Wallet, Share } from "lucide-react";
 import { useNavigate } from "react-router-dom";
 import DorkFiButton from "@/components/ui/DorkFiButton";
 import { LiquidationAccount } from '@/hooks/useLiquidationData';
@@ -42,6 +42,12 @@ const LiquidationCongrats: React.FC<LiquidationCongratsProps> = ({
   const handleTwitterShare = () => {
     const url = `https://twitter.com/intent/tweet?text=${encodeURIComponent(shareMessage)}&url=${encodeURIComponent(generateShareUrl())}`;
     window.open(url, '_blank', 'width=550,height=420');
+  };
+
+  const handleFarcasterShare = () => {
+    const text = `${shareMessage} ${generateShareUrl()}`;
+    const url = `https://warpcast.com/~/compose?text=${encodeURIComponent(text)}`;
+    window.open(url, '_blank', 'width=550,height=600');
   };
 
 
@@ -163,6 +169,16 @@ const LiquidationCongrats: React.FC<LiquidationCongratsProps> = ({
             </svg>
             <span className="text-sm">X</span>
           </button>
+          
+          <button
+            onClick={handleFarcasterShare}
+            className="flex items-center justify-center gap-2 px-4 py-2 bg-[#855DCD] hover:bg-[#7347bc] text-white rounded-lg transition-colors"
+            title="Share on Farcaster"
+          >
+            <Share className="w-4 h-4" />
+            <span className="text-sm">Farcaster</span>
+          </button>
+          
           <button
             onClick={handleCopyLink}
             className="flex items-center justify-center gap-2 px-4 py-2 bg-white/10 hover:bg-white/20 text-white rounded-lg transition-colors"
