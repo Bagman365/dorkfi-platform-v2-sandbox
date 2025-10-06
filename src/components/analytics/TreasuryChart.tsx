@@ -1,11 +1,13 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { PieChart, Pie, Cell, ResponsiveContainer, Tooltip, LineChart, Line, XAxis, YAxis } from 'recharts';
 import ChartCard from './ChartCard';
 import { useAnalyticsData } from '@/hooks/useAnalyticsData';
 import { formatCurrency, formatChartDate } from '@/utils/analyticsUtils';
+import TimeRangeToggle, { TimeRange } from './TimeRangeToggle';
 
 const TreasuryChart = () => {
   const { treasuryData, loading } = useAnalyticsData();
+  const [timeRange, setTimeRange] = useState<TimeRange>('daily');
 
   if (loading || !treasuryData) {
     return (
@@ -60,11 +62,14 @@ const TreasuryChart = () => {
     { name: 'Liquidation Incentives', value: liquidationIncentives, color: 'hsl(var(--reef-purple))' }
   ];
 
+  const controls = <TimeRangeToggle value={timeRange} onChange={setTimeRange} />;
+
   return (
     <ChartCard 
       title="Insurance & Treasury" 
       subtitle="Protocol revenue & fee income"
       tooltip="Protocol revenue from various fee sources and net income after operating costs."
+      controls={controls}
     >
       <div className="grid grid-cols-1 md:grid-cols-2 gap-6 h-full">
         {/* Fee Breakdown Chart */}

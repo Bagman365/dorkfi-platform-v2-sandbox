@@ -1,13 +1,15 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { BarChart, Bar, XAxis, YAxis, CartesianGrid, Tooltip, ResponsiveContainer, Cell } from 'recharts';
 import ChartCard from './ChartCard';
 import { useAnalyticsData } from '@/hooks/useAnalyticsData';
 import { formatNumber } from '@/utils/analyticsUtils';
 import { useTheme } from 'next-themes';
+import TimeRangeToggle, { TimeRange } from './TimeRangeToggle';
 
 const HealthFactorChart = () => {
   const { healthFactorData, loading } = useAnalyticsData();
   const { theme } = useTheme();
+  const [timeRange, setTimeRange] = useState<TimeRange>('daily');
 
   if (loading) {
     return (
@@ -41,12 +43,15 @@ const HealthFactorChart = () => {
     return null;
   };
 
+  const controls = <TimeRangeToggle value={timeRange} onChange={setTimeRange} />;
+
   return (
     <ChartCard 
       title="Health Factor Distribution" 
       subtitle="Borrower risk levels (<1.0 highlighted)"
       tooltip="Distribution of borrower health factors. Values below 1.0 are liquidatable, 1.0-1.1 are high risk, above 1.5 are safe."
       className="h-auto"
+      controls={controls}
     >
       <div className="h-[240px] mb-4">
         <ResponsiveContainer width="100%" height="100%">

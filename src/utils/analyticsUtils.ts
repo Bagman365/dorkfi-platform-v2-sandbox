@@ -222,3 +222,193 @@ export const debounce = <T extends (...args: any[]) => void>(
     timeout = setTimeout(() => func(...args), wait);
   };
 };
+
+/**
+ * Time range aggregation utilities
+ */
+export type TimeRange = 'daily' | 'weekly' | 'monthly' | 'annual';
+
+interface DataPoint {
+  date: string;
+  [key: string]: any;
+}
+
+/**
+ * Get the number of data points to generate based on time range
+ */
+export const getDataPointCount = (range: TimeRange): number => {
+  switch (range) {
+    case 'daily': return 30;
+    case 'weekly': return 16; // ~4 months
+    case 'monthly': return 24; // 2 years
+    case 'annual': return 5; // 5 years
+    default: return 30;
+  }
+};
+
+/**
+ * Get the time increment in milliseconds based on range
+ */
+export const getTimeIncrement = (range: TimeRange): number => {
+  switch (range) {
+    case 'daily': return 24 * 60 * 60 * 1000; // 1 day
+    case 'weekly': return 7 * 24 * 60 * 60 * 1000; // 7 days
+    case 'monthly': return 30 * 24 * 60 * 60 * 1000; // ~1 month
+    case 'annual': return 365 * 24 * 60 * 60 * 1000; // 1 year
+    default: return 24 * 60 * 60 * 1000;
+  }
+};
+
+/**
+ * Format date based on time range
+ */
+export const formatDateForRange = (date: Date | string, range: TimeRange): string => {
+  const d = typeof date === 'string' ? new Date(date) : date;
+  
+  switch (range) {
+    case 'daily':
+      return d.toLocaleDateString('en-US', { month: 'short', day: 'numeric' });
+    case 'weekly':
+      return `Week of ${d.toLocaleDateString('en-US', { month: 'short', day: 'numeric' })}`;
+    case 'monthly':
+      return d.toLocaleDateString('en-US', { month: 'short', year: 'numeric' });
+    case 'annual':
+      return d.getFullYear().toString();
+    default:
+      return formatChartDate(d);
+  }
+};
+
+/**
+ * Aggregate data by week (sum values)
+ */
+export const aggregateByWeek = <T extends DataPoint>(
+  data: T[], 
+  valueKeys: string[]
+): T[] => {
+  if (data.length === 0) return [];
+  
+  const weeklyData: { [key: string]: any } = {};
+  
+  data.forEach(item => {
+    const date = new Date(item.date);
+    // Get Monday of the week
+    const monday = new Date(date);
+    monday.setDate(date.getDate() - date.getDay() + 1);
+    const weekKey = monday.toISOString().split('T')[0];
+    
+    if (!weeklyData[weekKey]) {
+      weeklyData[weekKey] = { date: weekKey, count: 0 };
+      valueKeys.forEach(key => {
+        weeklyData[weekKey][key] = 0;
+      });
+    }
+    
+    valueKeys.forEach(key => {
+      if (typeof item[key] === 'number') {
+        weeklyData[weekKey][key] += item[key];
+      }
+    });
+    weeklyData[weekKey].count++;
+  });
+  
+  return Object.values(weeklyData);
+};
+
+/**
+ * Aggregate data by month (sum values)
+ */
+export const aggregateByMonth = <T extends DataPoint>(
+  data: T[], 
+  valueKeys: string[]
+): T[] => {
+  if (data.length === 0) return [];
+  
+  const monthlyData: { [key: string]: any } = {};
+  
+  data.forEach(item => {
+    const date = new Date(item.date);
+    const monthKey = `${date.getFullYear()}-${String(date.getMonth() + 1).padStart(2, '0')}-01`;
+    
+    if (!monthlyData[monthKey]) {
+      monthlyData[monthKey] = { date: monthKey, count: 0 };
+      valueKeys.forEach(key => {
+        monthlyData[monthKey][key] = 0;
+      });
+    }
+    
+    valueKeys.forEach(key => {
+      if (typeof item[key] === 'number') {
+        monthlyData[monthKey][key] += item[key];
+      }
+    });
+    monthlyData[monthKey].count++;
+  });
+  
+  return Object.values(monthlyData);
+};
+
+/**
+ * Aggregate data by year (sum values)
+ */
+export const aggregateByYear = <T extends DataPoint>(
+  data: T[], 
+  valueKeys: string[]
+): T[] => {
+  if (data.length === 0) return [];
+  
+  const yearlyData: { [key: string]: any } = {};
+  
+  data.forEach(item => {
+    const date = new Date(item.date);
+    const yearKey = `${date.getFullYear()}-01-01`;
+    
+    if (!yearlyData[yearKey]) {
+      yearlyData[yearKey] = { date: yearKey, count: 0 };
+      valueKeys.forEach(key => {
+        yearlyData[yearKey][key] = 0;
+      });
+    }
+    
+    valueKeys.forEach(key => {
+      if (typeof item[key] === 'number') {
+        yearlyData[yearKey][key] += item[key];
+      }
+    });
+    yearlyData[yearKey].count++;
+  });
+  
+  return Object.values(yearlyData);
+};
+
+/**
+ * Aggregate data with averaging for certain metrics
+ */
+export const aggregateWithAverage = <T extends DataPoint>(
+  data: T[], 
+  range: TimeRange,
+  sumKeys: string[] = [],
+  avgKeys: string[] = []
+): any[] => {
+  if (range === 'daily') return data;
+  
+  const aggregateFn = range === 'weekly' ? aggregateByWeek : 
+                      range === 'monthly' ? aggregateByMonth : 
+                      aggregateByYear;
+  
+  const allKeys = [...sumKeys, ...avgKeys];
+  const aggregated = aggregateFn(data, allKeys);
+  
+  // Convert avgKeys to averages
+  if (avgKeys.length > 0) {
+    aggregated.forEach((item: any) => {
+      avgKeys.forEach(key => {
+        if (item.count > 0) {
+          item[key] = item[key] / item.count;
+        }
+      });
+    });
+  }
+  
+  return aggregated;
+};

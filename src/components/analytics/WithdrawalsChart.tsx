@@ -1,19 +1,41 @@
-import React from 'react';
+import React, { useState, useMemo } from 'react';
 import { Area, AreaChart, ResponsiveContainer, XAxis, YAxis, Tooltip, CartesianGrid } from 'recharts';
 import ChartCard from './ChartCard';
 import { useAnalyticsData } from '@/hooks/useAnalyticsData';
 import { useTheme } from 'next-themes';
+import TimeRangeToggle, { TimeRange } from './TimeRangeToggle';
+import { aggregateWithAverage, formatDateForRange } from '@/utils/analyticsUtils';
 
 const WithdrawalsChart = () => {
   const { withdrawalsData, loading } = useAnalyticsData();
   const { theme } = useTheme();
+  const [timeRange, setTimeRange] = useState<TimeRange>('daily');
+
+  const aggregatedData = useMemo(() => {
+    return aggregateWithAverage(withdrawalsData, timeRange, ['amount']);
+  }, [withdrawalsData, timeRange]);
+
+  const totalWithdrawals = useMemo(() => 
+    aggregatedData.reduce((sum, d) => sum + (d.amount || 0), 0),
+    [aggregatedData]
+  );
+
+  const formattedTotal = `$${(totalWithdrawals / 1_000_000).toFixed(1)}M`;
+
+  const chartData = useMemo(() => 
+    aggregatedData.map(d => ({
+      date: d.date,
+      amount: (d.amount || 0) / 1_000_000,
+    })),
+    [aggregatedData]
+  );
 
   if (loading) {
     return (
       <ChartCard 
         title="Withdrawals" 
-        subtitle={`Total withdrawals: $${(189.3).toFixed(1)}M`}
-        tooltip="Monitor daily withdrawal activity to track user outflows and liquidity patterns"
+        subtitle={`Total withdrawals: ${formattedTotal}`}
+        tooltip="Monitor withdrawal activity to track user outflows and liquidity patterns"
       >
         <div className="flex items-center justify-center h-full">
           <div className="animate-pulse text-muted-foreground">Loading...</div>
@@ -22,19 +44,14 @@ const WithdrawalsChart = () => {
     );
   }
 
-  const totalWithdrawals = withdrawalsData.reduce((sum, d) => sum + d.amount, 0);
-  const formattedTotal = `$${(totalWithdrawals / 1_000_000).toFixed(1)}M`;
-
-  const chartData = withdrawalsData.map(d => ({
-    date: new Date(d.date).toLocaleDateString('en-US', { month: 'short', day: 'numeric' }),
-    amount: d.amount / 1_000_000,
-  }));
+  const controls = <TimeRangeToggle value={timeRange} onChange={setTimeRange} />;
 
   return (
     <ChartCard 
       title="Withdrawals" 
       subtitle={`Total withdrawals: ${formattedTotal}`}
-      tooltip="Monitor daily withdrawal activity to track user outflows and liquidity patterns"
+      tooltip="Monitor withdrawal activity to track user outflows and liquidity patterns"
+      controls={controls}
     >
       <ResponsiveContainer width="100%" height="100%">
         <AreaChart data={chartData}>
@@ -50,6 +67,7 @@ const WithdrawalsChart = () => {
             stroke="hsl(var(--muted-foreground))"
             fontSize={12}
             tickLine={false}
+            tickFormatter={(value) => formatDateForRange(value, timeRange)}
           />
           <YAxis 
             stroke="hsl(var(--muted-foreground))"

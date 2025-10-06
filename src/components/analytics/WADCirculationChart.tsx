@@ -1,13 +1,25 @@
-import React from 'react';
+import React, { useState, useMemo } from 'react';
 import { LineChart, Line, XAxis, YAxis, CartesianGrid, Tooltip, ResponsiveContainer } from 'recharts';
 import ChartCard from './ChartCard';
 import { useAnalyticsData } from '@/hooks/useAnalyticsData';
-import { formatCurrency, formatPercentage, formatChartDate } from '@/utils/analyticsUtils';
+import { formatCurrency, formatPercentage, formatDateForRange, aggregateWithAverage } from '@/utils/analyticsUtils';
 import { useTheme } from 'next-themes';
+import TimeRangeToggle, { TimeRange } from './TimeRangeToggle';
 
 const WADCirculationChart = () => {
   const { wadData, loading } = useAnalyticsData();
   const { theme } = useTheme();
+  const [timeRange, setTimeRange] = useState<TimeRange>('daily');
+
+  const aggregatedSupply = useMemo(() => {
+    if (!wadData) return [];
+    return aggregateWithAverage(wadData.supplyData, timeRange, ['supply']);
+  }, [wadData, timeRange]);
+
+  const aggregatedPeg = useMemo(() => {
+    if (!wadData) return [];
+    return aggregateWithAverage(wadData.pegStability, timeRange, [], ['price']);
+  }, [wadData, timeRange]);
 
   if (loading || !wadData) {
     return (
@@ -23,7 +35,7 @@ const WADCirculationChart = () => {
     if (active && payload && payload.length) {
       return (
         <div className="bg-background border border-border rounded-lg p-3 shadow-lg">
-          <p className="font-medium">{formatChartDate(label)}</p>
+          <p className="font-medium">{formatDateForRange(label, timeRange)}</p>
           <p className="text-sm text-ocean-teal">
             Supply: {formatCurrency(payload[0].value)}
           </p>
@@ -37,7 +49,7 @@ const WADCirculationChart = () => {
     if (active && payload && payload.length) {
       return (
         <div className="bg-background border border-border rounded-lg p-3 shadow-lg">
-          <p className="font-medium">{formatChartDate(label)}</p>
+          <p className="font-medium">{formatDateForRange(label, timeRange)}</p>
           <p className="text-sm text-whale-gold">
             Price: ${payload[0].value.toFixed(4)}
           </p>
@@ -47,17 +59,19 @@ const WADCirculationChart = () => {
     return null;
   };
 
+  const controls = <TimeRangeToggle value={timeRange} onChange={setTimeRange} />;
+
   return (
     <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
       {/* Supply Growth */}
-      <ChartCard title="WAD Supply Growth" className="lg:col-span-2">
+      <ChartCard title="WAD Supply Growth" className="lg:col-span-2" controls={controls}>
         <ResponsiveContainer width="100%" height="100%">
-          <LineChart data={wadData.supplyData}>
+          <LineChart data={aggregatedSupply}>
             <CartesianGrid strokeDasharray="3 3" stroke={theme === 'dark' ? 'rgb(30, 41, 59)' : 'rgb(226, 232, 240)'} />
             <XAxis 
               dataKey="date" 
               tick={{ fontSize: 12 }}
-              tickFormatter={(value) => formatChartDate(value)}
+              tickFormatter={(value) => formatDateForRange(value, timeRange)}
             />
             <YAxis 
               tick={{ fontSize: 12 }}
@@ -104,10 +118,10 @@ const WADCirculationChart = () => {
         {/* Peg Stability Heatmap */}
         <div className="dorkfi-card-bg rounded-xl border border-border/40 p-4">
           <h4 className="text-sm font-medium text-muted-foreground mb-4">
-            Peg Stability (30d)
+            Peg Stability ({timeRange})
           </h4>
           <ResponsiveContainer width="100%" height={120}>
-            <LineChart data={wadData.pegStability}>
+            <LineChart data={aggregatedPeg}>
               <XAxis dataKey="date" hide />
               <YAxis 
                 domain={[0.98, 1.02]}

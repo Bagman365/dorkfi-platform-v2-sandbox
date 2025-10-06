@@ -129,15 +129,15 @@ const generateMockKPIData = (): KPIData => ({
   activeWallets: 48_720,
 });
 
-const generateMockTVLData = (): TVLData[] => {
+const generateMockTVLData = (days: number = 30): TVLData[] => {
   const data: TVLData[] = [];
   const now = new Date();
   
-  for (let i = 30; i >= 0; i--) {
+  for (let i = days; i >= 0; i--) {
     const date = new Date(now);
     date.setDate(date.getDate() - i);
     
-    const baseTotal = 200_000_000 + (30 - i) * 1_500_000 + Math.random() * 5_000_000;
+    const baseTotal = 200_000_000 + (days - i) * 1_500_000 + Math.random() * 5_000_000;
     data.push({
       date: date.toISOString().split('T')[0],
       total: baseTotal,
@@ -200,9 +200,9 @@ const generateMockMAUData = (): MAUData[] => [
   { month: 'Mar', lenders: 21_300, borrowers: 12_100, stakers: 16_900 },
 ];
 
-const generateMockLoanData = (): LoanData => ({
-  volume: Array.from({ length: 30 }, (_, i) => ({
-    date: new Date(Date.now() - (29 - i) * 24 * 60 * 60 * 1000).toISOString().split('T')[0],
+const generateMockLoanData = (days: number = 30): LoanData => ({
+  volume: Array.from({ length: days }, (_, i) => ({
+    date: new Date(Date.now() - (days - 1 - i) * 24 * 60 * 60 * 1000).toISOString().split('T')[0],
     loans: 2_500_000 + Math.random() * 1_000_000,
     repayments: 2_200_000 + Math.random() * 800_000,
   })),
@@ -224,9 +224,9 @@ const generateMockAssetDistribution = (): AssetDistribution => ({
   ],
 });
 
-const generateMockInterestRateData = (): InterestRateData[] => {
-  return Array.from({ length: 30 }, (_, i) => ({
-    date: new Date(Date.now() - (29 - i) * 24 * 60 * 60 * 1000).toISOString().split('T')[0],
+const generateMockInterestRateData = (days: number = 30): InterestRateData[] => {
+  return Array.from({ length: days }, (_, i) => ({
+    date: new Date(Date.now() - (days - 1 - i) * 24 * 60 * 60 * 1000).toISOString().split('T')[0],
     wethSupply: 3.2 + Math.random() * 0.8,
     wethBorrow: 5.5 + Math.random() * 1.2,
     usdcSupply: 2.1 + Math.random() * 0.6,
@@ -242,9 +242,9 @@ const generateMockHealthFactorData = (): HealthFactorData[] => [
   { range: '>1.5', count: 4123, color: 'hsl(var(--ocean-teal))' },
 ];
 
-const generateMockLiquidationData = (): LiquidationData => ({
-  events: Array.from({ length: 30 }, (_, i) => ({
-    date: new Date(Date.now() - (29 - i) * 24 * 60 * 60 * 1000).toISOString().split('T')[0],
+const generateMockLiquidationData = (days: number = 30): LiquidationData => ({
+  events: Array.from({ length: days }, (_, i) => ({
+    date: new Date(Date.now() - (days - 1 - i) * 24 * 60 * 60 * 1000).toISOString().split('T')[0],
     volume: Math.random() * 2_000_000,
     count: Math.floor(Math.random() * 50) + 5,
   })),
@@ -258,16 +258,16 @@ const generateMockLiquidationData = (): LiquidationData => ({
   ],
 });
 
-const generateMockDepositsData = (): DepositsData[] => {
-  return Array.from({ length: 30 }, (_, i) => ({
-    date: new Date(Date.now() - (29 - i) * 24 * 60 * 60 * 1000).toISOString().split('T')[0],
+const generateMockDepositsData = (days: number = 30): DepositsData[] => {
+  return Array.from({ length: days }, (_, i) => ({
+    date: new Date(Date.now() - (days - 1 - i) * 24 * 60 * 60 * 1000).toISOString().split('T')[0],
     amount: 7_000_000 + Math.random() * 5_000_000 + Math.sin(i * 0.5) * 2_000_000,
   }));
 };
 
-const generateMockWithdrawalsData = (): WithdrawalsData[] => {
-  return Array.from({ length: 30 }, (_, i) => ({
-    date: new Date(Date.now() - (29 - i) * 24 * 60 * 60 * 1000).toISOString().split('T')[0],
+const generateMockWithdrawalsData = (days: number = 30): WithdrawalsData[] => {
+  return Array.from({ length: days }, (_, i) => ({
+    date: new Date(Date.now() - (days - 1 - i) * 24 * 60 * 60 * 1000).toISOString().split('T')[0],
     amount: 5_000_000 + Math.random() * 5_000_000 + Math.cos(i * 0.5) * 2_000_000,
   }));
 };

@@ -1,13 +1,15 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { BarChart, Bar, XAxis, YAxis, CartesianGrid, Tooltip, ResponsiveContainer } from 'recharts';
 import ChartCard from './ChartCard';
 import { useAnalyticsData } from '@/hooks/useAnalyticsData';
 import { formatCurrency, formatPercentage } from '@/utils/analyticsUtils';
 import { useTheme } from 'next-themes';
+import TimeRangeToggle, { TimeRange } from './TimeRangeToggle';
 
 const UtilizationChart = () => {
   const { utilizationData, loading } = useAnalyticsData();
   const { theme } = useTheme();
+  const [timeRange, setTimeRange] = useState<TimeRange>('daily');
 
   if (loading) {
     return (
@@ -40,11 +42,14 @@ const UtilizationChart = () => {
     return null;
   };
 
+  const controls = <TimeRangeToggle value={timeRange} onChange={setTimeRange} />;
+
   return (
     <ChartCard 
       title="Utilization Rates" 
       subtitle="Borrowed vs Supplied by Asset"
       tooltip="Shows how much of each asset is being borrowed relative to what's supplied. Higher utilization indicates strong demand."
+      controls={controls}
     >
       <ResponsiveContainer width="100%" height="100%">
         <BarChart data={utilizationData} margin={{ top: 20, right: 30, left: 20, bottom: 5 }}>

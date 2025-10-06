@@ -1,11 +1,13 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { PieChart, Pie, Cell, ResponsiveContainer, Tooltip, Legend } from 'recharts';
 import ChartCard from './ChartCard';
 import { useAnalyticsData } from '@/hooks/useAnalyticsData';
 import { formatCurrency } from '@/utils/analyticsUtils';
+import TimeRangeToggle, { TimeRange } from './TimeRangeToggle';
 
 const AssetDistributionChart = () => {
   const { assetDistribution, loading } = useAnalyticsData();
+  const [timeRange, setTimeRange] = useState<TimeRange>('daily');
 
   if (loading || !assetDistribution) {
     return (
@@ -32,11 +34,14 @@ const AssetDistributionChart = () => {
     return null;
   };
 
+  const controls = <TimeRangeToggle value={timeRange} onChange={setTimeRange} />;
+
   return (
     <ChartCard 
       title="Asset Distribution" 
       subtitle="Deposits vs Borrows by asset"
       tooltip="Distribution of deposits and borrows across different assets. Shows which assets are most popular for lending and borrowing."
+      controls={controls}
     >
       <div className="grid grid-cols-1 md:grid-cols-2 gap-6 h-full">
         {/* Deposits Chart */}

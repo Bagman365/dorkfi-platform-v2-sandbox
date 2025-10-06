@@ -1,13 +1,15 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { BarChart, Bar, XAxis, YAxis, CartesianGrid, Tooltip, ResponsiveContainer, Legend } from 'recharts';
 import ChartCard from './ChartCard';
 import { useAnalyticsData } from '@/hooks/useAnalyticsData';
 import { formatCurrency } from '@/utils/analyticsUtils';
 import { useTheme } from 'next-themes';
+import TimeRangeToggle, { TimeRange } from './TimeRangeToggle';
 
 const RevenueChart = () => {
   const { revenueData, loading } = useAnalyticsData();
   const { theme } = useTheme();
+  const [timeRange, setTimeRange] = useState<TimeRange>('monthly');
 
   if (loading) {
     return (
@@ -41,11 +43,14 @@ const RevenueChart = () => {
     return null;
   };
 
+  const controls = <TimeRangeToggle value={timeRange} onChange={setTimeRange} />;
+
   return (
     <ChartCard 
       title="Revenue Breakdown" 
       subtitle="Monthly revenue by source"
       tooltip="Protocol revenue from different sources: interest from lending, liquidation fees, and flash loan fees."
+      controls={controls}
     >
       <ResponsiveContainer width="100%" height="100%">
         <BarChart data={revenueData} margin={{ top: 20, right: 30, left: 20, bottom: 5 }}>

@@ -1,13 +1,15 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { BarChart, Bar, XAxis, YAxis, CartesianGrid, Tooltip, ResponsiveContainer, Legend } from 'recharts';
 import ChartCard from './ChartCard';
 import { useAnalyticsData } from '@/hooks/useAnalyticsData';
 import { formatNumber } from '@/utils/analyticsUtils';
 import { useTheme } from 'next-themes';
+import TimeRangeToggle, { TimeRange } from './TimeRangeToggle';
 
 const MAUChart = () => {
   const { mauData, loading } = useAnalyticsData();
   const { theme } = useTheme();
+  const [timeRange, setTimeRange] = useState<TimeRange>('monthly');
 
   if (loading) {
     return (
@@ -41,11 +43,14 @@ const MAUChart = () => {
     return null;
   };
 
+  const controls = <TimeRangeToggle value={timeRange} onChange={setTimeRange} />;
+
   return (
     <ChartCard 
       title="Monthly Active Users" 
       subtitle="User engagement by activity type"
       tooltip="Shows monthly active users broken down by activity: lending, borrowing, and staking. Indicates protocol adoption and usage patterns."
+      controls={controls}
     >
       <ResponsiveContainer width="100%" height="100%">
         <BarChart data={mauData} margin={{ top: 20, right: 30, left: 20, bottom: 5 }}>
