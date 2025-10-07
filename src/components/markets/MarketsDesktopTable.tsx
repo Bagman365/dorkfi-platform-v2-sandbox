@@ -55,8 +55,8 @@ const MarketsDesktopTable = ({
   }
 
   return (
-    <div className="overflow-visible p-2">
-      <div className="rounded-lg border bg-card text-card-foreground shadow-sm overflow-visible">
+    <div className="overflow-x-auto">
+      <div className="rounded-lg border bg-card text-card-foreground shadow-sm overflow-hidden">
         <Table>
           <TableHeader>
             <TableRow>
@@ -171,7 +171,7 @@ const MarketsDesktopTable = ({
             {markets.map((market) => (
               <TableRow
                 key={market.asset}
-                className="hover:bg-ocean-teal/5 cursor-pointer transition-all card-hover hover:scale-105 hover:border-ocean-teal/40"
+                className="hover:bg-ocean-teal/5 cursor-pointer transition-colors"
                 onClick={() => onRowClick(market)}
               >
                 <TableCell className="text-center">

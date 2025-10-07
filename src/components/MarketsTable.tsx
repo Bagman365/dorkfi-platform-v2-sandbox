@@ -123,7 +123,7 @@ const MarketsTable = () => {
         />
 
         {/* Markets Table */}
-        <Card className="card-hover bg-gradient-to-br from-blue-50 to-cyan-50 dark:from-slate-900 dark:to-slate-800 shadow-md border border-gray-200/50 dark:border-ocean-teal/20 overflow-visible">
+        <Card className="card-hover bg-gradient-to-br from-blue-50 to-cyan-50 dark:from-slate-900 dark:to-slate-800 shadow-md border border-gray-200/50 dark:border-ocean-teal/20">
           <CardHeader className="pb-4">
             <div className="flex items-start justify-between gap-4">
               <CardTitle className="text-xl md:text-2xl font-bold text-slate-800 dark:text-white">Market Overview</CardTitle>
@@ -139,7 +139,7 @@ const MarketsTable = () => {
               </Button>
             </div>
           </CardHeader>
-          <CardContent className="overflow-visible">
+          <CardContent>
             {/* Informational guidance - matches Liquidations Queue styles */}
             <section aria-label="What you can do here" className="mb-4 hidden md:block">
               <p className="text-sm text-muted-foreground mt-1">What You Can Do Here:</p>
