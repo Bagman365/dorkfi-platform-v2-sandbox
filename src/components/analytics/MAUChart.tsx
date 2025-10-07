@@ -45,7 +45,7 @@ const MAUChart = () => {
     <ChartCard 
       title="Monthly Active Users" 
       subtitle="User engagement by activity type"
-      tooltip="Shows monthly active users broken down by activity: lending, borrowing, and staking. Indicates protocol adoption and usage patterns."
+      tooltip="Shows monthly active users broken down by activity: lending and borrowing. Indicates protocol adoption and usage patterns."
     >
       <ResponsiveContainer width="100%" height="100%">
         <BarChart data={mauData} margin={{ top: 20, right: 30, left: 20, bottom: 5 }}>
@@ -69,13 +69,6 @@ const MAUChart = () => {
             stackId="a" 
             fill="hsl(var(--whale-gold))" 
             name="Borrowers"
-            radius={[0, 0, 0, 0]}
-          />
-          <Bar 
-            dataKey="stakers" 
-            stackId="a" 
-            fill="hsl(var(--highlight-aqua))" 
-            name="Stakers"
             radius={[4, 4, 0, 0]}
           />
         </BarChart>
