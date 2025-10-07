@@ -171,7 +171,7 @@ const MarketsDesktopTable = ({
             {markets.map((market) => (
               <TableRow
                 key={market.asset}
-                className="hover:bg-ocean-teal/5 cursor-pointer transition-colors"
+                className="hover:bg-ocean-teal/5 cursor-pointer transition-all card-hover hover:scale-105 hover:border-ocean-teal/40"
                 onClick={() => onRowClick(market)}
               >
                 <TableCell className="text-center">
