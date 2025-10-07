@@ -42,7 +42,7 @@ const InterestRateChart = () => {
       tooltip="Interest rates over time for lending (supply) and borrowing. Dashed lines show supply APY, solid lines show borrow APY."
     >
       <ResponsiveContainer width="100%" height="100%">
-        <LineChart data={interestRateData} margin={{ top: 5, right: 10, left: -10, bottom: 5 }}>
+        <LineChart data={interestRateData} margin={{ top: 5, right: 10, left: -10, bottom: 70 }}>
           <CartesianGrid strokeDasharray="3 3" stroke={theme === 'dark' ? 'rgb(30, 41, 59)' : 'rgb(226, 232, 240)'} />
           <XAxis 
             dataKey="date" 
@@ -60,6 +60,8 @@ const InterestRateChart = () => {
           <Legend 
             wrapperStyle={{ fontSize: '11px' }}
             iconSize={10}
+            verticalAlign="bottom"
+            align="center"
           />
           <Line 
             type="monotone" 
