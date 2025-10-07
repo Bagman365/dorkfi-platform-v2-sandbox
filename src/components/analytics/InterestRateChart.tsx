@@ -45,7 +45,7 @@ const InterestRateChart = () => {
       subtitle="Supply vs Borrow APY by asset"
       tooltip="Interest rates over time for lending (supply) and borrowing. Dashed lines show supply APY, solid lines show borrow APY."
     >
-      <ResponsiveContainer width="100%" height="100%">
+      <ResponsiveContainer width="100%" height="85%">
         <LineChart data={interestRateData} margin={{ top: 5, right: 10, left: -10, bottom: bottomMargin }}>
           <CartesianGrid strokeDasharray="3 3" stroke={theme === 'dark' ? 'rgb(30, 41, 59)' : 'rgb(226, 232, 240)'} />
           <XAxis 
