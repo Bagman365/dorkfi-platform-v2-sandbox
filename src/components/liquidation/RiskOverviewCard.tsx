@@ -33,7 +33,7 @@ export default function RiskOverviewCard({
   };
 
   return (
-    <Card className="deep-sea text-white border-ocean-teal/20 transition-all hover:shadow-md">
+    <Card className="deep-sea text-white border-ocean-teal/20 transition-all hover:shadow-md card-hover hover:border-ocean-teal/40">
       <CardHeader className="pb-2">
         <div className="flex items-center justify-between">
           <CardTitle className="text-sm font-medium text-muted-foreground">

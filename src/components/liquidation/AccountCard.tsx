@@ -35,7 +35,7 @@ export default function AccountCard({ account, onClick }: AccountCardProps) {
 
   return (
     <Card 
-      className="cursor-pointer transition-all hover:shadow-md hover:scale-[1.02] active:scale-[0.98]"
+      className="cursor-pointer transition-all hover:shadow-md hover:scale-[1.02] active:scale-[0.98] card-hover hover:border-ocean-teal/40"
       onClick={() => onClick(account)}
     >
       <CardContent className="p-4 space-y-3">

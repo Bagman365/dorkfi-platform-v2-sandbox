@@ -15,7 +15,7 @@ interface BorrowStatsProps {
 
 const BorrowStats = ({ tokenSymbol, marketStats }: BorrowStatsProps) => {
   return (
-    <Card className="bg-white/80 dark:bg-slate-800 border-gray-200 dark:border-slate-700">
+    <Card className="bg-white/80 dark:bg-slate-800 border-gray-200 dark:border-slate-700 card-hover hover:border-ocean-teal/40 transition-all">
       <CardContent className="p-4 space-y-3">
         <div className="flex justify-between items-center">
           <div className="flex items-center gap-2">
