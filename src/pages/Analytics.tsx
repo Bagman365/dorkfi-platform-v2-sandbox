@@ -42,8 +42,8 @@ const Analytics = ({
 
       <Header activeTab={activeTab} onTabChange={onTabChange} />
       
-      <main className="max-w-[1200px] mx-auto px-2 sm:px-4 md:px-6 py-4 md:py-8 relative z-10">
-        <div className="space-y-6 md:space-y-8 animate-fade-in">
+      <main className="max-w-[1200px] mx-auto px-3 sm:px-4 md:px-6 py-3 sm:py-4 md:py-8 relative z-10">
+        <div className="space-y-4 sm:space-y-6 md:space-y-8 animate-fade-in">
           {/* Hero Section */}
           <AnalyticsHero />
           
@@ -52,11 +52,11 @@ const Analytics = ({
           
           {/* Section 1: Protocol Health & Growth */}
           <AnalyticsSection title="Protocol Health & Growth">
-            <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
+            <div className="grid grid-cols-1 gap-4 sm:gap-6">
               <TVLChart />
               <UtilizationChart />
             </div>
-            <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
+            <div className="grid grid-cols-1 gap-4 sm:gap-6">
               <RevenueChart />
               <DebtByAssetChart />
             </div>
@@ -65,22 +65,22 @@ const Analytics = ({
           
           {/* Section 2: User & Market Activity */}
           <AnalyticsSection title="User & Market Activity">
-            <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
+            <div className="grid grid-cols-1 gap-4 sm:gap-6">
               <DepositsChart />
               <WithdrawalsChart />
             </div>
-            <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
-              <div className="space-y-6">
+            <div className="grid grid-cols-1 gap-4 sm:gap-6">
+              <div className="space-y-4 sm:space-y-6">
                 <MAUChart />
                 <AvgLiquidationSizeCard />
               </div>
               <LoanVolumeChart />
             </div>
-            <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
+            <div className="grid grid-cols-1 gap-4 sm:gap-6">
               <AssetDistributionChart />
               <InterestRateChart />
             </div>
-            <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
+            <div className="grid grid-cols-1 gap-4 sm:gap-6">
               <HealthFactorChart />
               <LiquidationsChart />
             </div>

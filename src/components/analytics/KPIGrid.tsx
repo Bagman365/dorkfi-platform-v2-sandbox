@@ -10,7 +10,7 @@ const KPIGrid = () => {
 
   if (loading || !kpiData) {
     return (
-      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-5 gap-4 animate-fade-in">
+      <div className="grid grid-cols-2 lg:grid-cols-5 gap-3 sm:gap-4 animate-fade-in">
         {Array.from({ length: 5 }).map((_, i) => (
           <div key={i} className="h-24 bg-muted rounded-xl animate-pulse" />
         ))}
@@ -20,7 +20,7 @@ const KPIGrid = () => {
 
   return (
     <TooltipProvider>
-      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-5 gap-4 animate-fade-in">
+      <div className="grid grid-cols-2 lg:grid-cols-5 gap-3 sm:gap-4 animate-fade-in">
         <Tooltip>
           <TooltipTrigger asChild>
             <div>

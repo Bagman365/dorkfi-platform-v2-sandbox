@@ -7,14 +7,14 @@ interface AnalyticsSectionProps {
 
 const AnalyticsSection = ({ title, children }: AnalyticsSectionProps) => {
   return (
-    <section className="space-y-6">
+    <section className="space-y-4 sm:space-y-6">
       <div className="relative">
-        <h2 className="dorkfi-h2 text-center">
+        <h2 className="dorkfi-h2 text-center text-xl sm:text-2xl">
           {title}
         </h2>
-        <div className="mx-auto mt-2 h-1 w-24 bg-gradient-to-r from-whale-gold to-ocean-teal rounded-full" />
+        <div className="mx-auto mt-2 h-1 w-20 sm:w-24 bg-gradient-to-r from-whale-gold to-ocean-teal rounded-full" />
       </div>
-      <div className="space-y-6">
+      <div className="space-y-4 sm:space-y-6">
         {children}
       </div>
     </section>
