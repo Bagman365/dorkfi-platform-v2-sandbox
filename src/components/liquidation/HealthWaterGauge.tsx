@@ -113,9 +113,9 @@ export default function HealthWaterGauge({ healthFactor, avatarSrc }: Props) {
           })}
             </div>
           </TooltipTrigger>
-          <TooltipContent side="right" className="max-w-xs">
+          <TooltipContent side="top" className="max-w-[280px] sm:max-w-xs" sideOffset={5}>
             <p className="font-medium mb-2">Interactive Risk Gauge</p>
-            <p>The water level represents your liquidation risk. Lower water means closer to liquidation.</p>
+            <p className="text-sm">The water level represents your liquidation risk. Lower water means closer to liquidation.</p>
             <p className="mt-2 text-xs text-muted-foreground">Threshold markers show critical risk levels.</p>
           </TooltipContent>
         </Tooltip>
