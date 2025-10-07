@@ -12,11 +12,11 @@ interface ChartCardProps {
 
 const ChartCard = ({ title, subtitle, children, className = '', controls, tooltip }: ChartCardProps) => {
   const CardContent = (
-    <div className={`dorkfi-card-bg rounded-xl border border-border/40 p-6 card-hover ${className}`}>
-      <div className="flex items-center justify-between mb-6">
+    <div className={`dorkfi-card-bg rounded-xl border border-border/40 p-4 sm:p-6 card-hover ${className}`}>
+      <div className="flex flex-col sm:flex-row sm:items-center justify-between mb-4 sm:mb-6 gap-2">
         <div>
-          <h3 className="dorkfi-h3">{title}</h3>
-          {subtitle && <p className="dorkfi-caption mt-1">{subtitle}</p>}
+          <h3 className="dorkfi-h3 text-base sm:text-lg">{title}</h3>
+          {subtitle && <p className="dorkfi-caption mt-1 text-xs sm:text-sm">{subtitle}</p>}
         </div>
         {controls && (
           <div className="flex items-center gap-2">
@@ -25,7 +25,7 @@ const ChartCard = ({ title, subtitle, children, className = '', controls, toolti
         )}
       </div>
       
-      <div className="h-[300px]">
+      <div className="h-[250px] sm:h-[300px]">
         {children}
       </div>
     </div>

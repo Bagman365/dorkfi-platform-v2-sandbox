@@ -48,16 +48,19 @@ const HealthFactorChart = () => {
       tooltip="Distribution of borrower health factors. Values below 1.0 are liquidatable, 1.0-1.1 are high risk, above 1.5 are safe."
       className="h-auto"
     >
-      <div className="h-[240px] mb-4">
+      <div className="h-[200px] sm:h-[240px] mb-3 sm:mb-4">
         <ResponsiveContainer width="100%" height="100%">
-          <BarChart data={healthFactorData} margin={{ top: 20, right: 30, left: 20, bottom: 5 }}>
+          <BarChart data={healthFactorData} margin={{ top: 10, right: 10, left: -10, bottom: 5 }}>
             <CartesianGrid strokeDasharray="3 3" stroke={theme === 'dark' ? 'rgb(30, 41, 59)' : 'rgb(226, 232, 240)'} />
             <XAxis 
               dataKey="range" 
-              tick={{ fontSize: 12 }}
+              tick={{ fontSize: 10 }}
+              angle={-20}
+              textAnchor="end"
+              height={40}
             />
             <YAxis 
-              tick={{ fontSize: 12 }}
+              tick={{ fontSize: 10 }}
               tickFormatter={(value) => formatNumber(value)}
             />
             <Tooltip content={<CustomTooltip />} cursor={{ fill: 'hsl(var(--ocean-teal))', fillOpacity: 0.15 }} />
@@ -74,11 +77,11 @@ const HealthFactorChart = () => {
       </div>
       
       {/* Risk Summary */}
-      <div className="grid grid-cols-2 md:grid-cols-5 gap-2 text-xs">
+      <div className="grid grid-cols-2 md:grid-cols-5 gap-1.5 sm:gap-2 text-[10px] sm:text-xs">
         {healthFactorData.map((item, index) => (
-          <div key={index} className="text-center p-2 rounded-lg bg-muted/50">
+          <div key={index} className="text-center p-1.5 sm:p-2 rounded-lg bg-muted/50">
             <div 
-              className="w-3 h-3 rounded-full mx-auto mb-1" 
+              className="w-2.5 h-2.5 sm:w-3 sm:h-3 rounded-full mx-auto mb-1" 
               style={{ backgroundColor: item.color }}
             />
             <p className="font-medium">{item.range}</p>

@@ -42,19 +42,25 @@ const InterestRateChart = () => {
       tooltip="Interest rates over time for lending (supply) and borrowing. Dashed lines show supply APY, solid lines show borrow APY."
     >
       <ResponsiveContainer width="100%" height="100%">
-        <LineChart data={interestRateData}>
+        <LineChart data={interestRateData} margin={{ top: 5, right: 10, left: -10, bottom: 5 }}>
           <CartesianGrid strokeDasharray="3 3" stroke={theme === 'dark' ? 'rgb(30, 41, 59)' : 'rgb(226, 232, 240)'} />
           <XAxis 
             dataKey="date" 
-            tick={{ fontSize: 12 }}
+            tick={{ fontSize: 10 }}
+            angle={-45}
+            textAnchor="end"
+            height={60}
             tickFormatter={(value) => formatChartDate(value)}
           />
           <YAxis 
-            tick={{ fontSize: 12 }}
+            tick={{ fontSize: 10 }}
             tickFormatter={(value) => formatPercentage(value)}
           />
           <Tooltip content={<CustomTooltip />} />
-          <Legend />
+          <Legend 
+            wrapperStyle={{ fontSize: '11px' }}
+            iconSize={10}
+          />
           <Line 
             type="monotone" 
             dataKey="wethSupply" 
