@@ -168,14 +168,6 @@ const LiquidationCongrats: React.FC<LiquidationCongratsProps> = ({
           </button>
           
           <button
-            onClick={handleFarcasterShare}
-            className="flex items-center justify-center w-12 h-12 bg-[#855DCD] hover:bg-[#7645bd] text-white rounded-full hover:scale-110 transition-all shadow-lg hover:shadow-xl"
-            title="Share on Farcaster"
-          >
-            <MessageCircle className="w-6 h-6" />
-          </button>
-          
-          <button
             onClick={handleCopyLink}
             className="flex items-center justify-center w-12 h-12 bg-slate-700 hover:bg-slate-600 dark:bg-slate-600 dark:hover:bg-slate-500 text-white rounded-full hover:scale-110 transition-all shadow-lg hover:shadow-xl"
             title="Copy Link"
