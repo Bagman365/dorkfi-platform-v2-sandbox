@@ -24,7 +24,7 @@ export const LiquidationPrice: React.FC<LiquidationPriceProps> = ({
   const formattedPrice = (liquidationPrice / SCALE).toFixed(2);
 
   return (
-    <div className="rounded-lg bg-muted/50 border border-border p-3">
+    <div>
       <div className="text-xs text-muted-foreground mb-0.5">Liquidation Price</div>
       <div className="text-sm font-semibold text-destructive">
         ${formattedPrice} / {collateralSymbol}
