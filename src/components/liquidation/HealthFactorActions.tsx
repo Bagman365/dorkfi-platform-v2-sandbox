@@ -1,22 +1,41 @@
 
 import { Button } from "@/components/ui/button";
 import { Tooltip, TooltipContent, TooltipTrigger } from "@/components/ui/tooltip";
+import LiquidationPrice from "./LiquidationPrice";
 
 interface HealthFactorActionsProps {
   healthFactor: number;
   onAddCollateral: () => void;
   onBuyVoi: () => void;
+  borrowedAmount?: number;
+  collateralAmount?: number;
+  liquidationThresholdBps?: number;
+  collateralSymbol?: string;
 }
 
 const HealthFactorActions = ({
   healthFactor,
   onAddCollateral,
-  onBuyVoi
+  onBuyVoi,
+  borrowedAmount,
+  collateralAmount,
+  liquidationThresholdBps,
+  collateralSymbol
 }: HealthFactorActionsProps) => {
   const isPrimaryAction = healthFactor <= 1.2;
 
   return (
     <>
+      {/* Liquidation Price Display */}
+      {borrowedAmount && collateralAmount && liquidationThresholdBps && (
+        <LiquidationPrice
+          borrowedAmount={borrowedAmount}
+          collateralAmount={collateralAmount}
+          liquidationThresholdBps={liquidationThresholdBps}
+          collateralSymbol={collateralSymbol}
+        />
+      )}
+
       {/* Risk Warning - Show at top if critical */}
       {healthFactor <= 1.2 && (
         <div className={`p-4 rounded-xl ${
