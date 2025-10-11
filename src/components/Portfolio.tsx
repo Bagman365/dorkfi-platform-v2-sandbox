@@ -33,6 +33,12 @@ const Portfolio = () => {
   const liquidationMargin = ((totalCollateral - totalBorrowed) / totalCollateral) * 100;
   const netLTV = (totalBorrowed / totalCollateral) * 100;
 
+  // Calculate liquidation price props
+  const primaryCollateral = deposits[0]; // VOI is primary
+  const collateralAmount = primaryCollateral.balance; // token units
+  const liquidationThresholdBps = 8500; // 85% liquidation threshold
+  const collateralSymbol = primaryCollateral.asset;
+
   // Mock wallet balances for modals
   const walletBalances = {
     "VOI": 2500,
@@ -147,6 +153,10 @@ const Portfolio = () => {
         underwaterBg="/lovable-uploads/44ebe994-a30e-4eb1-a4a1-776aa2978776.png"
         onAddCollateral={handleAddCollateral}
         onBuyVoi={handleBuyVoi}
+        borrowedAmount={totalBorrowed}
+        collateralAmount={collateralAmount}
+        liquidationThresholdBps={liquidationThresholdBps}
+        collateralSymbol={collateralSymbol}
       />
 
       <div className="grid grid-cols-1 lg:grid-cols-2 gap-4 sm:gap-6">

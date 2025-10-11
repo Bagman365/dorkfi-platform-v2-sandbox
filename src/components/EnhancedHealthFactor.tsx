@@ -14,6 +14,10 @@ interface EnhancedHealthFactorProps {
   underwaterBg: string;
   onAddCollateral: () => void;
   onBuyVoi: () => void;
+  borrowedAmount?: number;
+  collateralAmount?: number;
+  liquidationThresholdBps?: number;
+  collateralSymbol?: string;
 }
 
 const EnhancedHealthFactor = ({
@@ -25,7 +29,11 @@ const EnhancedHealthFactor = ({
   dorkNftImage,
   underwaterBg,
   onAddCollateral,
-  onBuyVoi
+  onBuyVoi,
+  borrowedAmount,
+  collateralAmount,
+  liquidationThresholdBps,
+  collateralSymbol
 }: EnhancedHealthFactorProps) => {
   return (
     <div className="w-full max-w-7xl mx-auto animate-fade-in">
@@ -65,6 +73,10 @@ const EnhancedHealthFactor = ({
                 healthFactor={healthFactor}
                 onAddCollateral={onAddCollateral}
                 onBuyVoi={onBuyVoi}
+                borrowedAmount={borrowedAmount}
+                collateralAmount={collateralAmount}
+                liquidationThresholdBps={liquidationThresholdBps}
+                collateralSymbol={collateralSymbol}
               />
             </div>
           </div>
