@@ -80,6 +80,15 @@ export default function LiquidationMarkets({ activeTab, onTabChange }: Liquidati
           {/* Hero Section */}
           <LiquidationHeroSection />
 
+          {/* Whale Fishing Image */}
+          <div className="flex justify-center">
+            <img 
+              src="/lovable-uploads/chub_boat_fishing.png" 
+              alt="Cute whale fishing in a boat"
+              className="w-48 h-auto"
+              loading="lazy"
+            />
+          </div>
 
           {/* Summary Cards */}
           <HorizontalSummaryCards
