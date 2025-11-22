@@ -39,7 +39,29 @@ const LiquidationCongrats: React.FC<LiquidationCongratsProps> = ({
 
   const shareMessage = `Just executed a successful liquidation on DorkFi! 💰 Earned $${liquidationParams.liquidationBonus.toLocaleString()} bonus 🎯 Received ${liquidationParams.collateralAmount.toFixed(4)} ${liquidationParams.collateralToken}\n\nStart liquidating on DorkFi:`;
 
-  const handleTwitterShare = () => {
+  const handleTwitterShare = async () => {
+    // Try native share with image first (works on mobile)
+    if (navigator.share && navigator.canShare) {
+      try {
+        const response = await fetch('/lovable-uploads/liquidation-share.png');
+        const blob = await response.blob();
+        const file = new File([blob], 'dorkfi-liquidation.png', { type: 'image/png' });
+        
+        if (navigator.canShare({ files: [file] })) {
+          await navigator.share({
+            title: 'DorkFi Liquidation Success',
+            text: shareMessage,
+            url: generateShareUrl(),
+            files: [file],
+          });
+          return;
+        }
+      } catch (err) {
+        // Fall through to Twitter web intent
+      }
+    }
+    
+    // Fallback to Twitter web intent (desktop)
     const url = `https://twitter.com/intent/tweet?text=${encodeURIComponent(shareMessage)}&url=${encodeURIComponent(generateShareUrl())}`;
     window.open(url, '_blank', 'width=550,height=420');
   };
@@ -70,13 +92,28 @@ const LiquidationCongrats: React.FC<LiquidationCongratsProps> = ({
   const handleNativeShare = async () => {
     if (navigator.share) {
       try {
+        // Fetch and convert image to blob for sharing
+        const response = await fetch('/lovable-uploads/liquidation-share.png');
+        const blob = await response.blob();
+        const file = new File([blob], 'dorkfi-liquidation.png', { type: 'image/png' });
+        
         await navigator.share({
           title: 'DorkFi Liquidation Success',
           text: shareMessage,
           url: generateShareUrl(),
+          files: [file],
         });
       } catch (err) {
-        // User cancelled share
+        // User cancelled share or browser doesn't support files
+        try {
+          await navigator.share({
+            title: 'DorkFi Liquidation Success',
+            text: shareMessage,
+            url: generateShareUrl(),
+          });
+        } catch (fallbackErr) {
+          // Completely failed
+        }
       }
     }
   };

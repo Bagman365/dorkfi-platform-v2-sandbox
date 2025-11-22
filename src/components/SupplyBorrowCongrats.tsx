@@ -53,7 +53,29 @@ const SupplyBorrowCongrats: React.FC<SupplyBorrowCongratsProps> = ({
 
   const shareMessage = `Just ${action} ${amount} ${asset} on DorkFi! 🎯\n\nJoin me on DorkFi:`;
 
-  const handleTwitterShare = () => {
+  const handleTwitterShare = async () => {
+    // Try native share with image first (works on mobile)
+    if (navigator.share && navigator.canShare) {
+      try {
+        const response = await fetch('/lovable-uploads/liquidation-share.png');
+        const blob = await response.blob();
+        const file = new File([blob], 'dorkfi-share.png', { type: 'image/png' });
+        
+        if (navigator.canShare({ files: [file] })) {
+          await navigator.share({
+            title: 'DorkFi Transaction Success',
+            text: shareMessage,
+            url: generateShareUrl(),
+            files: [file],
+          });
+          return;
+        }
+      } catch (err) {
+        // Fall through to Twitter web intent
+      }
+    }
+    
+    // Fallback to Twitter web intent (desktop)
     const url = `https://twitter.com/intent/tweet?text=${encodeURIComponent(shareMessage)}&url=${encodeURIComponent(generateShareUrl())}`;
     window.open(url, '_blank', 'width=550,height=420');
   };
