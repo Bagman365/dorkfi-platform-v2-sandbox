@@ -67,15 +67,37 @@ const LiquidationCongrats: React.FC<LiquidationCongratsProps> = ({
           url: generateShareUrl(),
           files: [file],
         });
+        toast({
+          title: "Shared!",
+          description: "Liquidation shared with image",
+        });
         return;
       }
+      
+      // On desktop, download the image for manual upload
+      const url = URL.createObjectURL(imageBlob);
+      const a = document.createElement('a');
+      a.href = url;
+      a.download = 'dorkfi-liquidation.png';
+      a.click();
+      URL.revokeObjectURL(url);
+      
+      toast({
+        title: "Image downloaded!",
+        description: "Upload it manually when composing your tweet",
+      });
+      
+      // Open Twitter after brief delay to allow download
+      setTimeout(() => {
+        const twitterUrl = `https://twitter.com/intent/tweet?text=${encodeURIComponent(shareMessage)}&url=${encodeURIComponent(generateShareUrl())}`;
+        window.open(twitterUrl, '_blank', 'width=550,height=420');
+      }, 500);
     } catch (err) {
       console.error('Error generating share image:', err);
+      // Fallback to text-only share
+      const url = `https://twitter.com/intent/tweet?text=${encodeURIComponent(shareMessage)}&url=${encodeURIComponent(generateShareUrl())}`;
+      window.open(url, '_blank', 'width=550,height=420');
     }
-    
-    // Fallback to Twitter web intent (desktop)
-    const url = `https://twitter.com/intent/tweet?text=${encodeURIComponent(shareMessage)}&url=${encodeURIComponent(generateShareUrl())}`;
-    window.open(url, '_blank', 'width=550,height=420');
   };
 
   const handleFarcasterShare = () => {
