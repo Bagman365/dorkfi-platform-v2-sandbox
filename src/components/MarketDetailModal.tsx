@@ -151,7 +151,7 @@ const MarketDetailModal = ({ isOpen, onClose, asset, marketData }: MarketDetailM
             </Card>
 
             {/* Row 1: Supply Info | Borrow Info */}
-            <div className="grid lg:grid-cols-2 gap-4">
+            <div className="grid lg:grid-cols-2 gap-4 auto-rows-fr">
               {/* Supply Information */}
               <Card className="border-green-200 dark:border-green-800 bg-white/50 dark:bg-slate-800">
                 <CardHeader className="pb-3">
@@ -284,7 +284,7 @@ const MarketDetailModal = ({ isOpen, onClose, asset, marketData }: MarketDetailM
             </div>
 
             {/* Row 2: Collateral Info | Protocol Config */}
-            <div className="grid lg:grid-cols-2 gap-4">
+            <div className="grid lg:grid-cols-2 gap-4 auto-rows-fr">
               {/* Collateral Information */}
               <Card className="border-yellow-200 dark:border-yellow-800 bg-white/50 dark:bg-slate-800">
                 <CardHeader className="pb-3">
