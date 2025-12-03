@@ -4,7 +4,7 @@ import { Dialog, DialogContent, DialogHeader, DialogTitle } from "@/components/u
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
-import { ExternalLink, Info } from "lucide-react";
+import { ExternalLink, Info, TrendingUp, TrendingDown } from "lucide-react";
 import { Tooltip, TooltipContent, TooltipTrigger } from "@/components/ui/tooltip";
 import SupplyBorrowModal from "@/components/SupplyBorrowModal";
 
@@ -82,6 +82,10 @@ const MarketDetailModal = ({ isOpen, onClose, asset, marketData }: MarketDetailM
     ? marketData.totalSupplyUSD / marketData.totalSupply 
     : 0;
 
+  // Mock 24h price change - in production this would come from API
+  const priceChange24h = ((asset.charCodeAt(0) % 10) - 5) + (Math.random() * 2 - 1);
+  const isPricePositive = priceChange24h >= 0;
+
   return (
     <>
       <Dialog open={isOpen} onOpenChange={onClose}>
@@ -104,11 +108,28 @@ const MarketDetailModal = ({ isOpen, onClose, asset, marketData }: MarketDetailM
             <Card className="border-ocean-teal/30 dark:border-ocean-teal/40 bg-gradient-to-r from-ocean-teal/5 to-ocean-blue/5 dark:from-ocean-teal/10 dark:to-ocean-blue/10">
               <CardContent className="p-4">
                 <div className="flex flex-col sm:flex-row items-center justify-between gap-4">
-                  <div className="flex items-center gap-3">
-                    <div className="text-sm text-slate-600 dark:text-slate-300">Current Price:</div>
-                    <div className="text-2xl font-bold text-slate-800 dark:text-white">
-                      ${tokenPrice.toLocaleString(undefined, { minimumFractionDigits: 2, maximumFractionDigits: 2 })}
+                  <div className="flex items-center gap-4">
+                    <div className="flex items-center gap-3">
+                      <div className="text-sm text-slate-600 dark:text-slate-300">Current Price:</div>
+                      <div className="text-2xl font-bold text-slate-800 dark:text-white">
+                        ${tokenPrice.toLocaleString(undefined, { minimumFractionDigits: 2, maximumFractionDigits: 2 })}
+                      </div>
                     </div>
+                    <Badge 
+                      className={`flex items-center gap-1 ${
+                        isPricePositive 
+                          ? 'bg-green-100 dark:bg-green-900/50 text-green-700 dark:text-green-400 border-green-200 dark:border-green-800' 
+                          : 'bg-red-100 dark:bg-red-900/50 text-red-700 dark:text-red-400 border-red-200 dark:border-red-800'
+                      }`}
+                    >
+                      {isPricePositive ? (
+                        <TrendingUp className="h-3 w-3" />
+                      ) : (
+                        <TrendingDown className="h-3 w-3" />
+                      )}
+                      {isPricePositive ? '+' : ''}{priceChange24h.toFixed(2)}%
+                      <span className="text-xs opacity-70">24h</span>
+                    </Badge>
                   </div>
                   <div className="flex gap-3 w-full sm:w-auto">
                     <Button
