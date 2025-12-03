@@ -150,8 +150,8 @@ const MarketDetailModal = ({ isOpen, onClose, asset, marketData }: MarketDetailM
               </CardContent>
             </Card>
 
-            {/* Supply, Borrow, Collateral Info */}
-            <div className="grid lg:grid-cols-3 md:grid-cols-2 gap-4">
+            {/* Row 1: Supply Info | Borrow Info */}
+            <div className="grid lg:grid-cols-2 gap-4">
               {/* Supply Information */}
               <Card className="border-green-200 dark:border-green-800 bg-white/50 dark:bg-slate-800">
                 <CardHeader className="pb-3">
@@ -281,7 +281,10 @@ const MarketDetailModal = ({ isOpen, onClose, asset, marketData }: MarketDetailM
                   </div>
                 </CardContent>
               </Card>
+            </div>
 
+            {/* Row 2: Collateral Info | Protocol Config */}
+            <div className="grid lg:grid-cols-2 gap-4">
               {/* Collateral Information */}
               <Card className="border-yellow-200 dark:border-yellow-800 bg-white/50 dark:bg-slate-800">
                 <CardHeader className="pb-3">
@@ -311,7 +314,7 @@ const MarketDetailModal = ({ isOpen, onClose, asset, marketData }: MarketDetailM
                       </TooltipContent>
                     </Tooltip>
                   </div>
-                  <div className="grid grid-cols-1 gap-2">
+                  <div className="grid grid-cols-2 gap-2">
                     <div className="bg-gray-50 dark:bg-slate-700 p-2 rounded text-center">
                       <div className="text-lg font-bold text-slate-800 dark:text-white flex items-center justify-center gap-1">
                         {marketData.maxLTV}%
@@ -343,75 +346,75 @@ const MarketDetailModal = ({ isOpen, onClose, asset, marketData }: MarketDetailM
                   </div>
                 </CardContent>
               </Card>
-            </div>
 
-            {/* Protocol Configuration */}
-            <Card className="bg-white/50 dark:bg-slate-800 border-gray-200 dark:border-slate-700">
-              <CardHeader className="pb-2">
-                <CardTitle className="text-sm text-slate-800 dark:text-white flex items-center gap-2">
-                  ⚙️ Protocol Config
-                  <Tooltip>
-                    <TooltipTrigger>
-                      <Info className="h-4 w-4 text-gray-500" />
-                    </TooltipTrigger>
-                    <TooltipContent>
-                      <p>Protocol-level configuration settings for this market</p>
-                    </TooltipContent>
-                  </Tooltip>
-                </CardTitle>
-              </CardHeader>
-              <CardContent className="pt-0">
-                <div className="grid grid-cols-1 sm:grid-cols-3 gap-4">
-                  <div>
-                    <div className="text-xs text-slate-600 dark:text-slate-300 flex items-center gap-1">
-                      Reserve Factor
-                      <Tooltip>
-                        <TooltipTrigger>
-                          <Info className="h-3 w-3 text-gray-500" />
-                        </TooltipTrigger>
-                        <TooltipContent>
-                          <p>Percentage of interest that goes to the protocol reserves</p>
-                        </TooltipContent>
-                      </Tooltip>
+              {/* Protocol Configuration */}
+              <Card className="bg-white/50 dark:bg-slate-800 border-gray-200 dark:border-slate-700">
+                <CardHeader className="pb-2">
+                  <CardTitle className="text-lg text-slate-800 dark:text-white flex items-center gap-2">
+                    ⚙️ Protocol Config
+                    <Tooltip>
+                      <TooltipTrigger>
+                        <Info className="h-4 w-4 text-gray-500" />
+                      </TooltipTrigger>
+                      <TooltipContent>
+                        <p>Protocol-level configuration settings for this market</p>
+                      </TooltipContent>
+                    </Tooltip>
+                  </CardTitle>
+                </CardHeader>
+                <CardContent className="pt-0">
+                  <div className="grid grid-cols-1 gap-3">
+                    <div className="flex justify-between items-center">
+                      <div className="text-xs text-slate-600 dark:text-slate-300 flex items-center gap-1">
+                        Reserve Factor
+                        <Tooltip>
+                          <TooltipTrigger>
+                            <Info className="h-3 w-3 text-gray-500" />
+                          </TooltipTrigger>
+                          <TooltipContent>
+                            <p>Percentage of interest that goes to the protocol reserves</p>
+                          </TooltipContent>
+                        </Tooltip>
+                      </div>
+                      <div className="text-sm font-semibold text-slate-800 dark:text-white">{marketData.reserveFactor}%</div>
                     </div>
-                    <div className="text-lg font-semibold text-slate-800 dark:text-white">{marketData.reserveFactor}%</div>
+                    <div className="flex justify-between items-center">
+                      <div className="text-xs text-slate-600 dark:text-slate-300 flex items-center gap-1">
+                        Liquidation Penalty
+                        <Tooltip>
+                          <TooltipTrigger>
+                            <Info className="h-3 w-3 text-gray-500" />
+                          </TooltipTrigger>
+                          <TooltipContent>
+                            <p>Additional penalty paid when your position gets liquidated</p>
+                          </TooltipContent>
+                        </Tooltip>
+                      </div>
+                      <div className="text-sm font-semibold text-slate-800 dark:text-white">{marketData.liquidationPenalty}%</div>
+                    </div>
+                    <div className="flex justify-between items-center">
+                      <div className="text-xs text-slate-600 dark:text-slate-300 flex items-center gap-1">
+                        Collector Contract
+                        <Tooltip>
+                          <TooltipTrigger>
+                            <Info className="h-3 w-3 text-gray-500" />
+                          </TooltipTrigger>
+                          <TooltipContent>
+                            <p>Smart contract address that collects protocol fees</p>
+                          </TooltipContent>
+                        </Tooltip>
+                      </div>
+                      <div className="flex items-center gap-1">
+                        <span className="text-xs font-mono bg-gray-100 dark:bg-slate-700 px-1 py-0.5 rounded text-slate-800 dark:text-white">
+                          {marketData.collectorContract}
+                        </span>
+                        <ExternalLink className="w-3 h-3 text-ocean-teal cursor-pointer" />
+                      </div>
+                    </div>
                   </div>
-                  <div>
-                    <div className="text-xs text-slate-600 dark:text-slate-300 flex items-center gap-1">
-                      Liquidation Penalty
-                      <Tooltip>
-                        <TooltipTrigger>
-                          <Info className="h-3 w-3 text-gray-500" />
-                        </TooltipTrigger>
-                        <TooltipContent>
-                          <p>Additional penalty paid when your position gets liquidated</p>
-                        </TooltipContent>
-                      </Tooltip>
-                    </div>
-                    <div className="text-lg font-semibold text-slate-800 dark:text-white">{marketData.liquidationPenalty}%</div>
-                  </div>
-                  <div>
-                    <div className="text-xs text-slate-600 dark:text-slate-300 flex items-center gap-1">
-                      Collector Contract
-                      <Tooltip>
-                        <TooltipTrigger>
-                          <Info className="h-3 w-3 text-gray-500" />
-                        </TooltipTrigger>
-                        <TooltipContent>
-                          <p>Smart contract address that collects protocol fees</p>
-                        </TooltipContent>
-                      </Tooltip>
-                    </div>
-                    <div className="flex items-center gap-1">
-                      <span className="text-xs font-mono bg-gray-100 dark:bg-slate-700 px-1 py-0.5 rounded text-slate-800 dark:text-white">
-                        {marketData.collectorContract}
-                      </span>
-                      <ExternalLink className="w-3 h-3 text-ocean-teal cursor-pointer" />
-                    </div>
-                  </div>
-                </div>
-              </CardContent>
-            </Card>
+                </CardContent>
+              </Card>
+            </div>
           </div>
         </DialogContent>
       </Dialog>
