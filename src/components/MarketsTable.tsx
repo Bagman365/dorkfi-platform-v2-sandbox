@@ -1,4 +1,4 @@
-import { useState, useEffect } from "react";
+import { useState, useEffect, useMemo } from "react";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { ExternalLink } from "lucide-react";
@@ -8,7 +8,7 @@ import MarketSearchFilters from "@/components/markets/MarketSearchFilters";
 import MarketPagination from "@/components/markets/MarketPagination";
 import SupplyBorrowModal from "@/components/SupplyBorrowModal";
 import WithdrawModal from "@/components/WithdrawModal";
-import MarketDetailModal from "@/components/MarketDetailModal";
+import { PremiumMarketModal, MarketData } from "@/components/market-modal";
 import MarketsHeroSection from "@/components/markets/MarketsHeroSection";
 import MarketsTableContent from "@/components/markets/MarketsTableContent";
 import RiskDisclaimerModal from "@/components/RiskDisclaimerModal";
@@ -125,6 +125,48 @@ const MarketsTable = () => {
     };
   };
 
+  // Transform old market data format to new PremiumMarketModal format
+  const transformToMarketData = (market: any): MarketData => {
+    const tokenNames: Record<string, string> = {
+      VOI: 'Voi Network Token',
+      USDC: 'USD Coin',
+      UNIT: 'Unit Protocol Token',
+      BTC: 'Bitcoin',
+      ETH: 'Ethereum',
+      WAD: 'Wrapped Algo Dollar',
+    };
+    
+    // Generate mock 7-day price history
+    const basePrice = market.asset === 'USDC' ? 1 : market.asset === 'BTC' ? 97000 : market.asset === 'ETH' ? 3800 : 0.15;
+    const priceHistory = Array.from({ length: 7 }, (_, i) => ({
+      time: `Day ${i + 1}`,
+      price: basePrice * (0.95 + Math.random() * 0.1),
+    }));
+    
+    return {
+      icon: market.icon,
+      name: tokenNames[market.asset] || market.asset,
+      symbol: market.asset,
+      price: basePrice,
+      priceChange24h: (Math.random() - 0.5) * 10,
+      priceHistory,
+      totalSupply: market.totalSupplyUSD,
+      totalBorrow: market.totalBorrowUSD,
+      availableLiquidity: market.totalSupplyUSD - market.totalBorrowUSD,
+      utilization: market.utilization,
+      supplyAPY: market.supplyAPY,
+      borrowAPY: market.borrowAPY,
+      maxLTV: 75,
+      liquidationThreshold: 82,
+      liquidationBonus: 5,
+      reserveFactor: 10,
+      supplyCap: market.totalSupplyUSD * 2,
+      borrowCap: market.totalBorrowUSD * 1.5,
+      oracleStatus: 'live',
+      auditProvider: 'Entersoft Security',
+    };
+  };
+
   return (
     <div className="max-w-[1200px] mx-auto px-4">
       <div className="space-y-4">
@@ -189,13 +231,24 @@ const MarketsTable = () => {
           onPageChange={setCurrentPage}
         />
 
-        {/* Market Detail Modal */}
+        {/* Premium Market Detail Modal */}
         {detailModal.isOpen && detailModal.asset && detailModal.marketData && (
-          <MarketDetailModal
+          <PremiumMarketModal
             isOpen={detailModal.isOpen}
             onClose={handleCloseDetailModal}
             asset={detailModal.asset}
-            marketData={detailModal.marketData}
+            marketData={transformToMarketData(detailModal.marketData)}
+            userPosition={{
+              supplied: 500,
+              borrowed: 0,
+              withdrawable: 500,
+              borrowable: 2500,
+              healthFactor: 2.45,
+              earnings: 12.50,
+            }}
+            onDeposit={() => handleDepositClick(detailModal.asset!)}
+            onWithdraw={() => handleWithdrawClick(detailModal.asset!)}
+            onBorrow={() => handleBorrowClick(detailModal.asset!)}
           />
         )}
 
