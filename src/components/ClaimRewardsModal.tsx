@@ -89,14 +89,6 @@ const ClaimRewardsModal = ({
               <DialogDescription className="text-center mt-1 text-sm text-slate-400 dark:text-slate-400">
                 Claim your accumulated rewards from protocol participation.
               </DialogDescription>
-              <div className="flex items-center justify-center gap-3 pb-2 mt-3">
-                <img 
-                  src={rewardTokenIcon} 
-                  alt={rewardTokenSymbol}
-                  className="w-12 h-12 rounded-full shadow"
-                />
-                <span className="text-xl font-semibold text-slate-800 dark:text-white">{rewardTokenSymbol}</span>
-              </div>
             </DialogHeader>
             
             <div className="space-y-6 pt-2 px-8 pb-8">
