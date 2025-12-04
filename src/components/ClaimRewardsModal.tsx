@@ -2,7 +2,7 @@ import { useState, useEffect } from "react";
 import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogDescription } from "@/components/ui/dialog";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
-import { Gift, Clock, TrendingUp, Coins } from "lucide-react";
+import { Gift, TrendingUp, Coins } from "lucide-react";
 import SupplyBorrowCongrats from "./SupplyBorrowCongrats";
 
 interface ClaimRewardsModalProps {
@@ -121,16 +121,6 @@ const ClaimRewardsModal = ({
                     </div>
                     <span className="text-sm font-medium text-teal-600 dark:text-teal-400">
                       {rewardStats.rewardAPY}%
-                    </span>
-                  </div>
-
-                  <div className="flex justify-between items-center">
-                    <div className="flex items-center gap-2">
-                      <Clock className="h-4 w-4 text-slate-400" />
-                      <span className="text-sm text-slate-500 dark:text-slate-400">Next Reward In</span>
-                    </div>
-                    <span className="text-sm font-medium text-slate-800 dark:text-white">
-                      {rewardStats.nextRewardIn}
                     </span>
                   </div>
                 </CardContent>
