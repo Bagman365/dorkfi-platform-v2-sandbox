@@ -7,7 +7,7 @@ import { generateShareImage } from "@/utils/shareImageGenerator";
 import { getTokenImagePath } from "@/utils/tokenImageUtils";
 
 interface SupplyBorrowCongratsProps {
-  transactionType: "deposit" | "borrow" | "withdraw" | "repay";
+  transactionType: "deposit" | "borrow" | "withdraw" | "repay" | "claim";
   asset: string;
   assetIcon: string;
   amount: string;
@@ -37,6 +37,8 @@ const SupplyBorrowCongrats: React.FC<SupplyBorrowCongratsProps> = ({
         return { action: "withdrew", preposition: "from" };
       case "repay":
         return { action: "repaid", preposition: "to" };
+      case "claim":
+        return { action: "claimed", preposition: "from" };
       default:
         return { action: "processed", preposition: "with" };
     }

@@ -1,13 +1,14 @@
 import { useState, useEffect, useMemo } from "react";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
-import { ExternalLink } from "lucide-react";
+import { ExternalLink, Gift } from "lucide-react";
 
 import { useMarketData, SortField, SortOrder } from "@/hooks/useMarketData";
 import MarketSearchFilters from "@/components/markets/MarketSearchFilters";
 import MarketPagination from "@/components/markets/MarketPagination";
 import SupplyBorrowModal from "@/components/SupplyBorrowModal";
 import WithdrawModal from "@/components/WithdrawModal";
+import ClaimRewardsModal from "@/components/ClaimRewardsModal";
 import { PremiumMarketModal, MarketData } from "@/components/market-modal";
 import MarketsHeroSection from "@/components/markets/MarketsHeroSection";
 import MarketsTableContent from "@/components/markets/MarketsTableContent";
@@ -23,6 +24,7 @@ const MarketsTable = () => {
   const [withdrawModal, setWithdrawModal] = useState({ isOpen: false, asset: null });
   const [borrowModal, setBorrowModal] = useState({ isOpen: false, asset: null });
   const [detailModal, setDetailModal] = useState({ isOpen: false, asset: null, marketData: null });
+  const [claimRewardsModal, setClaimRewardsModal] = useState(false);
   const [showRiskModal, setShowRiskModal] = useState(false);
   
   // Mock user deposits - in real app, this would come from user's wallet/backend
@@ -187,16 +189,27 @@ const MarketsTable = () => {
           <CardHeader className="pb-4">
             <div className="flex items-start justify-between gap-4">
               <CardTitle className="text-xl md:text-2xl font-bold text-slate-800 dark:text-white">Market Overview</CardTitle>
-              <Button
-                variant="outline"
-                size="sm"
-                onClick={() => window.open('https://docs.dork.fi', '_blank', 'noopener,noreferrer')}
-                className="flex items-center gap-2 bg-ocean-teal/5 border-ocean-teal/20 hover:bg-ocean-teal/10 text-ocean-teal"
-                aria-label="Learn more about markets (opens in new tab)"
-              >
-                Learn More
-                <ExternalLink className="h-3 w-3" />
-              </Button>
+              <div className="flex flex-col gap-2">
+                <Button
+                  variant="outline"
+                  size="sm"
+                  onClick={() => window.open('https://docs.dork.fi', '_blank', 'noopener,noreferrer')}
+                  className="flex items-center gap-2 bg-ocean-teal/5 border-ocean-teal/20 hover:bg-ocean-teal/10 text-ocean-teal"
+                  aria-label="Learn more about markets (opens in new tab)"
+                >
+                  Learn More
+                  <ExternalLink className="h-3 w-3" />
+                </Button>
+                <Button
+                  variant="outline"
+                  size="sm"
+                  onClick={() => setClaimRewardsModal(true)}
+                  className="flex items-center gap-2 bg-whale-gold/10 border-whale-gold/30 hover:bg-whale-gold/20 text-whale-gold"
+                >
+                  <Gift className="h-3 w-3" />
+                  Claim Rewards
+                </Button>
+              </div>
             </div>
           </CardHeader>
           <CardContent>
@@ -295,6 +308,12 @@ const MarketsTable = () => {
         <RiskDisclaimerModal
           isOpen={showRiskModal}
           onAcknowledge={handleRiskAcknowledge}
+        />
+
+        {/* Claim Rewards Modal */}
+        <ClaimRewardsModal
+          isOpen={claimRewardsModal}
+          onClose={() => setClaimRewardsModal(false)}
         />
       </div>
     </div>
