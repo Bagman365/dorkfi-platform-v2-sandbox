@@ -1,6 +1,5 @@
 
 import { Info } from 'lucide-react';
-import { AreaChart, Area, ResponsiveContainer } from 'recharts';
 import { MarketData } from './types';
 import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from '@/components/ui/tooltip';
 import { cn } from '@/lib/utils';
@@ -21,13 +20,6 @@ export const MarketOverview = ({ marketData }: MarketOverviewProps) => {
     : marketData.utilization < 85 
       ? 'text-yellow-500' 
       : 'text-destructive';
-
-  // Mock APY history data
-  const apyHistory = Array.from({ length: 14 }, (_, i) => ({
-    day: i,
-    supplyAPY: marketData.supplyAPY * (0.9 + Math.random() * 0.2),
-    borrowAPY: marketData.borrowAPY * (0.9 + Math.random() * 0.2),
-  }));
 
   return (
     <div className="px-4 sm:px-6 py-4 space-y-4">
@@ -98,51 +90,6 @@ export const MarketOverview = ({ marketData }: MarketOverviewProps) => {
           <span>0%</span>
           <span className="text-yellow-500">Optimal: 80%</span>
           <span>100%</span>
-        </div>
-      </div>
-
-      {/* APY Trend */}
-      <div className="p-4 rounded-xl glass-card border border-border/30">
-        <p className="text-sm font-medium text-foreground mb-3">7-Day APY Trend</p>
-        <div className="h-20">
-          <ResponsiveContainer width="100%" height="100%">
-            <AreaChart data={apyHistory}>
-              <defs>
-                <linearGradient id="supplyGradient" x1="0" y1="0" x2="0" y2="1">
-                  <stop offset="0%" stopColor="#21EFA3" stopOpacity={0.3} />
-                  <stop offset="100%" stopColor="#21EFA3" stopOpacity={0} />
-                </linearGradient>
-                <linearGradient id="borrowGradient" x1="0" y1="0" x2="0" y2="1">
-                  <stop offset="0%" stopColor="#f97316" stopOpacity={0.3} />
-                  <stop offset="100%" stopColor="#f97316" stopOpacity={0} />
-                </linearGradient>
-              </defs>
-              <Area
-                type="monotone"
-                dataKey="supplyAPY"
-                stroke="#21EFA3"
-                strokeWidth={2}
-                fill="url(#supplyGradient)"
-              />
-              <Area
-                type="monotone"
-                dataKey="borrowAPY"
-                stroke="#f97316"
-                strokeWidth={2}
-                fill="url(#borrowGradient)"
-              />
-            </AreaChart>
-          </ResponsiveContainer>
-        </div>
-        <div className="flex justify-center gap-6 mt-2">
-          <div className="flex items-center gap-2">
-            <div className="w-2 h-2 rounded-full bg-green-500" />
-            <span className="text-xs text-muted-foreground">Supply APY</span>
-          </div>
-          <div className="flex items-center gap-2">
-            <div className="w-2 h-2 rounded-full bg-orange-500" />
-            <span className="text-xs text-muted-foreground">Borrow APY</span>
-          </div>
         </div>
       </div>
     </div>
