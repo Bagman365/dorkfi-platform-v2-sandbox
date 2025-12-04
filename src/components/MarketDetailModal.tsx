@@ -9,6 +9,7 @@ import { Tooltip, TooltipContent, TooltipTrigger } from "@/components/ui/tooltip
 import { Collapsible, CollapsibleContent, CollapsibleTrigger } from "@/components/ui/collapsible";
 import { Slider } from "@/components/ui/slider";
 import { Progress } from "@/components/ui/progress";
+import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { Area, AreaChart, ResponsiveContainer } from "recharts";
 import SupplyBorrowModal from "@/components/SupplyBorrowModal";
 
@@ -261,138 +262,126 @@ const MarketDetailModal = ({ isOpen, onClose, asset, marketData }: MarketDetailM
               </Card>
             </div>
 
-            {/* Row 1: Supply Info | Borrow Info */}
-            <div className="grid lg:grid-cols-2 gap-4 auto-rows-fr">
-              {/* Supply Information */}
-              <Card className="border-green-200 dark:border-green-800 bg-white/50 dark:bg-slate-800">
+            {/* Supply & Borrow Info with Toggle */}
+            <Card className="border-ocean-teal/30 dark:border-ocean-teal/40 bg-white/50 dark:bg-slate-800">
+              <Tabs defaultValue="supply" className="w-full">
                 <CardHeader className="pb-3">
-                  <CardTitle className="text-lg text-green-700 dark:text-green-400 flex items-center gap-2">
-                    🟢 Supply Information
-                    <Tooltip>
-                       <TooltipTrigger asChild>
-                         <Info className="h-4 w-4 text-gray-500" />
-                       </TooltipTrigger>
-                      <TooltipContent>
-                        <p>Information about the total assets supplied to this market</p>
-                      </TooltipContent>
-                    </Tooltip>
-                  </CardTitle>
+                  <TabsList className="grid w-full grid-cols-2 bg-slate-100 dark:bg-slate-700">
+                    <TabsTrigger 
+                      value="supply" 
+                      className="data-[state=active]:bg-green-500 data-[state=active]:text-white transition-all"
+                    >
+                      🟢 Supply
+                    </TabsTrigger>
+                    <TabsTrigger 
+                      value="borrow" 
+                      className="data-[state=active]:bg-red-500 data-[state=active]:text-white transition-all"
+                    >
+                      🟥 Borrow
+                    </TabsTrigger>
+                  </TabsList>
                 </CardHeader>
-                <CardContent className="space-y-3">
-                  <div className="flex items-center justify-center">
-                    <div className="relative w-20 h-20">
-                      <div className="w-full h-full rounded-full border-4 border-gray-200 dark:border-slate-600">
-                        <div 
-                          className="absolute inset-0 rounded-full border-4 border-green-500"
-                          style={{
-                            background: `conic-gradient(#10b981 ${supplyUtilization * 3.6}deg, transparent 0deg)`
-                          }}
-                        />
-                      </div>
-                      <div className="absolute inset-0 flex items-center justify-center">
-                        <div className="text-center">
-                           <div className="text-lg font-bold text-slate-800 dark:text-white">
-                             {supplyUtilization.toFixed(1)}%
+                <CardContent>
+                  <TabsContent value="supply" className="mt-0 space-y-3">
+                    <div className="flex items-center justify-center">
+                      <div className="relative w-20 h-20">
+                        <div className="w-full h-full rounded-full border-4 border-gray-200 dark:border-slate-600">
+                          <div 
+                            className="absolute inset-0 rounded-full border-4 border-green-500"
+                            style={{
+                              background: `conic-gradient(#10b981 ${supplyUtilization * 3.6}deg, transparent 0deg)`
+                            }}
+                          />
+                        </div>
+                        <div className="absolute inset-0 flex items-center justify-center">
+                          <div className="text-center">
+                            <div className="text-lg font-bold text-slate-800 dark:text-white">
+                              {supplyUtilization.toFixed(1)}%
+                            </div>
+                            <div className="text-xs text-slate-800 dark:text-white">Used</div>
                           </div>
-                          <div className="text-xs text-slate-800 dark:text-white">Used</div>
                         </div>
                       </div>
                     </div>
-                  </div>
-                  <div className="text-center space-y-2">
-                    <div className="text-sm font-semibold text-slate-800 dark:text-white flex items-center justify-center gap-1">
-                      ${marketData.totalSupplyUSD.toLocaleString()} / ${marketData.supplyCapUSD.toLocaleString()}
-                      <Tooltip>
-                        <TooltipTrigger>
-                          <Info className="h-3 w-3 text-gray-500" />
-                        </TooltipTrigger>
-                        <TooltipContent>
-                          <p>Current supply vs maximum supply cap allowed for this asset</p>
-                        </TooltipContent>
-                      </Tooltip>
+                    <div className="text-center space-y-2">
+                      <div className="text-sm font-semibold text-slate-800 dark:text-white flex items-center justify-center gap-1">
+                        ${marketData.totalSupplyUSD.toLocaleString()} / ${marketData.supplyCapUSD.toLocaleString()}
+                        <Tooltip>
+                          <TooltipTrigger>
+                            <Info className="h-3 w-3 text-gray-500" />
+                          </TooltipTrigger>
+                          <TooltipContent>
+                            <p>Current supply vs maximum supply cap allowed for this asset</p>
+                          </TooltipContent>
+                        </Tooltip>
+                      </div>
+                      <div className="flex items-center justify-center gap-1">
+                        <Badge className="bg-green-100 dark:bg-green-900 text-green-800 dark:text-green-200">
+                          APY: {marketData.supplyAPY}%
+                        </Badge>
+                        <Tooltip>
+                          <TooltipTrigger>
+                            <Info className="h-3 w-3 text-gray-500" />
+                          </TooltipTrigger>
+                          <TooltipContent>
+                            <p>Annual Percentage Yield earned by supplying this asset</p>
+                          </TooltipContent>
+                        </Tooltip>
+                      </div>
                     </div>
-                    <div className="flex items-center justify-center gap-1">
-                      <Badge className="bg-green-100 dark:bg-green-900 text-green-800 dark:text-green-200">
-                        APY: {marketData.supplyAPY}%
-                      </Badge>
-                      <Tooltip>
-                        <TooltipTrigger>
-                          <Info className="h-3 w-3 text-gray-500" />
-                        </TooltipTrigger>
-                        <TooltipContent>
-                          <p>Annual Percentage Yield earned by supplying this asset</p>
-                        </TooltipContent>
-                      </Tooltip>
-                    </div>
-                  </div>
-                </CardContent>
-              </Card>
+                  </TabsContent>
 
-              {/* Borrow Information */}
-              <Card className="border-red-200 dark:border-red-800 bg-white/50 dark:bg-slate-800">
-                <CardHeader className="pb-3">
-                  <CardTitle className="text-lg text-red-700 dark:text-red-400 flex items-center gap-2">
-                    🟥 Borrow Information
-                    <Tooltip>
-                      <TooltipTrigger>
-                        <Info className="h-4 w-4 text-gray-500" />
-                      </TooltipTrigger>
-                      <TooltipContent>
-                        <p>Information about borrowing activity for this asset</p>
-                      </TooltipContent>
-                    </Tooltip>
-                  </CardTitle>
-                </CardHeader>
-                <CardContent className="space-y-3">
-                  <div className="flex items-center justify-center">
-                    <div className="relative w-20 h-20">
-                      <div className="w-full h-full rounded-full border-4 border-gray-200 dark:border-slate-600">
-                        <div 
-                          className="absolute inset-0 rounded-full border-4 border-red-500"
-                          style={{
-                            background: `conic-gradient(#ef4444 ${marketData.utilization * 3.6}deg, transparent 0deg)`
-                          }}
-                        />
-                      </div>
-                      <div className="absolute inset-0 flex items-center justify-center">
-                        <div className="text-center">
-                           <div className="text-lg font-bold text-slate-800 dark:text-white">
-                             {marketData.utilization}%
+                  <TabsContent value="borrow" className="mt-0 space-y-3">
+                    <div className="flex items-center justify-center">
+                      <div className="relative w-20 h-20">
+                        <div className="w-full h-full rounded-full border-4 border-gray-200 dark:border-slate-600">
+                          <div 
+                            className="absolute inset-0 rounded-full border-4 border-red-500"
+                            style={{
+                              background: `conic-gradient(#ef4444 ${marketData.utilization * 3.6}deg, transparent 0deg)`
+                            }}
+                          />
+                        </div>
+                        <div className="absolute inset-0 flex items-center justify-center">
+                          <div className="text-center">
+                            <div className="text-lg font-bold text-slate-800 dark:text-white">
+                              {marketData.utilization}%
+                            </div>
+                            <div className="text-xs text-slate-800 dark:text-white">Util</div>
                           </div>
-                          <div className="text-xs text-slate-800 dark:text-white">Util</div>
                         </div>
                       </div>
                     </div>
-                  </div>
-                  <div className="text-center space-y-2">
-                    <div className="text-sm font-semibold text-slate-800 dark:text-white flex items-center justify-center gap-1">
-                      {marketData.totalBorrow.toLocaleString()} {asset}
-                      <Tooltip>
-                        <TooltipTrigger>
-                          <Info className="h-3 w-3 text-gray-500" />
-                        </TooltipTrigger>
-                        <TooltipContent>
-                          <p>Total amount of {asset} currently borrowed from this market</p>
-                        </TooltipContent>
-                      </Tooltip>
+                    <div className="text-center space-y-2">
+                      <div className="text-sm font-semibold text-slate-800 dark:text-white flex items-center justify-center gap-1">
+                        {marketData.totalBorrow.toLocaleString()} {asset}
+                        <Tooltip>
+                          <TooltipTrigger>
+                            <Info className="h-3 w-3 text-gray-500" />
+                          </TooltipTrigger>
+                          <TooltipContent>
+                            <p>Total amount of {asset} currently borrowed from this market</p>
+                          </TooltipContent>
+                        </Tooltip>
+                      </div>
+                      <div className="flex items-center justify-center gap-1">
+                        <Badge className="bg-red-100 dark:bg-red-900 text-red-800 dark:text-red-200">
+                          APY: {marketData.borrowAPY}%
+                        </Badge>
+                        <Tooltip>
+                          <TooltipTrigger>
+                            <Info className="h-3 w-3 text-gray-500" />
+                          </TooltipTrigger>
+                          <TooltipContent>
+                            <p>Annual Percentage Yield paid when borrowing this asset</p>
+                          </TooltipContent>
+                        </Tooltip>
+                      </div>
                     </div>
-                    <div className="flex items-center justify-center gap-1">
-                      <Badge className="bg-red-100 dark:bg-red-900 text-red-800 dark:text-red-200">
-                        APY: {marketData.borrowAPY}%
-                      </Badge>
-                      <Tooltip>
-                        <TooltipTrigger>
-                          <Info className="h-3 w-3 text-gray-500" />
-                        </TooltipTrigger>
-                        <TooltipContent>
-                          <p>Annual Percentage Yield paid when borrowing this asset</p>
-                        </TooltipContent>
-                      </Tooltip>
-                    </div>
-                  </div>
+                  </TabsContent>
                 </CardContent>
-              </Card>
-            </div>
+              </Tabs>
+            </Card>
 
             {/* Row 2: Collateral Info | Earnings Calculator */}
             <div className="grid lg:grid-cols-2 gap-4 auto-rows-fr">
