@@ -25,9 +25,9 @@ export const PremiumMarketModal = ({
 }: PremiumMarketModalProps) => {
   return (
     <Dialog open={isOpen} onOpenChange={onClose}>
-      <DialogContent className="max-w-2xl p-0 gap-0 glass-card border-primary/20 overflow-hidden max-h-[90vh]">
+      <DialogContent className="max-w-2xl p-0 gap-0 glass-card border-primary/20 flex flex-col" hideCloseButton>
         <DialogTitle className="sr-only">{marketData.symbol} Market Details</DialogTitle>
-        <ScrollArea className="max-h-[90vh]">
+        <ScrollArea className="max-h-[85vh] flex-1">
           <div className="flex flex-col">
             <MarketHeader 
               marketData={marketData} 
