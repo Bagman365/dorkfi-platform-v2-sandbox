@@ -48,7 +48,7 @@ export const PrimaryActionButtons = ({
             </Button>
             <Button
               onClick={onBorrow}
-              className="h-12 font-semibold bg-gradient-to-r from-whale-gold to-orange-500 hover:from-whale-gold/90 hover:to-orange-500/90 text-primary-foreground rounded-xl shadow-lg shadow-whale-gold/25 transition-all hover:shadow-whale-gold/40 active:scale-[0.98]"
+              className="h-12 font-semibold bg-pink-600 hover:bg-pink-700 text-white rounded-xl active:scale-[0.98]"
             >
               <Banknote className="w-4 h-4 mr-2" />
               Borrow
