@@ -1,8 +1,7 @@
 
 import { useState, useMemo } from 'react';
-import { Shield, AlertTriangle, Info } from 'lucide-react';
+import { Shield, AlertTriangle } from 'lucide-react';
 import { Slider } from '@/components/ui/slider';
-import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from '@/components/ui/tooltip';
 import { MarketData, UserPosition } from './types';
 import { cn } from '@/lib/utils';
 
@@ -51,21 +50,9 @@ export const HealthFactorSimulator = ({ marketData, userPosition }: HealthFactor
   return (
     <div className="px-4 sm:px-6 py-4">
       <div className="p-3 sm:p-4 rounded-xl glass-card border border-border/30">
-        <div className="flex items-center justify-between mb-4">
-          <div className="flex items-center gap-2">
-            <Shield className="w-5 h-5 text-primary" />
-            <h3 className="font-semibold text-foreground text-sm sm:text-base">Health Factor Simulator</h3>
-          </div>
-          <TooltipProvider>
-            <Tooltip>
-              <TooltipTrigger>
-                <Info className="w-4 h-4 text-muted-foreground" />
-              </TooltipTrigger>
-              <TooltipContent className="max-w-xs">
-                <p>Simulate how borrowing affects your Health Factor. HF &lt; 1.0 triggers liquidation.</p>
-              </TooltipContent>
-            </Tooltip>
-          </TooltipProvider>
+        <div className="flex items-center gap-2 mb-4">
+          <Shield className="w-5 h-5 text-primary" />
+          <h3 className="font-semibold text-foreground text-sm sm:text-base">Health Factor Simulator</h3>
         </div>
 
         {/* Current vs Simulated HF */}
