@@ -87,7 +87,7 @@ const ClaimRewardsModal = ({
                 Claim Rewards
               </DialogTitle>
               <DialogDescription className="text-center mt-1 text-sm text-slate-400 dark:text-slate-400">
-                Claim your accumulated rewards from protocol participation.
+                Claim your accumulated rewards from PreFi participation.
               </DialogDescription>
             </DialogHeader>
             
