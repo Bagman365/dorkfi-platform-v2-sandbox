@@ -76,7 +76,7 @@ const mockUserPosition = {
 const MarketDetailModal = ({ isOpen, onClose, asset, marketData }: MarketDetailModalProps) => {
   const [supplyModal, setSupplyModal] = useState({ isOpen: false, asset: null as string | null });
   const [borrowModal, setBorrowModal] = useState({ isOpen: false, asset: null as string | null });
-  const [positionExpanded, setPositionExpanded] = useState(true);
+  const [positionExpanded, setPositionExpanded] = useState(mockUserPosition.hasPosition);
   const [calcAmount, setCalcAmount] = useState([1000]);
   const [calcPeriod, setCalcPeriod] = useState<'1M' | '6M' | '1Y'>('1Y');
 
