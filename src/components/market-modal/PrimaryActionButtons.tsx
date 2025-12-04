@@ -37,14 +37,21 @@ export const PrimaryActionButtons = ({
             <span className="truncate">Deposit {marketData.symbol} ({marketData.supplyAPY.toFixed(2)}% APY)</span>
           </Button>
         ) : (
-          // Has deposits - show borrow primary + withdraw secondary
-          <div className="grid grid-cols-1 sm:grid-cols-2 gap-2 sm:gap-3">
+          // Has deposits - show deposit, borrow, and withdraw buttons
+          <div className="grid grid-cols-1 sm:grid-cols-3 gap-2 sm:gap-3">
+            <Button
+              onClick={onDeposit}
+              className="h-12 font-semibold bg-gradient-to-r from-primary to-ocean-teal hover:from-primary/90 hover:to-ocean-teal/90 text-primary-foreground rounded-xl shadow-lg shadow-primary/25 transition-all hover:shadow-primary/40 active:scale-[0.98]"
+            >
+              <ArrowUpCircle className="w-4 h-4 mr-2" />
+              Deposit
+            </Button>
             <Button
               onClick={onBorrow}
               className="h-12 font-semibold bg-gradient-to-r from-whale-gold to-orange-500 hover:from-whale-gold/90 hover:to-orange-500/90 text-primary-foreground rounded-xl shadow-lg shadow-whale-gold/25 transition-all hover:shadow-whale-gold/40 active:scale-[0.98]"
             >
               <Banknote className="w-4 h-4 mr-2" />
-              Borrow WAD
+              Borrow
             </Button>
             <Button
               onClick={onWithdraw}
@@ -52,7 +59,7 @@ export const PrimaryActionButtons = ({
               className="h-12 font-semibold border-primary/30 hover:bg-primary/10 rounded-xl active:scale-[0.98]"
             >
               <ArrowDownCircle className="w-4 h-4 mr-2" />
-              Withdraw ${userPosition?.withdrawable?.toLocaleString() ?? 0}
+              Withdraw
             </Button>
           </div>
         )}
