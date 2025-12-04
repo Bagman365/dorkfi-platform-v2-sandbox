@@ -30,12 +30,12 @@ export const MarketOverview = ({ marketData }: MarketOverviewProps) => {
   }));
 
   return (
-    <div className="px-6 py-4 space-y-4">
-      <div className="grid grid-cols-3 gap-4">
+    <div className="px-4 sm:px-6 py-4 space-y-4">
+      <div className="grid grid-cols-1 sm:grid-cols-3 gap-3 sm:gap-4">
         {/* Available Liquidity */}
-        <div className="p-4 rounded-xl glass-card border border-primary/20">
+        <div className="p-3 sm:p-4 rounded-xl glass-card border border-primary/20">
           <p className="text-xs text-muted-foreground mb-1">Available Liquidity</p>
-          <p className="text-2xl font-bold text-foreground">
+          <p className="text-xl sm:text-2xl font-bold text-foreground">
             ${marketData.availableLiquidity.toLocaleString()}
           </p>
           <p className="text-xs text-muted-foreground">
@@ -44,9 +44,9 @@ export const MarketOverview = ({ marketData }: MarketOverviewProps) => {
         </div>
 
         {/* Total Supplied */}
-        <div className="p-4 rounded-xl glass-card border border-green-500/20">
+        <div className="p-3 sm:p-4 rounded-xl glass-card border border-green-500/20">
           <p className="text-xs text-muted-foreground mb-1">Total Supplied</p>
-          <p className="text-2xl font-bold text-green-500">
+          <p className="text-xl sm:text-2xl font-bold text-green-500">
             ${marketData.totalSupply.toLocaleString()}
           </p>
           <p className="text-xs text-green-500/80">
@@ -55,9 +55,9 @@ export const MarketOverview = ({ marketData }: MarketOverviewProps) => {
         </div>
 
         {/* Total Borrowed */}
-        <div className="p-4 rounded-xl glass-card border border-orange-500/20">
+        <div className="p-3 sm:p-4 rounded-xl glass-card border border-orange-500/20">
           <p className="text-xs text-muted-foreground mb-1">Total Borrowed</p>
-          <p className="text-2xl font-bold text-orange-500">
+          <p className="text-xl sm:text-2xl font-bold text-orange-500">
             ${marketData.totalBorrow.toLocaleString()}
           </p>
           <p className="text-xs text-orange-500/80">

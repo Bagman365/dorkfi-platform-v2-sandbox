@@ -49,12 +49,12 @@ export const HealthFactorSimulator = ({ marketData, userPosition }: HealthFactor
   };
 
   return (
-    <div className="px-6 py-4">
-      <div className="p-4 rounded-xl glass-card border border-border/30">
+    <div className="px-4 sm:px-6 py-4">
+      <div className="p-3 sm:p-4 rounded-xl glass-card border border-border/30">
         <div className="flex items-center justify-between mb-4">
           <div className="flex items-center gap-2">
             <Shield className="w-5 h-5 text-primary" />
-            <h3 className="font-semibold text-foreground">Health Factor Simulator</h3>
+            <h3 className="font-semibold text-foreground text-sm sm:text-base">Health Factor Simulator</h3>
           </div>
           <TooltipProvider>
             <Tooltip>
@@ -69,25 +69,25 @@ export const HealthFactorSimulator = ({ marketData, userPosition }: HealthFactor
         </div>
 
         {/* Current vs Simulated HF */}
-        <div className="grid grid-cols-2 gap-4 mb-6">
-          <div className="p-3 rounded-lg bg-muted/30 text-center">
+        <div className="grid grid-cols-2 gap-3 sm:gap-4 mb-6">
+          <div className="p-2 sm:p-3 rounded-lg bg-muted/30 text-center">
             <p className="text-xs text-muted-foreground mb-1">Current HF</p>
-            <div className="flex items-center justify-center gap-2">
-              <div className={cn("w-2.5 h-2.5 rounded-full", getHFBgColor(currentHF))} />
-              <span className={cn("text-2xl font-bold", getHFColor(currentHF))}>
+            <div className="flex items-center justify-center gap-1 sm:gap-2">
+              <div className={cn("w-2 h-2 sm:w-2.5 sm:h-2.5 rounded-full", getHFBgColor(currentHF))} />
+              <span className={cn("text-xl sm:text-2xl font-bold", getHFColor(currentHF))}>
                 {currentHF.toFixed(2)}
               </span>
             </div>
           </div>
-          <div className="p-3 rounded-lg bg-muted/30 text-center border-2 border-primary/30">
+          <div className="p-2 sm:p-3 rounded-lg bg-muted/30 text-center border-2 border-primary/30">
             <p className="text-xs text-muted-foreground mb-1">Simulated HF</p>
-            <div className="flex items-center justify-center gap-2">
+            <div className="flex items-center justify-center gap-1 sm:gap-2">
               <div className={cn(
-                "w-2.5 h-2.5 rounded-full transition-colors",
+                "w-2 h-2 sm:w-2.5 sm:h-2.5 rounded-full transition-colors",
                 getHFBgColor(simulatedHF)
               )} />
               <span className={cn(
-                "text-2xl font-bold transition-colors",
+                "text-xl sm:text-2xl font-bold transition-colors",
                 getHFColor(simulatedHF)
               )}>
                 {simulatedHF > 100 ? '∞' : simulatedHF.toFixed(2)}
@@ -99,7 +99,7 @@ export const HealthFactorSimulator = ({ marketData, userPosition }: HealthFactor
           </div>
         </div>
 
-        {/* Borrow Amount Slider */}
+        {/* Borrow Amount Slider - touch friendly */}
         <div className="space-y-3">
           <div className="flex justify-between text-sm">
             <span className="text-muted-foreground">Borrow Amount</span>
@@ -111,7 +111,7 @@ export const HealthFactorSimulator = ({ marketData, userPosition }: HealthFactor
             onValueChange={([value]) => setBorrowAmount(value)}
             max={maxBorrowable}
             step={100}
-            className="w-full"
+            className="w-full touch-none"
           />
           
           <div className="flex justify-between text-xs text-muted-foreground">

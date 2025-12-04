@@ -36,8 +36,8 @@ export const EarningsCalculator = ({ marketData }: EarningsCalculatorProps) => {
   }, [amount, period, marketData.supplyAPY, marketData.borrowAPY]);
 
   return (
-    <div className="px-6 py-4">
-      <div className="p-4 rounded-xl glass-card border border-border/30">
+    <div className="px-4 sm:px-6 py-4">
+      <div className="p-3 sm:p-4 rounded-xl glass-card border border-border/30">
         <div className="flex items-center gap-2 mb-4">
           <Calculator className="w-5 h-5 text-primary" />
           <h3 className="font-semibold text-foreground">Earnings Calculator</h3>
@@ -56,7 +56,7 @@ export const EarningsCalculator = ({ marketData }: EarningsCalculatorProps) => {
             min={100}
             max={100000}
             step={100}
-            className="w-full"
+            className="w-full touch-none"
           />
           
           <div className="flex justify-between text-xs text-muted-foreground">
@@ -65,32 +65,33 @@ export const EarningsCalculator = ({ marketData }: EarningsCalculatorProps) => {
           </div>
         </div>
 
-        {/* Time Period Selector */}
+        {/* Time Period Selector - touch friendly */}
         <div className="flex gap-2 mb-6">
           {(['1M', '6M', '1Y'] as TimePeriod[]).map((p) => (
             <button
               key={p}
               onClick={() => setPeriod(p)}
               className={cn(
-                "flex-1 py-2 px-4 rounded-lg text-sm font-medium transition-all",
+                "flex-1 py-3 sm:py-2 px-3 sm:px-4 rounded-lg text-sm font-medium transition-all active:scale-95",
                 period === p
                   ? "bg-primary text-primary-foreground shadow-lg shadow-primary/25"
                   : "bg-muted/50 text-muted-foreground hover:bg-muted"
               )}
             >
-              {p === '1M' ? '1 Month' : p === '6M' ? '6 Months' : '1 Year'}
+              <span className="hidden sm:inline">{p === '1M' ? '1 Month' : p === '6M' ? '6 Months' : '1 Year'}</span>
+              <span className="sm:hidden">{p}</span>
             </button>
           ))}
         </div>
 
         {/* Results Cards */}
-        <div className="grid grid-cols-2 gap-4">
-          <div className="p-4 rounded-xl bg-green-500/10 border border-green-500/30">
+        <div className="grid grid-cols-1 sm:grid-cols-2 gap-3 sm:gap-4">
+          <div className="p-3 sm:p-4 rounded-xl bg-green-500/10 border border-green-500/30">
             <div className="flex items-center gap-2 mb-2">
               <TrendingUp className="w-4 h-4 text-green-500" />
               <span className="text-xs text-green-500/80">If Supplying</span>
             </div>
-            <p className="text-2xl font-bold text-green-500">
+            <p className="text-xl sm:text-2xl font-bold text-green-500">
               +${supplyEarnings.toLocaleString(undefined, { maximumFractionDigits: 2 })}
             </p>
             <p className="text-xs text-muted-foreground mt-1">
@@ -98,12 +99,12 @@ export const EarningsCalculator = ({ marketData }: EarningsCalculatorProps) => {
             </p>
           </div>
 
-          <div className="p-4 rounded-xl bg-orange-500/10 border border-orange-500/30">
+          <div className="p-3 sm:p-4 rounded-xl bg-orange-500/10 border border-orange-500/30">
             <div className="flex items-center gap-2 mb-2">
               <TrendingDown className="w-4 h-4 text-orange-500" />
               <span className="text-xs text-orange-500/80">If Borrowing</span>
             </div>
-            <p className="text-2xl font-bold text-orange-500">
+            <p className="text-xl sm:text-2xl font-bold text-orange-500">
               -${borrowCost.toLocaleString(undefined, { maximumFractionDigits: 2 })}
             </p>
             <p className="text-xs text-muted-foreground mt-1">

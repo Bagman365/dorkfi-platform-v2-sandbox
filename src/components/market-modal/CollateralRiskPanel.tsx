@@ -56,37 +56,37 @@ export const CollateralRiskPanel = ({ marketData }: CollateralRiskPanelProps) =>
   };
 
   return (
-    <div className="px-6 py-4">
-      <div className="p-4 rounded-xl glass-card border border-border/30">
+    <div className="px-4 sm:px-6 py-4">
+      <div className="p-3 sm:p-4 rounded-xl glass-card border border-border/30">
         <div className="flex items-center gap-2 mb-4">
           <Shield className="w-5 h-5 text-primary" />
-          <h3 className="font-semibold text-foreground">Collateral & Risk Parameters</h3>
+          <h3 className="font-semibold text-foreground text-sm sm:text-base">Collateral & Risk Parameters</h3>
         </div>
 
         {/* Risk Parameters Grid */}
-        <div className="grid grid-cols-2 gap-3 mb-4">
+        <div className="grid grid-cols-2 gap-2 sm:gap-3 mb-4">
           {riskParams.map((param) => (
             <div 
               key={param.label}
-              className="p-3 rounded-lg bg-muted/30 border border-border/20"
+              className="p-2 sm:p-3 rounded-lg bg-muted/30 border border-border/20"
             >
-              <div className="flex items-center gap-2 mb-1">
+              <div className="flex items-center gap-1 sm:gap-2 mb-1">
                 <param.icon className={cn(
-                  "w-4 h-4",
+                  "w-3 h-3 sm:w-4 sm:h-4",
                   getStatusColor(param.status).split(' ')[0]
                 )} />
-                <span className="text-xs text-muted-foreground">{param.label}</span>
+                <span className="text-[10px] sm:text-xs text-muted-foreground">{param.label}</span>
               </div>
-              <p className="text-lg font-bold text-foreground">{param.value}</p>
+              <p className="text-base sm:text-lg font-bold text-foreground">{param.value}</p>
             </div>
           ))}
         </div>
 
         {/* Status Badges */}
-        <div className="flex flex-wrap gap-3 pt-4 border-t border-border/30">
+        <div className="flex flex-col sm:flex-row flex-wrap gap-2 sm:gap-3 pt-4 border-t border-border/30">
           {/* Oracle Status */}
           <div className={cn(
-            "flex items-center gap-2 px-3 py-2 rounded-lg",
+            "flex items-center gap-2 px-3 py-2 rounded-lg flex-1 sm:flex-none justify-center sm:justify-start",
             marketData.oracleStatus === 'live' 
               ? "bg-green-500/10 border border-green-500/30" 
               : "bg-yellow-500/10 border border-yellow-500/30"
@@ -104,9 +104,9 @@ export const CollateralRiskPanel = ({ marketData }: CollateralRiskPanelProps) =>
           </div>
 
           {/* Audit Badge */}
-          <div className="flex items-center gap-2 px-3 py-2 rounded-lg bg-primary/10 border border-primary/30">
+          <div className="flex items-center gap-2 px-3 py-2 rounded-lg bg-primary/10 border border-primary/30 flex-1 sm:flex-none justify-center sm:justify-start">
             <BadgeCheck className="w-4 h-4 text-primary" />
-            <span className="text-sm font-medium text-primary">
+            <span className="text-sm font-medium text-primary truncate">
               Audited by {marketData.auditProvider}
             </span>
           </div>

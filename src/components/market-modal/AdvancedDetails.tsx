@@ -43,14 +43,14 @@ export const AdvancedDetails = ({ marketData }: AdvancedDetailsProps) => {
   ];
 
   return (
-    <div className="px-6 py-4">
+    <div className="px-4 sm:px-6 py-4">
       <button
         onClick={() => setIsExpanded(!isExpanded)}
-        className="w-full flex items-center justify-between p-4 rounded-xl glass-card border border-border/30 hover:border-primary/30 transition-all"
+        className="w-full flex items-center justify-between p-3 sm:p-4 rounded-xl glass-card border border-border/30 hover:border-primary/30 transition-all active:scale-[0.99]"
       >
         <div className="flex items-center gap-2">
           <BarChart3 className="w-5 h-5 text-primary" />
-          <span className="font-semibold text-foreground">Advanced Details</span>
+          <span className="font-semibold text-foreground text-sm sm:text-base">Advanced Details</span>
         </div>
         {isExpanded ? (
           <ChevronUp className="w-5 h-5 text-muted-foreground" />
@@ -61,26 +61,28 @@ export const AdvancedDetails = ({ marketData }: AdvancedDetailsProps) => {
 
       <div className={cn(
         "overflow-hidden transition-all duration-300",
-        isExpanded ? "max-h-[800px] opacity-100 mt-4" : "max-h-0 opacity-0"
+        isExpanded ? "max-h-[1000px] opacity-100 mt-4" : "max-h-0 opacity-0"
       )}>
-        <div className="space-y-4">
+        <div className="space-y-3 sm:space-y-4">
           {/* Interest Rate Curve */}
-          <div className="p-4 rounded-xl glass-card border border-border/30">
+          <div className="p-3 sm:p-4 rounded-xl glass-card border border-border/30">
             <div className="flex items-center gap-2 mb-3">
               <TrendingUp className="w-4 h-4 text-primary" />
-              <h4 className="font-medium text-foreground">Interest Rate Curve</h4>
+              <h4 className="font-medium text-foreground text-sm sm:text-base">Interest Rate Curve</h4>
             </div>
-            <div className="h-40">
+            <div className="h-32 sm:h-40">
               <ResponsiveContainer width="100%" height="100%">
                 <LineChart data={rateCurveData}>
                   <XAxis 
                     dataKey="utilization" 
-                    tick={{ fontSize: 10, fill: 'hsl(var(--muted-foreground))' }}
+                    tick={{ fontSize: 9, fill: 'hsl(var(--muted-foreground))' }}
                     tickFormatter={(v) => `${v}%`}
+                    interval="preserveStartEnd"
                   />
                   <YAxis 
-                    tick={{ fontSize: 10, fill: 'hsl(var(--muted-foreground))' }}
+                    tick={{ fontSize: 9, fill: 'hsl(var(--muted-foreground))' }}
                     tickFormatter={(v) => `${v}%`}
+                    width={35}
                   />
                   <Line 
                     type="monotone" 
@@ -88,11 +90,12 @@ export const AdvancedDetails = ({ marketData }: AdvancedDetailsProps) => {
                     stroke="#21EFA3" 
                     strokeWidth={2}
                     dot={false}
+                    isAnimationActive={false}
                   />
                 </LineChart>
               </ResponsiveContainer>
             </div>
-            <div className="flex justify-between mt-2 text-xs text-muted-foreground">
+            <div className="flex justify-between mt-2 text-[10px] sm:text-xs text-muted-foreground">
               <span>Utilization: 0%</span>
               <span className="text-yellow-500">Kink: 80%</span>
               <span>100%</span>
@@ -100,9 +103,9 @@ export const AdvancedDetails = ({ marketData }: AdvancedDetailsProps) => {
           </div>
 
           {/* Spread Breakdown */}
-          <div className="p-4 rounded-xl glass-card border border-border/30">
-            <h4 className="font-medium text-foreground mb-3">Rate Parameters</h4>
-            <div className="grid grid-cols-2 gap-2">
+          <div className="p-3 sm:p-4 rounded-xl glass-card border border-border/30">
+            <h4 className="font-medium text-foreground mb-3 text-sm sm:text-base">Rate Parameters</h4>
+            <div className="grid grid-cols-1 sm:grid-cols-2 gap-2">
               {spreadBreakdown.map((item) => (
                 <div key={item.label} className="flex justify-between p-2 rounded-lg bg-muted/30">
                   <span className="text-xs text-muted-foreground">{item.label}</span>
@@ -113,16 +116,16 @@ export const AdvancedDetails = ({ marketData }: AdvancedDetailsProps) => {
           </div>
 
           {/* Market Caps */}
-          <div className="p-4 rounded-xl glass-card border border-border/30">
+          <div className="p-3 sm:p-4 rounded-xl glass-card border border-border/30">
             <div className="flex items-center gap-2 mb-3">
               <Database className="w-4 h-4 text-primary" />
-              <h4 className="font-medium text-foreground">Market Caps</h4>
+              <h4 className="font-medium text-foreground text-sm sm:text-base">Market Caps</h4>
             </div>
             <div className="space-y-3">
               <div>
-                <div className="flex justify-between text-sm mb-1">
+                <div className="flex justify-between text-xs sm:text-sm mb-1">
                   <span className="text-muted-foreground">Supply Cap</span>
-                  <span className="text-foreground">
+                  <span className="text-foreground truncate ml-2">
                     ${marketData.totalSupply.toLocaleString()} / ${marketData.supplyCap.toLocaleString()}
                   </span>
                 </div>
@@ -134,9 +137,9 @@ export const AdvancedDetails = ({ marketData }: AdvancedDetailsProps) => {
                 </div>
               </div>
               <div>
-                <div className="flex justify-between text-sm mb-1">
+                <div className="flex justify-between text-xs sm:text-sm mb-1">
                   <span className="text-muted-foreground">Borrow Cap</span>
-                  <span className="text-foreground">
+                  <span className="text-foreground truncate ml-2">
                     ${marketData.totalBorrow.toLocaleString()} / ${marketData.borrowCap.toLocaleString()}
                   </span>
                 </div>
@@ -151,9 +154,9 @@ export const AdvancedDetails = ({ marketData }: AdvancedDetailsProps) => {
           </div>
 
           {/* Historical Liquidity */}
-          <div className="p-4 rounded-xl glass-card border border-border/30">
-            <h4 className="font-medium text-foreground mb-3">7-Day Liquidity History</h4>
-            <div className="h-24">
+          <div className="p-3 sm:p-4 rounded-xl glass-card border border-border/30">
+            <h4 className="font-medium text-foreground mb-3 text-sm sm:text-base">7-Day Liquidity History</h4>
+            <div className="h-20 sm:h-24">
               <ResponsiveContainer width="100%" height="100%">
                 <AreaChart data={liquidityHistory}>
                   <defs>
@@ -168,6 +171,7 @@ export const AdvancedDetails = ({ marketData }: AdvancedDetailsProps) => {
                     stroke="#21EFA3" 
                     strokeWidth={2}
                     fill="url(#liquidityGradient)"
+                    isAnimationActive={false}
                   />
                 </AreaChart>
               </ResponsiveContainer>
