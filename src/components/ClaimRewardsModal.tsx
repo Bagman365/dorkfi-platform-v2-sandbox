@@ -23,7 +23,7 @@ const ClaimRewardsModal = ({
   isOpen, 
   onClose, 
   availableRewards = 125.50,
-  rewardTokenSymbol = "DORK",
+  rewardTokenSymbol = "VOI",
   rewardTokenIcon = "/lovable-uploads/dork_fi_logo_edit1_light.png",
   rewardStats = {
     totalEarned: 1250.00,
