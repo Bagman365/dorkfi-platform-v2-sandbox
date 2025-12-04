@@ -31,10 +31,14 @@ DialogOverlay.displayName = DialogPrimitive.Overlay.displayName
 
 // Main modal centering: use flexbox - fixed inset-0 flex items-center justify-center z-50
 // Content: scale-in + fade-in for animation
+interface DialogContentProps extends React.ComponentPropsWithoutRef<typeof DialogPrimitive.Content> {
+  hideCloseButton?: boolean;
+}
+
 const DialogContent = React.forwardRef<
   React.ElementRef<typeof DialogPrimitive.Content>,
-  React.ComponentPropsWithoutRef<typeof DialogPrimitive.Content>
->(({ className, children, ...props }, ref) => (
+  DialogContentProps
+>(({ className, children, hideCloseButton = false, ...props }, ref) => (
   <DialogPortal>
     <DialogOverlay />
     <div className="fixed inset-0 z-50 flex items-center justify-center px-4">
@@ -42,16 +46,18 @@ const DialogContent = React.forwardRef<
         ref={ref}
         className={cn(
           // user content can override these constraints if needed
-          "relative w-full max-w-[500px] min-h-[300px] rounded-2xl shadow-2xl bg-white dark:bg-slate-900 text-slate-900 dark:text-white p-0 animate-scale-in animate-fade-in",
+          "relative w-full max-w-[500px] min-h-[300px] rounded-2xl shadow-2xl bg-background text-foreground p-0 animate-scale-in animate-fade-in",
           className
         )}
         {...props}
       >
         {children}
-        <DialogPrimitive.Close className="absolute right-4 top-4 rounded-sm opacity-70 ring-offset-background transition-opacity hover:opacity-100 focus:outline-none focus:ring-2 focus:ring-ring focus:ring-offset-2 disabled:pointer-events-none data-[state=open]:bg-accent data-[state=open]:text-muted-foreground">
-          <X className="h-4 w-4" />
-          <span className="sr-only">Close</span>
-        </DialogPrimitive.Close>
+        {!hideCloseButton && (
+          <DialogPrimitive.Close className="absolute right-4 top-4 rounded-sm opacity-70 ring-offset-background transition-opacity hover:opacity-100 focus:outline-none focus:ring-2 focus:ring-ring focus:ring-offset-2 disabled:pointer-events-none data-[state=open]:bg-accent data-[state=open]:text-muted-foreground">
+            <X className="h-4 w-4" />
+            <span className="sr-only">Close</span>
+          </DialogPrimitive.Close>
+        )}
       </DialogPrimitive.Content>
     </div>
   </DialogPortal>

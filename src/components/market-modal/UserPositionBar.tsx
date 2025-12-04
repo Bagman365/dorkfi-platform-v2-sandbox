@@ -91,16 +91,16 @@ export const UserPositionBar = ({
       </button>
 
       <div className={cn(
-        "grid grid-cols-5 gap-3 overflow-hidden transition-all duration-300",
-        isExpanded ? "mt-3 max-h-32 opacity-100" : "max-h-0 opacity-0 mt-0"
+        "grid grid-cols-2 sm:grid-cols-3 md:grid-cols-5 gap-2 sm:gap-3 overflow-hidden transition-all duration-300",
+        isExpanded ? "mt-3 max-h-64 md:max-h-32 opacity-100" : "max-h-0 opacity-0 mt-0"
       )}>
         {stats.map((stat) => (
           <div 
             key={stat.label}
-            className="p-3 rounded-xl glass-card border border-border/30 text-center"
+            className="p-2 sm:p-3 rounded-xl glass-card border border-border/30 text-center"
           >
-            <p className="text-xs text-muted-foreground mb-1">{stat.label}</p>
-            <p className={cn("text-lg font-bold", stat.color)}>
+            <p className="text-[10px] sm:text-xs text-muted-foreground mb-1 truncate">{stat.label}</p>
+            <p className={cn("text-sm sm:text-lg font-bold truncate", stat.color)}>
               {stat.prefix}{stat.value.toLocaleString(undefined, { 
                 minimumFractionDigits: stat.label === 'Health Factor' ? 2 : 0,
                 maximumFractionDigits: 2 

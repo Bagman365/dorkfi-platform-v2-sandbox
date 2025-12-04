@@ -1,5 +1,4 @@
-
-import { Dialog, DialogContent } from '@/components/ui/dialog';
+import { Dialog, DialogContent, DialogTitle } from '@/components/ui/dialog';
 import { ScrollArea } from '@/components/ui/scroll-area';
 import { PremiumMarketModalProps } from './types';
 import { MarketHeader } from './MarketHeader';
@@ -27,6 +26,7 @@ export const PremiumMarketModal = ({
   return (
     <Dialog open={isOpen} onOpenChange={onClose}>
       <DialogContent className="max-w-2xl p-0 gap-0 glass-card border-primary/20 overflow-hidden max-h-[90vh]">
+        <DialogTitle className="sr-only">{marketData.symbol} Market Details</DialogTitle>
         <ScrollArea className="max-h-[90vh]">
           <div className="flex flex-col">
             <MarketHeader 

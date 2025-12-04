@@ -1,5 +1,5 @@
-
-import { X, TrendingUp, TrendingDown } from 'lucide-react';
+import { useMemo } from 'react';
+import { TrendingUp, TrendingDown } from 'lucide-react';
 import { AreaChart, Area, ResponsiveContainer } from 'recharts';
 import { MarketData } from './types';
 import { getTokenImagePath } from '@/utils/tokenImageUtils';
@@ -11,19 +11,14 @@ interface MarketHeaderProps {
   onClose: () => void;
 }
 
-export const MarketHeader = ({ marketData, chainId = 'voi', onClose }: MarketHeaderProps) => {
+export const MarketHeader = ({ marketData, chainId = 'voi' }: MarketHeaderProps) => {
   const isPositive = marketData.priceChange24h >= 0;
+  
+  // Memoize price history to prevent chart flickering
+  const priceHistory = useMemo(() => marketData.priceHistory, [marketData.symbol]);
   
   return (
     <div className="relative p-6 border-b border-border/30">
-      {/* Close Button */}
-      <button
-        onClick={onClose}
-        className="absolute top-4 right-4 p-2 rounded-full bg-muted/50 hover:bg-muted transition-colors backdrop-blur-sm"
-      >
-        <X className="w-5 h-5 text-muted-foreground" />
-      </button>
-
       <div className="flex items-start gap-4">
         {/* Token Icon with Chain Badge */}
         <div className="relative">
@@ -63,12 +58,12 @@ export const MarketHeader = ({ marketData, chainId = 'voi', onClose }: MarketHea
             </div>
           </div>
 
-          {/* Sparkline */}
+          {/* Sparkline - animation disabled to prevent flickering */}
           <div className="w-24 h-12">
             <ResponsiveContainer width="100%" height="100%">
-              <AreaChart data={marketData.priceHistory}>
+              <AreaChart data={priceHistory}>
                 <defs>
-                  <linearGradient id="sparklineGradient" x1="0" y1="0" x2="0" y2="1">
+                  <linearGradient id={`sparklineGradient-${marketData.symbol}`} x1="0" y1="0" x2="0" y2="1">
                     <stop offset="0%" stopColor={isPositive ? '#21EFA3' : '#ef4444'} stopOpacity={0.3} />
                     <stop offset="100%" stopColor={isPositive ? '#21EFA3' : '#ef4444'} stopOpacity={0} />
                   </linearGradient>
@@ -78,7 +73,8 @@ export const MarketHeader = ({ marketData, chainId = 'voi', onClose }: MarketHea
                   dataKey="price"
                   stroke={isPositive ? '#21EFA3' : '#ef4444'}
                   strokeWidth={2}
-                  fill="url(#sparklineGradient)"
+                  fill={`url(#sparklineGradient-${marketData.symbol})`}
+                  isAnimationActive={false}
                 />
               </AreaChart>
             </ResponsiveContainer>
