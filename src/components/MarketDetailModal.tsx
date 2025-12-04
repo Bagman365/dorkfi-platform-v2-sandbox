@@ -4,7 +4,7 @@ import { Dialog, DialogContent, DialogHeader, DialogTitle } from "@/components/u
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
-import { ExternalLink, Info, TrendingUp, TrendingDown, ChevronDown, ChevronUp, Calculator, Wallet } from "lucide-react";
+import { Info, TrendingUp, TrendingDown, ChevronDown, ChevronUp, Calculator, Wallet } from "lucide-react";
 import { Tooltip, TooltipContent, TooltipTrigger } from "@/components/ui/tooltip";
 import { Collapsible, CollapsibleContent, CollapsibleTrigger } from "@/components/ui/collapsible";
 import { Slider } from "@/components/ui/slider";
@@ -454,7 +454,7 @@ const MarketDetailModal = ({ isOpen, onClose, asset, marketData }: MarketDetailM
               </Card>
             </div>
 
-            {/* Row 2: Collateral Info | Protocol Config */}
+            {/* Row 2: Collateral Info | Earnings Calculator */}
             <div className="grid lg:grid-cols-2 gap-4 auto-rows-fr">
               {/* Collateral Information */}
               <Card className="border-yellow-200 dark:border-yellow-800 bg-white/50 dark:bg-slate-800">
@@ -518,147 +518,79 @@ const MarketDetailModal = ({ isOpen, onClose, asset, marketData }: MarketDetailM
                 </CardContent>
               </Card>
 
-              {/* Protocol Configuration */}
-              <Card className="bg-white/50 dark:bg-slate-800 border-gray-200 dark:border-slate-700">
+              {/* Earnings Calculator */}
+              <Card className="border-cyan-200 dark:border-cyan-800/50 bg-gradient-to-r from-cyan-50/50 to-blue-50/50 dark:from-cyan-900/20 dark:to-blue-900/20">
                 <CardHeader className="pb-2">
-                  <CardTitle className="text-lg text-slate-800 dark:text-white flex items-center gap-2">
-                    ⚙️ Protocol Config
-                    <Tooltip>
-                      <TooltipTrigger>
-                        <Info className="h-4 w-4 text-gray-500" />
-                      </TooltipTrigger>
-                      <TooltipContent>
-                        <p>Protocol-level configuration settings for this market</p>
-                      </TooltipContent>
-                    </Tooltip>
+                  <CardTitle className="text-base text-cyan-700 dark:text-cyan-400 flex items-center gap-2">
+                    <Calculator className="h-4 w-4" />
+                    Earnings Calculator
                   </CardTitle>
                 </CardHeader>
-                <CardContent className="pt-0">
-                  <div className="grid grid-cols-1 gap-3">
-                    <div className="flex justify-between items-center">
-                      <div className="text-xs text-slate-600 dark:text-slate-300 flex items-center gap-1">
-                        Reserve Factor
-                        <Tooltip>
-                          <TooltipTrigger>
-                            <Info className="h-3 w-3 text-gray-500" />
-                          </TooltipTrigger>
-                          <TooltipContent>
-                            <p>Percentage of interest that goes to the protocol reserves</p>
-                          </TooltipContent>
-                        </Tooltip>
-                      </div>
-                      <div className="text-sm font-semibold text-slate-800 dark:text-white">{marketData.reserveFactor}%</div>
+                <CardContent className="space-y-4">
+                  <div>
+                    <div className="flex justify-between text-sm mb-2">
+                      <span className="text-slate-600 dark:text-slate-400">Amount</span>
+                      <span className="font-semibold text-slate-800 dark:text-white">${calcAmount[0].toLocaleString()}</span>
                     </div>
-                    <div className="flex justify-between items-center">
-                      <div className="text-xs text-slate-600 dark:text-slate-300 flex items-center gap-1">
-                        Liquidation Penalty
-                        <Tooltip>
-                          <TooltipTrigger>
-                            <Info className="h-3 w-3 text-gray-500" />
-                          </TooltipTrigger>
-                          <TooltipContent>
-                            <p>Additional penalty paid when your position gets liquidated</p>
-                          </TooltipContent>
-                        </Tooltip>
-                      </div>
-                      <div className="text-sm font-semibold text-slate-800 dark:text-white">{marketData.liquidationPenalty}%</div>
+                    <Slider
+                      value={calcAmount}
+                      onValueChange={setCalcAmount}
+                      min={100}
+                      max={100000}
+                      step={100}
+                      className="w-full"
+                    />
+                  </div>
+                  
+                  <div>
+                    <div className="text-sm text-slate-600 dark:text-slate-400 mb-2">Time Period</div>
+                    <div className="flex gap-2">
+                      {(['1M', '6M', '1Y'] as const).map((period) => (
+                        <Button
+                          key={period}
+                          variant={calcPeriod === period ? "default" : "outline"}
+                          size="sm"
+                          onClick={() => setCalcPeriod(period)}
+                          className={calcPeriod === period 
+                            ? "bg-ocean-teal hover:bg-ocean-teal/90 text-white" 
+                            : "border-ocean-teal/50 text-ocean-teal hover:bg-ocean-teal/10"
+                          }
+                        >
+                          {period === '1M' ? '1 Month' : period === '6M' ? '6 Months' : '1 Year'}
+                        </Button>
+                      ))}
                     </div>
-                    <div className="flex justify-between items-center">
-                      <div className="text-xs text-slate-600 dark:text-slate-300 flex items-center gap-1">
-                        Collector Contract
-                        <Tooltip>
-                          <TooltipTrigger>
-                            <Info className="h-3 w-3 text-gray-500" />
-                          </TooltipTrigger>
-                          <TooltipContent>
-                            <p>Smart contract address that collects protocol fees</p>
-                          </TooltipContent>
-                        </Tooltip>
+                  </div>
+
+                  <div className="grid grid-cols-2 gap-3 pt-2">
+                    <div className="bg-green-50 dark:bg-green-900/30 p-3 rounded-lg border border-green-200 dark:border-green-800">
+                      <div className="flex items-center gap-1 text-green-700 dark:text-green-400 text-xs font-medium mb-1">
+                        <TrendingUp className="h-3 w-3" />
+                        Supply
                       </div>
-                      <div className="flex items-center gap-1">
-                        <span className="text-xs font-mono bg-gray-100 dark:bg-slate-700 px-1 py-0.5 rounded text-slate-800 dark:text-white">
-                          {marketData.collectorContract}
-                        </span>
-                        <ExternalLink className="w-3 h-3 text-ocean-teal cursor-pointer" />
+                      <div className="text-lg font-bold text-green-600 dark:text-green-400">
+                        +${supplyEarnings.toFixed(2)}
+                      </div>
+                      <div className="text-xs text-green-600/70 dark:text-green-400/70">
+                        {marketData.supplyAPY}% APY
+                      </div>
+                    </div>
+                    <div className="bg-red-50 dark:bg-red-900/30 p-3 rounded-lg border border-red-200 dark:border-red-800">
+                      <div className="flex items-center gap-1 text-red-700 dark:text-red-400 text-xs font-medium mb-1">
+                        <TrendingDown className="h-3 w-3" />
+                        Borrow
+                      </div>
+                      <div className="text-lg font-bold text-red-600 dark:text-red-400">
+                        -${borrowCost.toFixed(2)}
+                      </div>
+                      <div className="text-xs text-red-600/70 dark:text-red-400/70">
+                        {marketData.borrowAPY}% APY
                       </div>
                     </div>
                   </div>
                 </CardContent>
               </Card>
             </div>
-
-            {/* Earnings Calculator */}
-            <Card className="border-cyan-200 dark:border-cyan-800/50 bg-gradient-to-r from-cyan-50/50 to-blue-50/50 dark:from-cyan-900/20 dark:to-blue-900/20">
-              <CardHeader className="pb-2">
-                <CardTitle className="text-base text-cyan-700 dark:text-cyan-400 flex items-center gap-2">
-                  <Calculator className="h-4 w-4" />
-                  Earnings Calculator
-                </CardTitle>
-              </CardHeader>
-              <CardContent className="space-y-4">
-                <div>
-                  <div className="flex justify-between text-sm mb-2">
-                    <span className="text-slate-600 dark:text-slate-400">Amount</span>
-                    <span className="font-semibold text-slate-800 dark:text-white">${calcAmount[0].toLocaleString()}</span>
-                  </div>
-                  <Slider
-                    value={calcAmount}
-                    onValueChange={setCalcAmount}
-                    min={100}
-                    max={100000}
-                    step={100}
-                    className="w-full"
-                  />
-                </div>
-                
-                <div>
-                  <div className="text-sm text-slate-600 dark:text-slate-400 mb-2">Time Period</div>
-                  <div className="flex gap-2">
-                    {(['1M', '6M', '1Y'] as const).map((period) => (
-                      <Button
-                        key={period}
-                        variant={calcPeriod === period ? "default" : "outline"}
-                        size="sm"
-                        onClick={() => setCalcPeriod(period)}
-                        className={calcPeriod === period 
-                          ? "bg-ocean-teal hover:bg-ocean-teal/90 text-white" 
-                          : "border-ocean-teal/50 text-ocean-teal hover:bg-ocean-teal/10"
-                        }
-                      >
-                        {period === '1M' ? '1 Month' : period === '6M' ? '6 Months' : '1 Year'}
-                      </Button>
-                    ))}
-                  </div>
-                </div>
-
-                <div className="grid sm:grid-cols-2 gap-3 pt-2">
-                  <div className="bg-green-50 dark:bg-green-900/30 p-3 rounded-lg border border-green-200 dark:border-green-800">
-                    <div className="flex items-center gap-2 text-green-700 dark:text-green-400 text-sm font-medium mb-1">
-                      <TrendingUp className="h-4 w-4" />
-                      If You Supply
-                    </div>
-                    <div className="text-xl font-bold text-green-600 dark:text-green-400">
-                      +${supplyEarnings.toFixed(2)}
-                    </div>
-                    <div className="text-xs text-green-600/70 dark:text-green-400/70">
-                      at {marketData.supplyAPY}% APY
-                    </div>
-                  </div>
-                  <div className="bg-red-50 dark:bg-red-900/30 p-3 rounded-lg border border-red-200 dark:border-red-800">
-                    <div className="flex items-center gap-2 text-red-700 dark:text-red-400 text-sm font-medium mb-1">
-                      <TrendingDown className="h-4 w-4" />
-                      If You Borrow
-                    </div>
-                    <div className="text-xl font-bold text-red-600 dark:text-red-400">
-                      -${borrowCost.toFixed(2)}
-                    </div>
-                    <div className="text-xs text-red-600/70 dark:text-red-400/70">
-                      at {marketData.borrowAPY}% APY
-                    </div>
-                  </div>
-                </div>
-              </CardContent>
-            </Card>
           </div>
         </DialogContent>
       </Dialog>
