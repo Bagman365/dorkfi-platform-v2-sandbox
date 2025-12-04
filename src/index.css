@@ -539,3 +539,44 @@
 .focus-whale {
   @apply focus:outline-none focus:ring-4 focus:ring-highlight-aqua/30 focus:ring-offset-2 focus:ring-offset-deep-navy;
 }
+
+/* Glassmorphism Card Style - Premium DeFi Modal */
+.glass-card {
+  background: hsl(var(--background) / 0.85);
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+  border: 1px solid hsl(var(--border) / 0.3);
+}
+
+.dark .glass-card {
+  background: hsl(218 76% 12% / 0.85);
+  border: 1px solid hsl(var(--primary) / 0.15);
+  box-shadow: 
+    0 8px 32px hsl(0 0% 0% / 0.3),
+    inset 0 1px 0 hsl(var(--primary) / 0.1);
+}
+
+/* Neon glow effects */
+.neon-glow-green {
+  box-shadow: 0 0 20px hsl(var(--primary) / 0.3);
+}
+
+.neon-glow-gold {
+  box-shadow: 0 0 20px hsl(var(--whale-gold) / 0.3);
+}
+
+/* Premium modal animations */
+@keyframes modal-enter {
+  0% {
+    opacity: 0;
+    transform: scale(0.95) translateY(10px);
+  }
+  100% {
+    opacity: 1;
+    transform: scale(1) translateY(0);
+  }
+}
+
+.modal-animate-in {
+  animation: modal-enter 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+}
