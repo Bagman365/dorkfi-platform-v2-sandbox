@@ -152,7 +152,6 @@ const SupplyBorrowCongrats: React.FC<SupplyBorrowCongratsProps> = ({
       <div className="text-center text-base text-slate-700 dark:text-slate-200 mb-2 font-medium">
         You successfully {action}{" "}
         <span className="text-whale-gold">{amount} {asset}</span>
-        {" "}{preposition} the protocol.
       </div>
       
       <div className="flex flex-col gap-2 w-full mt-2">
