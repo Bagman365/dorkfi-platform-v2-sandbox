@@ -7,7 +7,7 @@ export const MarketModalFooter = () => {
       <div className="flex flex-wrap items-center justify-between gap-4">
         <div className="flex items-center gap-4">
           <a 
-            href="#"
+            href="/"
             className="flex items-center gap-1.5 text-sm text-primary hover:text-primary/80 transition-colors"
           >
             <ExternalLink className="w-4 h-4" />
