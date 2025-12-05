@@ -1,7 +1,7 @@
 
 import { useState } from 'react';
 import { ChevronDown, ChevronUp, TrendingUp, Database, BarChart3 } from 'lucide-react';
-import { LineChart, Line, XAxis, YAxis, ResponsiveContainer, AreaChart, Area } from 'recharts';
+import { LineChart, Line, XAxis, YAxis, ResponsiveContainer } from 'recharts';
 import { MarketData } from './types';
 import { cn } from '@/lib/utils';
 
@@ -28,12 +28,6 @@ export const AdvancedDetails = ({ marketData }: AdvancedDetailsProps) => {
     }
     return { utilization, rate };
   });
-
-  // Mock historical liquidity data
-  const liquidityHistory = Array.from({ length: 7 }, (_, i) => ({
-    day: `Day ${i + 1}`,
-    liquidity: marketData.availableLiquidity * (0.85 + Math.random() * 0.3),
-  }));
 
   const spreadBreakdown = [
     { label: 'Base Rate', value: '2.00%' },
@@ -150,31 +144,6 @@ export const AdvancedDetails = ({ marketData }: AdvancedDetailsProps) => {
                   />
                 </div>
               </div>
-            </div>
-          </div>
-
-          {/* Historical Liquidity */}
-          <div className="p-3 sm:p-4 rounded-xl glass-card border border-border/30">
-            <h4 className="font-medium text-foreground mb-3 text-sm sm:text-base">7-Day Liquidity History</h4>
-            <div className="h-20 sm:h-24">
-              <ResponsiveContainer width="100%" height="100%">
-                <AreaChart data={liquidityHistory}>
-                  <defs>
-                    <linearGradient id="liquidityGradient" x1="0" y1="0" x2="0" y2="1">
-                      <stop offset="0%" stopColor="#21EFA3" stopOpacity={0.3} />
-                      <stop offset="100%" stopColor="#21EFA3" stopOpacity={0} />
-                    </linearGradient>
-                  </defs>
-                  <Area 
-                    type="monotone" 
-                    dataKey="liquidity" 
-                    stroke="#21EFA3" 
-                    strokeWidth={2}
-                    fill="url(#liquidityGradient)"
-                    isAnimationActive={false}
-                  />
-                </AreaChart>
-              </ResponsiveContainer>
             </div>
           </div>
         </div>
