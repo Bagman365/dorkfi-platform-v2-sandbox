@@ -13,13 +13,6 @@ export const MarketModalFooter = () => {
             <ExternalLink className="w-4 h-4" />
             <span>View Full Market Page</span>
           </a>
-          <a 
-            href="#"
-            className="flex items-center gap-1.5 text-sm text-muted-foreground hover:text-foreground transition-colors"
-          >
-            <FileText className="w-4 h-4" />
-            <span>Docs: Market Parameters</span>
-          </a>
         </div>
 
         <div className="flex items-center gap-1.5 text-xs text-muted-foreground">
