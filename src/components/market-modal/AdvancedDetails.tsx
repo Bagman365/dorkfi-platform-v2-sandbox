@@ -12,27 +12,18 @@ interface AdvancedDetailsProps {
 export const AdvancedDetails = ({ marketData }: AdvancedDetailsProps) => {
   const [isExpanded, setIsExpanded] = useState(false);
 
-  // Mock rate curve data (kink model)
-  const rateCurveData = Array.from({ length: 100 }, (_, i) => {
+  // Linear interest rate curve data
+  const rateCurveData = Array.from({ length: 101 }, (_, i) => {
     const utilization = i;
-    const kink = 80;
     const baseRate = 2;
-    const slope1 = 4;
-    const slope2 = 75;
-    
-    let rate: number;
-    if (utilization <= kink) {
-      rate = baseRate + (utilization / kink) * slope1;
-    } else {
-      rate = baseRate + slope1 + ((utilization - kink) / (100 - kink)) * slope2;
-    }
+    const slope = 13;
+    const rate = baseRate + (utilization / 100) * slope;
     return { utilization, rate };
   });
 
   const spreadBreakdown = [
     { label: 'Base Rate', value: '2.00%' },
-    { label: 'Slope 1 (≤80%)', value: '4.00%' },
-    { label: 'Slope 2 (>80%)', value: '75.00%' },
+    { label: 'Slope', value: '13.00%' },
     { label: 'Reserve Factor', value: `${marketData.reserveFactor}%` },
   ];
 
@@ -91,7 +82,6 @@ export const AdvancedDetails = ({ marketData }: AdvancedDetailsProps) => {
             </div>
             <div className="flex justify-between mt-2 text-[10px] sm:text-xs text-muted-foreground">
               <span>Utilization: 0%</span>
-              <span className="text-yellow-500">Kink: 80%</span>
               <span>100%</span>
             </div>
           </div>
