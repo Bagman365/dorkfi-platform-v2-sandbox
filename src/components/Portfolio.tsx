@@ -5,12 +5,15 @@ import BorrowsList from "./BorrowsList";
 import PortfolioModals from "./PortfolioModals";
 import DorkFiCard from "@/components/ui/DorkFiCard";
 import { H1, Body } from "@/components/ui/Typography";
+import { PremiumMarketModal } from "./market-modal/PremiumMarketModal";
+import { MarketData, UserPosition } from "./market-modal/types";
 
 const Portfolio = () => {
   const [depositModal, setDepositModal] = useState({ isOpen: false, asset: null });
   const [withdrawModal, setWithdrawModal] = useState({ isOpen: false, asset: null });
   const [borrowModal, setBorrowModal] = useState({ isOpen: false, asset: null });
   const [repayModal, setRepayModal] = useState({ isOpen: false, asset: null });
+  const [marketModal, setMarketModal] = useState<{ isOpen: boolean; asset: string | null }>({ isOpen: false, asset: null });
 
   // Mock portfolio data
   const deposits = [
@@ -62,12 +65,66 @@ const Portfolio = () => {
     setRepayModal({ isOpen: true, asset });
   };
 
+  const handleMarketClick = (asset: string) => {
+    setMarketModal({ isOpen: true, asset });
+  };
+
   const handleAddCollateral = () => {
     setDepositModal({ isOpen: true, asset: "VOI" });
   };
 
   const handleBuyVoi = () => {
     console.log("Redirect to VOI purchase");
+  };
+
+  // Generate market data for modal
+  const getMarketDataForAsset = (asset: string): MarketData => {
+    const depositData = deposits.find(d => d.asset === asset);
+    const borrowData = borrows.find(b => b.asset === asset);
+    const icon = depositData?.icon || borrowData?.icon || "";
+    const price = depositData?.tokenPrice || borrowData?.tokenPrice || 1;
+    const supplyApy = depositData?.apy || 3.5;
+    const borrowApy = borrowData?.apy || 6.5;
+
+    return {
+      icon,
+      name: asset,
+      symbol: asset,
+      price,
+      priceChange24h: 2.5,
+      priceHistory: Array.from({ length: 7 }, (_, i) => ({
+        time: `Day ${i + 1}`,
+        price: price * (0.95 + Math.random() * 0.1)
+      })),
+      totalSupply: 1500000,
+      totalBorrow: 850000,
+      availableLiquidity: 650000,
+      utilization: 56.7,
+      supplyAPY: supplyApy,
+      borrowAPY: borrowApy,
+      maxLTV: 75,
+      liquidationThreshold: 85,
+      liquidationBonus: 5,
+      reserveFactor: 10,
+      supplyCap: 5000000,
+      borrowCap: 3000000,
+      oracleStatus: 'live' as const,
+      auditProvider: 'DorkFi Security'
+    };
+  };
+
+  const getUserPositionForAsset = (asset: string): UserPosition => {
+    const depositData = deposits.find(d => d.asset === asset);
+    const borrowData = borrows.find(b => b.asset === asset);
+    
+    return {
+      supplied: depositData?.balance || 0,
+      borrowed: borrowData?.balance || 0,
+      withdrawable: depositData?.balance || 0,
+      borrowable: 500,
+      healthFactor: healthFactor,
+      earnings: (depositData?.value || 0) * 0.04
+    };
   };
 
   return (
@@ -165,13 +222,41 @@ const Portfolio = () => {
           deposits={deposits}
           onDepositClick={handleDepositClick}
           onWithdrawClick={handleWithdrawClick}
+          onRowClick={handleMarketClick}
         />
         <BorrowsList
           borrows={borrows}
           onBorrowClick={handleBorrowClick}
           onRepayClick={handleRepayClick}
+          onRowClick={handleMarketClick}
         />
       </div>
+
+      {marketModal.asset && (
+        <PremiumMarketModal
+          isOpen={marketModal.isOpen}
+          onClose={() => setMarketModal({ isOpen: false, asset: null })}
+          asset={marketModal.asset}
+          marketData={getMarketDataForAsset(marketModal.asset)}
+          userPosition={getUserPositionForAsset(marketModal.asset)}
+          onDeposit={() => {
+            setMarketModal({ isOpen: false, asset: null });
+            handleDepositClick(marketModal.asset!);
+          }}
+          onWithdraw={() => {
+            setMarketModal({ isOpen: false, asset: null });
+            handleWithdrawClick(marketModal.asset!);
+          }}
+          onBorrow={() => {
+            setMarketModal({ isOpen: false, asset: null });
+            handleBorrowClick(marketModal.asset!);
+          }}
+          onRepay={() => {
+            setMarketModal({ isOpen: false, asset: null });
+            handleRepayClick(marketModal.asset!);
+          }}
+        />
+      )}
 
       <PortfolioModals
         depositModal={depositModal}

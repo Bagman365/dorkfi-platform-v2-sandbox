@@ -19,9 +19,10 @@ interface BorrowsListProps {
   borrows: Borrow[];
   onBorrowClick: (asset: string) => void;
   onRepayClick: (asset: string) => void;
+  onRowClick?: (asset: string) => void;
 }
 
-const BorrowsList = ({ borrows, onBorrowClick, onRepayClick }: BorrowsListProps) => {
+const BorrowsList = ({ borrows, onBorrowClick, onRepayClick, onRowClick }: BorrowsListProps) => {
   return (
     <DorkFiCard className="card-hover dorkfi-mb-lg">
       <div className="flex items-center gap-2 dorkfi-text-primary mb-4 text-lg font-bold">
@@ -31,6 +32,7 @@ const BorrowsList = ({ borrows, onBorrowClick, onRepayClick }: BorrowsListProps)
         {borrows.map((borrow) => (
           <div
             key={borrow.asset}
+            onClick={() => onRowClick?.(borrow.asset)}
             className="flex flex-col md:flex-row md:items-center justify-between p-4 rounded-lg bg-red-500/5 border border-red-500/10 transition-all hover:bg-ocean-teal/5 hover:scale-105 hover:border-ocean-teal/40 card-hover cursor-pointer gap-3 md:gap-0"
           >
             <div className="flex flex-col items-center text-center md:flex-row md:items-start md:text-left gap-3 flex-1">
@@ -82,11 +84,11 @@ const BorrowsList = ({ borrows, onBorrowClick, onRepayClick }: BorrowsListProps)
             <div className="flex flex-row gap-2 mt-3 md:mt-0 md:ml-4 flex-shrink-0 justify-center md:justify-end">
               <DorkFiButton
                 variant="borrow-outline"
-                onClick={() => onBorrowClick(borrow.asset)}
+                onClick={(e) => { e.stopPropagation(); onBorrowClick(borrow.asset); }}
               >Borrow</DorkFiButton>
               <DorkFiButton
                 variant="danger-outline"
-                onClick={() => onRepayClick(borrow.asset)}
+                onClick={(e) => { e.stopPropagation(); onRepayClick(borrow.asset); }}
               >Repay</DorkFiButton>
             </div>
           </div>

@@ -18,9 +18,10 @@ interface DepositsListProps {
   deposits: Deposit[];
   onDepositClick: (asset: string) => void;
   onWithdrawClick: (asset: string) => void;
+  onRowClick?: (asset: string) => void;
 }
 
-const DepositsList = ({ deposits, onDepositClick, onWithdrawClick }: DepositsListProps) => {
+const DepositsList = ({ deposits, onDepositClick, onWithdrawClick, onRowClick }: DepositsListProps) => {
   return (
     <DorkFiCard className="card-hover dorkfi-mb-lg">
       <div className="flex items-center gap-2 dorkfi-text-primary mb-4 text-lg font-bold">
@@ -30,6 +31,7 @@ const DepositsList = ({ deposits, onDepositClick, onWithdrawClick }: DepositsLis
         {deposits.map((deposit) => (
           <div 
             key={deposit.asset}
+            onClick={() => onRowClick?.(deposit.asset)}
             className="flex flex-col md:flex-row md:items-center justify-between p-4 rounded-lg bg-white/50 dark:bg-slate-800/50 border border-gray-200/30 dark:border-ocean-teal/10 transition-all hover:bg-ocean-teal/5 hover:scale-105 hover:border-ocean-teal/40 card-hover cursor-pointer gap-3 md:gap-0"
           >
             <div className="flex flex-col items-center text-center md:flex-row md:items-start md:text-left gap-3 flex-1">
@@ -81,12 +83,12 @@ const DepositsList = ({ deposits, onDepositClick, onWithdrawClick }: DepositsLis
             <div className="flex flex-row gap-2 mt-3 md:mt-0 md:ml-4 flex-shrink-0 justify-center md:justify-end">
               <DorkFiButton
                 variant="secondary"
-                onClick={() => onDepositClick(deposit.asset)}
+                onClick={(e) => { e.stopPropagation(); onDepositClick(deposit.asset); }}
                 className="min-h-[44px] min-w-[92px] font-semibold text-sm"
               >Deposit</DorkFiButton>
               <DorkFiButton
                 variant="danger-outline"
-                onClick={() => onWithdrawClick(deposit.asset)}
+                onClick={(e) => { e.stopPropagation(); onWithdrawClick(deposit.asset); }}
                 className="min-h-[44px] min-w-[92px] font-semibold text-sm"
               >Withdraw</DorkFiButton>
             </div>
