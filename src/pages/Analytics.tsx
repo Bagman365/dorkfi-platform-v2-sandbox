@@ -11,14 +11,11 @@ import RevenueChart from "@/components/analytics/RevenueChart";
 
 import WADCirculationChart from "@/components/analytics/WADCirculationChart";
 import MAUChart from "@/components/analytics/MAUChart";
-import LoanVolumeChart from "@/components/analytics/LoanVolumeChart";
-import AssetDistributionChart from "@/components/analytics/AssetDistributionChart";
-import InterestRateChart from "@/components/analytics/InterestRateChart";
 import HealthFactorChart from "@/components/analytics/HealthFactorChart";
 
 import DepositsChart from "@/components/analytics/DepositsChart";
 import WithdrawalsChart from "@/components/analytics/WithdrawalsChart";
-import AvgLiquidationSizeCard from "@/components/analytics/AvgLiquidationSizeCard";
+
 interface AnalyticsProps {
   activeTab: string;
   onTabChange: (value: string) => void;
@@ -66,17 +63,7 @@ const Analytics = ({
               <DepositsChart />
               <WithdrawalsChart />
             </div>
-            <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
-              <div className="space-y-6">
-                <MAUChart />
-                <AvgLiquidationSizeCard />
-              </div>
-              <LoanVolumeChart />
-            </div>
-            <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
-              <AssetDistributionChart />
-              <InterestRateChart />
-            </div>
+            <MAUChart />
             <HealthFactorChart />
           </AnalyticsSection>
         </div>
