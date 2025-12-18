@@ -28,7 +28,6 @@ const KPIGrid = () => {
                 title="Total Value Locked"
                 value={formatCurrency(kpiData.tvl)}
                 change={5.4}
-                icon="📊"
               />
             </div>
           </TooltipTrigger>
@@ -44,7 +43,6 @@ const KPIGrid = () => {
                 title="Total Borrowed"
                 value={formatCurrency(kpiData.totalBorrowed)}
                 change={3.2}
-                icon="💰"
               />
             </div>
           </TooltipTrigger>
@@ -78,7 +76,6 @@ const KPIGrid = () => {
                 value={formatNumber(kpiData.activeWallets)}
                 subtitle="MAU"
                 change={12.3}
-                icon="👥"
               />
             </div>
           </TooltipTrigger>
