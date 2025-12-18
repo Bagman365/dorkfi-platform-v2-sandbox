@@ -7,7 +7,7 @@ import KPIGrid from "@/components/analytics/KPIGrid";
 import AnalyticsSection from "@/components/analytics/AnalyticsSection";
 import TVLChart from "@/components/analytics/TVLChart";
 import UtilizationChart from "@/components/analytics/UtilizationChart";
-import RevenueChart from "@/components/analytics/RevenueChart";
+
 
 import WADCirculationChart from "@/components/analytics/WADCirculationChart";
 import MAUChart from "@/components/analytics/MAUChart";
@@ -53,7 +53,7 @@ const Analytics = ({
               <TVLChart />
               <UtilizationChart />
             </div>
-            <RevenueChart />
+            
             <WADCirculationChart />
           </AnalyticsSection>
           
