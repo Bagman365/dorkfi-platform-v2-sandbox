@@ -6,7 +6,7 @@ import AnalyticsHero from "@/components/analytics/AnalyticsHero";
 import KPIGrid from "@/components/analytics/KPIGrid";
 import AnalyticsSection from "@/components/analytics/AnalyticsSection";
 import TVLChart from "@/components/analytics/TVLChart";
-import UtilizationChart from "@/components/analytics/UtilizationChart";
+
 
 
 import WADCirculationChart from "@/components/analytics/WADCirculationChart";
@@ -49,10 +49,7 @@ const Analytics = ({
           
           {/* Section 1: Protocol Health & Growth */}
           <AnalyticsSection title="Protocol Health & Growth">
-            <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
-              <TVLChart />
-              <UtilizationChart />
-            </div>
+            <TVLChart />
             
             <WADCirculationChart />
           </AnalyticsSection>
