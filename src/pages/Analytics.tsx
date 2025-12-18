@@ -15,7 +15,7 @@ import LoanVolumeChart from "@/components/analytics/LoanVolumeChart";
 import AssetDistributionChart from "@/components/analytics/AssetDistributionChart";
 import InterestRateChart from "@/components/analytics/InterestRateChart";
 import HealthFactorChart from "@/components/analytics/HealthFactorChart";
-import LiquidationsChart from "@/components/analytics/LiquidationsChart";
+
 import DepositsChart from "@/components/analytics/DepositsChart";
 import WithdrawalsChart from "@/components/analytics/WithdrawalsChart";
 import AvgLiquidationSizeCard from "@/components/analytics/AvgLiquidationSizeCard";
@@ -80,10 +80,7 @@ const Analytics = ({
               <AssetDistributionChart />
               <InterestRateChart />
             </div>
-            <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
-              <HealthFactorChart />
-              <LiquidationsChart />
-            </div>
+            <HealthFactorChart />
           </AnalyticsSection>
         </div>
       </main>
