@@ -62,14 +62,8 @@ const AnalyticsHero = () => {
         <H1 className="m-0 text-4xl md:text-5xl">
           <span className="hero-header">Analytics</span>
         </H1>
-        <Body className="text-sm sm:text-base md:text-lg lg:text-xl max-w-2xl md:max-w-none mx-auto">
-          <span className="block md:inline md:whitespace-nowrap">
-            Track liquidity, revenue, and community health across markets.
-          </span>
-          <br className="hidden md:block" />
-          <span className="block md:inline md:whitespace-nowrap">
-            Deep insights. Real-time data. Transparent metrics.
-          </span>
+        <Body className="text-sm sm:text-base md:text-lg lg:text-xl max-w-2xl mx-auto">
+          Track liquidity, revenue, and community health across markets.
         </Body>
       </div>
     </DorkFiCard>
