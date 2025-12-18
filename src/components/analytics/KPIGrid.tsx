@@ -10,8 +10,8 @@ const KPIGrid = () => {
 
   if (loading || !kpiData) {
     return (
-      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-5 gap-4 animate-fade-in">
-        {Array.from({ length: 5 }).map((_, i) => (
+      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 animate-fade-in">
+        {Array.from({ length: 4 }).map((_, i) => (
           <div key={i} className="h-24 bg-muted rounded-xl animate-pulse" />
         ))}
       </div>
@@ -20,7 +20,7 @@ const KPIGrid = () => {
 
   return (
     <TooltipProvider>
-      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-5 gap-4 animate-fade-in">
+      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 animate-fade-in">
         <Tooltip>
           <TooltipTrigger asChild>
             <div>
@@ -69,22 +69,6 @@ const KPIGrid = () => {
           </TooltipContent>
         </Tooltip>
 
-        <Tooltip>
-          <TooltipTrigger asChild>
-            <div>
-              <KPICard
-                title="Protocol Revenue"
-                value={formatCurrency(kpiData.protocolRevenue)}
-                subtitle="MTD"
-                change={8.7}
-                icon="📈"
-              />
-            </div>
-          </TooltipTrigger>
-          <TooltipContent>
-            <p>Month-to-date revenue from interest, liquidations, and flash loan fees</p>
-          </TooltipContent>
-        </Tooltip>
 
         <Tooltip>
           <TooltipTrigger asChild>
