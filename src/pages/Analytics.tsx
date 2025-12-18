@@ -8,7 +8,7 @@ import AnalyticsSection from "@/components/analytics/AnalyticsSection";
 import TVLChart from "@/components/analytics/TVLChart";
 import UtilizationChart from "@/components/analytics/UtilizationChart";
 import RevenueChart from "@/components/analytics/RevenueChart";
-import DebtByAssetChart from "@/components/liquidation/DebtByAssetChart";
+
 import WADCirculationChart from "@/components/analytics/WADCirculationChart";
 import MAUChart from "@/components/analytics/MAUChart";
 import LoanVolumeChart from "@/components/analytics/LoanVolumeChart";
@@ -56,10 +56,7 @@ const Analytics = ({
               <TVLChart />
               <UtilizationChart />
             </div>
-            <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
-              <RevenueChart />
-              <DebtByAssetChart />
-            </div>
+            <RevenueChart />
             <WADCirculationChart />
           </AnalyticsSection>
           
