@@ -58,7 +58,6 @@ const KPIGrid = () => {
                 title="WAD Circulation"
                 value={formatCurrency(kpiData.wadCirculation)}
                 change={2.1}
-                iconImage={getTokenImagePath('WAD')}
               />
             </div>
           </TooltipTrigger>
