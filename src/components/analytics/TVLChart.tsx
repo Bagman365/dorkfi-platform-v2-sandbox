@@ -10,6 +10,7 @@ const TVLChart = () => {
   const { tvlData, loading } = useAnalyticsData();
   const { theme } = useTheme();
   const [viewMode, setViewMode] = useState<'total' | 'stacked'>('total');
+  const [network, setNetwork] = useState<'total' | 'algo' | 'voi'>('total');
 
   if (loading) {
     return (
@@ -21,24 +22,19 @@ const TVLChart = () => {
     );
   }
 
-  const controls = (
-    <div className="flex gap-2">
-      <Button
-        size="sm"
-        variant={viewMode === 'total' ? 'default' : 'outline'}
-        onClick={() => setViewMode('total')}
-        className="text-xs"
-      >
-        Total
-      </Button>
-      <Button
-        size="sm"
-        variant={viewMode === 'stacked' ? 'default' : 'outline'}
-        onClick={() => setViewMode('stacked')}
-        className="text-xs"
-      >
-        By Asset
-      </Button>
+  const networkControls = (
+    <div className="flex gap-1 bg-muted/50 rounded-lg p-1">
+      {(['total', 'algo', 'voi'] as const).map((net) => (
+        <Button
+          key={net}
+          size="sm"
+          variant={network === net ? 'default' : 'ghost'}
+          onClick={() => setNetwork(net)}
+          className="text-xs h-7 px-3"
+        >
+          {net === 'total' ? 'Total' : net.toUpperCase()}
+        </Button>
+      ))}
     </div>
   );
 
@@ -62,6 +58,7 @@ const TVLChart = () => {
     <ChartCard 
       title="TVL Growth" 
       tooltip="Shows the total value locked in the protocol over time. Toggle between different time ranges and view modes."
+      controls={networkControls}
     >
       <ResponsiveContainer width="100%" height="100%">
         {viewMode === 'total' ? (

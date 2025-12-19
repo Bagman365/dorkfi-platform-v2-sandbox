@@ -1,6 +1,7 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { LineChart, Line, XAxis, YAxis, CartesianGrid, Tooltip, ResponsiveContainer } from 'recharts';
 import ChartCard from './ChartCard';
+import { Button } from '@/components/ui/button';
 import { useAnalyticsData } from '@/hooks/useAnalyticsData';
 import { formatCurrency, formatChartDate } from '@/utils/analyticsUtils';
 import { useTheme } from 'next-themes';
@@ -8,16 +9,33 @@ import { useTheme } from 'next-themes';
 const WADCirculationChart = () => {
   const { wadData, loading } = useAnalyticsData();
   const { theme } = useTheme();
+  const [network, setNetwork] = useState<'total' | 'algo' | 'voi'>('total');
 
   if (loading || !wadData) {
     return (
-      <ChartCard title="WAD Circulation">
+      <ChartCard title="WAD Supply Growth">
         <div className="flex items-center justify-center h-full">
           <div className="animate-pulse text-muted-foreground">Loading chart...</div>
         </div>
       </ChartCard>
     );
   }
+
+  const networkControls = (
+    <div className="flex gap-1 bg-muted/50 rounded-lg p-1">
+      {(['total', 'algo', 'voi'] as const).map((net) => (
+        <Button
+          key={net}
+          size="sm"
+          variant={network === net ? 'default' : 'ghost'}
+          onClick={() => setNetwork(net)}
+          className="text-xs h-7 px-3"
+        >
+          {net === 'total' ? 'Total' : net.toUpperCase()}
+        </Button>
+      ))}
+    </div>
+  );
 
   const CustomTooltip = ({ active, payload, label }: any) => {
     if (active && payload && payload.length) {
@@ -35,7 +53,7 @@ const WADCirculationChart = () => {
 
 
   return (
-    <ChartCard title="WAD Supply Growth">
+    <ChartCard title="WAD Supply Growth" controls={networkControls}>
       <ResponsiveContainer width="100%" height="100%">
         <LineChart data={wadData.supplyData}>
           <CartesianGrid strokeDasharray="3 3" stroke={theme === 'dark' ? 'rgb(30, 41, 59)' : 'rgb(226, 232, 240)'} />
