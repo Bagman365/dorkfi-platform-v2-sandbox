@@ -10,7 +10,7 @@ import TVLChart from "@/components/analytics/TVLChart";
 
 
 import WADCirculationChart from "@/components/analytics/WADCirculationChart";
-import MAUChart from "@/components/analytics/MAUChart";
+
 import HealthFactorChart from "@/components/analytics/HealthFactorChart";
 
 import DepositsChart from "@/components/analytics/DepositsChart";
@@ -61,7 +61,7 @@ const Analytics = ({
               <DepositsChart />
               <WithdrawalsChart />
             </div>
-            <MAUChart />
+            
             <HealthFactorChart />
           </AnalyticsSection>
         </div>
