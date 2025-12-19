@@ -49,9 +49,10 @@ const Analytics = ({
           
           {/* Section 1: Protocol Health & Growth */}
           <AnalyticsSection title="Protocol Health & Growth">
-            <TVLChart />
-            
-            <WADCirculationChart />
+            <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
+              <TVLChart />
+              <WADCirculationChart />
+            </div>
           </AnalyticsSection>
           
           {/* Section 2: User & Market Activity */}
