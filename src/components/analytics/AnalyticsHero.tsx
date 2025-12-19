@@ -63,7 +63,7 @@ const AnalyticsHero = () => {
           <span className="hero-header">Analytics</span>
         </H1>
         <Body className="text-sm sm:text-base md:text-lg lg:text-xl max-w-2xl mx-auto">
-          Track liquidity, revenue, and community health across markets.
+          Track liquidity and protocol health across markets.
         </Body>
       </div>
     </DorkFiCard>
