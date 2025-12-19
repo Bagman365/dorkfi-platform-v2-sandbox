@@ -73,7 +73,6 @@ const KPIGrid = () => {
               <KPICard
                 title="Active Wallets"
                 value={formatNumber(kpiData.activeWallets)}
-                subtitle="MAU"
                 change={12.3}
               />
             </div>
