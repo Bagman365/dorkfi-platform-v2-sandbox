@@ -11,6 +11,7 @@ const TVLChart = () => {
   const { theme } = useTheme();
   const [viewMode, setViewMode] = useState<'total' | 'stacked'>('total');
   const [network, setNetwork] = useState<'total' | 'algo' | 'voi'>('total');
+  const [timeRange, setTimeRange] = useState<'7d' | '30d' | '90d'>('30d');
 
   if (loading) {
     return (
@@ -22,19 +23,34 @@ const TVLChart = () => {
     );
   }
 
-  const networkControls = (
-    <div className="flex gap-1 bg-muted/50 rounded-lg p-1">
-      {(['total', 'algo', 'voi'] as const).map((net) => (
-        <Button
-          key={net}
-          size="sm"
-          variant={network === net ? 'default' : 'ghost'}
-          onClick={() => setNetwork(net)}
-          className="text-xs h-7 px-3"
-        >
-          {net === 'total' ? 'Total' : net.toUpperCase()}
-        </Button>
-      ))}
+  const controls = (
+    <div className="flex flex-col gap-2 items-end">
+      <div className="flex gap-1 bg-muted/50 rounded-lg p-1">
+        {(['total', 'algo', 'voi'] as const).map((net) => (
+          <Button
+            key={net}
+            size="sm"
+            variant={network === net ? 'default' : 'ghost'}
+            onClick={() => setNetwork(net)}
+            className="text-xs h-7 px-3"
+          >
+            {net === 'total' ? 'Total' : net.toUpperCase()}
+          </Button>
+        ))}
+      </div>
+      <div className="flex gap-1 bg-muted/50 rounded-lg p-1">
+        {(['7d', '30d', '90d'] as const).map((range) => (
+          <Button
+            key={range}
+            size="sm"
+            variant={timeRange === range ? 'default' : 'ghost'}
+            onClick={() => setTimeRange(range)}
+            className="text-xs h-7 px-3"
+          >
+            {range === '7d' ? '7D' : range === '30d' ? '30D' : '90D'}
+          </Button>
+        ))}
+      </div>
     </div>
   );
 
@@ -58,7 +74,7 @@ const TVLChart = () => {
     <ChartCard 
       title="TVL Growth" 
       tooltip="Shows the total value locked in the protocol over time. Toggle between different time ranges and view modes."
-      controls={networkControls}
+      controls={controls}
     >
       <ResponsiveContainer width="100%" height="100%">
         {viewMode === 'total' ? (
