@@ -47,8 +47,8 @@ const Analytics = ({
           {/* Top KPI Cards */}
           <KPIGrid />
           
-          {/* Section 1: Protocol Health & Growth */}
-          <AnalyticsSection title="Protocol Health & Growth">
+          {/* Section 1: Protocol Growth */}
+          <AnalyticsSection title="Protocol Growth">
             <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
               <TVLChart />
               <WADCirculationChart />
