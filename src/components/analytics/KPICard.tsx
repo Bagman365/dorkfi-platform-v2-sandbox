@@ -7,22 +7,15 @@ interface KPICardProps {
   value: string;
   change?: number;
   subtitle?: string;
-  icon?: string;
-  iconImage?: string;
 }
 
-const KPICard = ({ title, value, change, subtitle, icon, iconImage }: KPICardProps) => {
+const KPICard = ({ title, value, change, subtitle }: KPICardProps) => {
   const changeData = change ? formatPercentageChange(change) : null;
 
   return (
     <div className="dorkfi-card-bg rounded-xl border border-border/40 p-4 card-hover transition-all">
       <div className="flex items-start justify-between mb-2">
         <div className="flex items-center gap-2">
-          {iconImage ? (
-            <img src={iconImage} alt={title} className="w-6 h-6 rounded-full" />
-          ) : icon ? (
-            <span className="text-lg">{icon}</span>
-          ) : null}
           <h3 className="dorkfi-caption text-muted-foreground">
             {title}
             {subtitle && <span className="ml-1">({subtitle})</span>}
